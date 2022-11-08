@@ -42,6 +42,28 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /* Override method authenticated() on trait AuthenticatesUsers */
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        // TODO: Uncomment if role management plugin has applied
+//        if ($user->hasAnyRole(['admin', 'dokter', 'pasien'])) {
+//            if ($user->hasRole('admin')) {
+//                return redirect()->route('home');
+//            } elseif ($user->hasRole('dokter')) {
+//                return redirect()->route('dokter_home');
+//            } elseif ($user->hasRole('pasien')) {
+//                return redirect()->route('pasien_home');
+//            }
+//        }
+    }
+
     public function login(Request $request)
     {
         $input = $request->all();
