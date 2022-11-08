@@ -25,10 +25,10 @@ class AdminRequest extends FormRequest
     {
         return [
             'nama' => 'required',
-            'username' => 'required',
+            'username' => 'required|unique:users',
             'password' => 'required|min:8',
-            'email' => 'required|unique:users|email',
-            'nomor_telepon' => 'required',
+            'email' => 'required|unique:users|email:dns',
+            'nomor_telepon' => 'required|integer',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
@@ -36,3 +36,4 @@ class AdminRequest extends FormRequest
         ];
     }
 }
+    
