@@ -26,8 +26,8 @@ class AdminUpdateRequest extends FormRequest
         return [
             'username' => 'required',
             'nama' => 'required',
-            'nomor_telepon' => 'required',
-            'email' => 'required',
+            'nomor_telepon' => 'required|integer',
+            'email' => 'required|email:dns',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',

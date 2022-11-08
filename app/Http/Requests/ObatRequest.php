@@ -28,7 +28,7 @@ class ObatRequest extends FormRequest
             'kategori_obat_id' => 'required',
             'nama' => 'required',
             'dosis' => 'required',
-            'harga' => 'required',
+            'harga' => 'required|integer',
             'tanggal_produksi' => 'required',
             'tanggal_kadaluarsa' => 'required'
         ];

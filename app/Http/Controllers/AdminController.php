@@ -41,9 +41,19 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request)
     {
-        $request['password'] = Hash::make($request['password']);
+        $password = Hash::make($request['password']);
         $role = Roles::where('nama', 'admin')->first();
-        $user = User::create($request->all());
+        $user = User::create([
+            'nama' => $request->nama,
+            'username' => $request->username,
+            'password' => $password,
+            'email' => $request->email,
+            'nomor_telepon' => $request->nomor_telepon,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat_rumah' => $request->alamat_rumah
+        ]); 
         $params['user_id'] = $user->id;
         $params['role_id'] = $role->id;
         $userRole = UserRole::create($params);

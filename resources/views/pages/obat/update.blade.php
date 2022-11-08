@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label for="KodeObat">Kode Obat</label>
                             <input name="kode" type="text" class="form-control" id="KodeObat"
-                                placeholder="Kode Obat" value="{{$obat->kode}}">
+                                placeholder="Kode Obat" value="{{$obat->kode}}" required>
                         </div>
                         <div class="form-group">
                             <label>Kategori Obat</label>
@@ -63,27 +63,27 @@
                         <div class="form-group">
                             <label for="NamaObat">Nama Obat</label>
                             <input name="nama" type="text" class="form-control" id="NamaObat"
-                                placeholder="Nama Obat" value="{{$obat->nama}}">
+                                placeholder="Nama Obat" value="{{$obat->nama}}" required>
                         </div>
                         <div class="form-group">
                             <label for="DosisObat">Dosis Obat</label>
                             <input name="dosis" type="text" class="form-control" id="DosisObat"
-                                placeholder="Dosis Obat" value="{{$obat->dosis}}">
+                                placeholder="Dosis Obat" value="{{$obat->dosis}}" required>
                         </div>
                         <div class="form-group">
                             <label for="HargaObat">Harga Obat</label>
                             <input name="harga" type="text" class="form-control" id="HargaObat"
-                                placeholder="Harga Obat" value="{{$obat->harga}}">
+                                placeholder="Harga Obat" value="{{$obat->harga}}" required>
                         </div>
                         <div class="form-group">
                             <label for="TanggalProduksi">Tanggal Produksi Obat</label>
                             <input name="tanggal_produksi" type="date" class="form-control" id="TanggalProduksi"
-                                placeholder="Tanggal Produksi Obat" value="{{$obat->tanggal_produksi}}">
+                                placeholder="Tanggal Produksi Obat" value="{{$obat->tanggal_produksi}}" required>
                         </div>
                         <div class="form-group">
                             <label for="TanggalKadaluarsa">Tanggal Kadaluarsa Obat</label>
                             <input name="tanggal_kadaluarsa" type="date" class="form-control" id="TanggalKadaluarsa"
-                                placeholder="Tanggal Kadaluarsa Obat" value="{{$obat->tanggal_kadaluarsa}}">
+                                placeholder="Tanggal Kadaluarsa Obat" value="{{$obat->tanggal_kadaluarsa}}" required>
                         </div>
                     </div>
                     <div class="card-footer">
