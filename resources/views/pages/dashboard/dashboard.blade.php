@@ -82,5 +82,23 @@
       <!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-1 col-sm-11 col-"></div>
+                <div class="col-md-10 col-sm-10 col-12">
+                    <div class="card card-primary">
+                        <div class="card-body p-0">
+                            <!-- THE CALENDAR -->
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-11 col-"></div>
+            </div>
+        </div>
+    </div>
+
 </div>
 @endsection
