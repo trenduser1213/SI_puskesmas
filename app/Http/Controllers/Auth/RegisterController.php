@@ -43,6 +43,15 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    /* Override method showRegistrationForm() on trait RegistersUsers */
+    /*
+     * Redirect register page to login page
+     */
+    public function showRegistrationForm()
+    {
+        return redirect('/login');
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *

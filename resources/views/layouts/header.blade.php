@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{asset('fontawesome/css/all.min.css')}}">
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="{{asset('plugins/fullcalendar/main.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
   <style>
@@ -156,7 +158,8 @@
         <!-- /.sidebar -->
       </aside>
       @yield('content')
-      <aside class="control-sidebar control-sidebar-dark">
+      @yield('scripts')
+        <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
       </aside>
       <!-- /.control-sidebar -->
@@ -178,6 +181,8 @@
     <script src="{{asset('jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
     <script src="{{asset('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- jQuery UI -->
+    <script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
     <!-- AdminLTE -->
     <script src="{{asset('dist/adminlte.js')}}"></script>
 
@@ -187,5 +192,38 @@
     <script src="{{asset('dist/demo.js')}}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{asset('dist/dashboard3.js')}}"></script>
+
+    <!-- fullCalendar 2.2.5 -->
+    <script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+    <script src="{{asset('plugins/fullcalendar/main.js')}}"></script>
+    <script>
+        /* initialize the calendar
+     -----------------------------------------------------------------*/
+        //Date for the calendar events (dummy data)
+        const date = new Date();
+        const d = date.getDate(),
+            m = date.getMonth(),
+            y = date.getFullYear();
+
+        const Calendar = FullCalendar.Calendar;
+
+        const checkbox = document.getElementById('drop-remove');
+        const calendarEl = document.getElementById('calendar');
+
+        const calendar = new Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            themeSystem: 'bootstrap',
+
+            //Random default events
+            events: [],
+            editable: true,
+        });
+
+        calendar.render();
+    </script>
     </body>
     </html>

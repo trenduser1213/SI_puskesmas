@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('landing_page');
+    return redirect()->route('home');
 });
 
 Route::post('/create_user', [App\Http\Controllers\AuthController::class, 'register'])->name('create_user');
