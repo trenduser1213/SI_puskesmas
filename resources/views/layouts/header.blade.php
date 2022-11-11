@@ -97,6 +97,12 @@
                         </a>
                         </li>
                         <li class="nav-item">
+                        <a href="{{ route('obat.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Pembelian Obat Supplier</p>
+                        </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('kategori_obat.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Kategori Obat</p>
