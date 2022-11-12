@@ -9,24 +9,18 @@ use App\Models\UserRole;
 use App\Models\Roles;
 use App\Models\Spesialis;
 use App\Models\UserSpesialis;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    
     public function __construct()
     {
-        $this->middleware('auth');
+        
+        $this->middleware('auth'); 
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    
     public function index()
     {
         $data['obat'] = Obat::count();

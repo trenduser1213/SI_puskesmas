@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\KirimNomorAntrianEmail;
 use Illuminate\Http\Request;
 use App\Models\JadwalDokter;
 use App\Models\UserSpesialis;
@@ -9,19 +10,15 @@ use App\Models\UserRole;
 use App\Models\Obat;
 use App\Models\Spesialis;
 use App\Models\PendaftaranPasien;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Illuminate\Support\Facades\Auth;
-use App\Mail\KirimNomorAntrianEmail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Mail;
-use PDF;
+
 
 class LayananController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
@@ -46,24 +43,31 @@ class LayananController extends Controller
         $nomor_antrian = $jadwal['nomor_antrian'] + 1;
         $jadwalUpdate = JadwalDokter::where('id', $id)->update(['nomor_antrian' => $nomor_antrian]);
         $pendaftaranPasien = PendaftaranPasien::create(['user_id' => $userId, 'nomor_antrian' => $nomor_antrian, 'status' => 'antri']);
-        $public_path = 'qrcode/' . time() . '.svg';
+
         $url = url('/update-status-pendaftaran/' . $pendaftaranPasien->id);
-        QrCode::generate($url, public_path($public_path) );
+        $qrcode= QrCode::generate($url);
+        
+        
         $mailTo = Auth::user()->email;
         $nama = Auth::user()->nama;
+
         $data = [
             'nomor_antrian' => $nomor_antrian,
             'dokter' => $jadwal->users->nama,
             'waktu_mulai' => $jadwal->waktu_mulai,
             'waktu_selesai' => $jadwal->waktu_selesai,
             'ruangan' => $jadwal->ruangan,
-            'qrcode' => $public_path
+            'qrcode' => $qrcode
         ];
-        $customPaper = array(0,0,400.00,283.80);
-        $pdf = PDF::loadView('nomor_antrian_pdf', $data)->setPaper($customPaper, 'landscape');
-        Mail::to($mailTo)->send(new KirimNomorAntrianEmail($nomor_antrian, $jadwal, $public_path, $nama));
+
+        $pdf = FacadePdf::loadView('nomor_antrian_pdf',$data)->setPaper('a4', 'portrait');
+
+        Mail::to($mailTo)->send(new KirimNomorAntrianEmail($nomor_antrian, $jadwal, $qrcode, $nama));
+        $pdf->set_option('setRemoteEnabled',TRUE);
 
         return $pdf->download('antrian.pdf');
+
+        
     }
 
     public function update_status_pendaftaran($id)
@@ -83,8 +87,10 @@ class LayananController extends Controller
      */
     public function create()
     {
-        //
+       
     }
+
+   
 
     /**
      * Store a newly created resource in storage.

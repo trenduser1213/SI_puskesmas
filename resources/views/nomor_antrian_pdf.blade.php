@@ -13,7 +13,7 @@
         <h4>Dokter : {{$dokter}}</h4>
         <h4>Jam : {{$waktu_mulai}} - {{$waktu_selesai}}</h4>
         <div>
-            <img src="{{$qrcode}}" alt="" srcset="">
+           <img src="{{ public_path() . '/qrcodes/qrcode.png' }}" alt="">
         </div>
         <p>Mohon Tetap Memakai Masker</p>
     </center>
