@@ -115,6 +115,7 @@ class PasienController extends Controller
         $req = $request->except('_method', '_token', 'submit');
         try {
             $user_role = UserRole::findOrFail($id);
+            $request['password'] = Hash::make($request['password']);
             $user = User::findOrFail($user_role->user_id)->update($request->all());
             return redirect()->route('user_pasien.index')->with("success", "Update data berhasil");
         } catch (\Exception $e) {
