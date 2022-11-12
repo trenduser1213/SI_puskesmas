@@ -96,12 +96,15 @@ class AdminController extends Controller
         $req = $request->except('_method', '_token', 'submit');
         try {
             $user_role = UserRole::findOrFail($id);
+            $request['password'] = Hash::make($request['password']);
             $user = User::findOrFail($user_role->user_id)->update($request->all());
             return redirect()->route('user_admin.index')->with("success", "Update data berhasil");
         } catch (\Exception $e) {
             return redirect()->back()->with("error", $e);
         }
     }
+
+    // $input['password'] = Hash::make($input['password']);
 
     /**
      * Remove the specified resource from storage.

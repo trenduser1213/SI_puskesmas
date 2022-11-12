@@ -36,7 +36,7 @@
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>Username</th>
                             <th>Nama</th>
                             <th>Tempat Lahir</th>
@@ -61,11 +61,14 @@
                                 <a href="{{route('user_admin.edit', $item->id)}}">
                                     <button type="button" class="btn btn-warning">Update</button>
                                 </a>
+                                {{-- <a href="{{route('user_admin.edit', $item->id)}}">
+                                    <button type="badge" class="bg bg-warning border-0">Ganti Password</button>
+                                </a> --}}
                                 <form style="margin-top: 5px;display:inline-block;" action="{{route('user_admin.destroy', $item->id)}}"
                                     method="POST">
-                                    @csrf
+                                    @csrf   
                                     @method("DELETE")
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger border-0">Delete</button>
                                 </form>
                             </td>
                         </tr>
