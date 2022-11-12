@@ -9,6 +9,7 @@ use App\Http\Requests\AdminUpdateRequest;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Roles;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {

@@ -9,6 +9,7 @@ use App\Models\UserRole;
 use App\Models\Roles;
 use App\Http\Requests\PasienRequest;
 use App\Http\Requests\PasienUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PasienController extends Controller
 {

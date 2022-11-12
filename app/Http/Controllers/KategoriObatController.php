@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KategoriObat;
+use App\Models\UserRole;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\KategoriObatRequest;
 use App\Http\Requests\KategoriObatUpdateRequest;
 

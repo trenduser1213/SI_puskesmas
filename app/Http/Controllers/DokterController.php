@@ -11,6 +11,7 @@ use App\Models\Spesialis;
 use App\Models\UserSpesialis;
 use App\Http\Requests\DokterRequest;
 use App\Http\Requests\DokterUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class DokterController extends Controller
 {

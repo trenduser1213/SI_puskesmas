@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Spesialis;
+use App\Models\UserRole;
 use App\Http\Requests\SpesialisRequest;
 use App\Http\Requests\SpesialisUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class SpesialisController extends Controller
 {

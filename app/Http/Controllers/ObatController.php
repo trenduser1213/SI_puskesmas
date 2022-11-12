@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Obat;
+use App\Models\UserRole;
+use Illuminate\Support\Facades\Auth;
 use App\Models\KategoriObat;
 use App\Http\Requests\ObatRequest;
 use App\Http\Requests\ObatUpdateRequest;
