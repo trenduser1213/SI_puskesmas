@@ -9,6 +9,7 @@ use App\Models\UserRole;
 use App\Models\Roles;
 use App\Http\Requests\PasienRequest;
 use App\Http\Requests\PasienUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PasienController extends Controller
 {
@@ -19,6 +20,14 @@ class PasienController extends Controller
      */
     public function index()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $pasien = UserRole::with(['users', 'roles'])->where('role_id', 3)->get();
         return view('pages.pasien.index', compact('pasien'));
     }
@@ -30,6 +39,14 @@ class PasienController extends Controller
      */
     public function create()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         return view('pages.pasien.create');
     }
 
@@ -74,6 +91,14 @@ class PasienController extends Controller
      */
     public function edit($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $pasien = UserRole::with(['users', 'roles'])->findOrFail($id);
         return view('pages.pasien.update', compact('pasien'));
     }

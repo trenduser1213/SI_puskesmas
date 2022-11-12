@@ -9,6 +9,7 @@ use App\Http\Requests\AdminUpdateRequest;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Roles;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -19,6 +20,14 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $admin = UserRole::with(['users', 'roles'])->where('role_id', 1)->get();
         return view('pages.admin.index', compact('admin'));
     }
@@ -30,6 +39,14 @@ class AdminController extends Controller
      */
     public function create()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         return view('pages.admin.create');
     }
 
@@ -41,9 +58,19 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request)
     {
-        $request['password'] = Hash::make($request['password']);
+        $password = Hash::make($request['password']);
         $role = Roles::where('nama', 'admin')->first();
-        $user = User::create($request->all());
+        $user = User::create([
+            'nama' => $request->nama,
+            'username' => $request->username,
+            'password' => $password,
+            'email' => $request->email,
+            'nomor_telepon' => $request->nomor_telepon,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat_rumah' => $request->alamat_rumah
+        ]); 
         $params['user_id'] = $user->id;
         $params['role_id'] = $role->id;
         $userRole = UserRole::create($params);
@@ -70,6 +97,14 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $admin = UserRole::with(['users', 'roles'])->findOrFail($id);
         return view('pages.admin.update', compact('admin'));
     }
@@ -86,12 +121,15 @@ class AdminController extends Controller
         $req = $request->except('_method', '_token', 'submit');
         try {
             $user_role = UserRole::findOrFail($id);
+            $request['password'] = Hash::make($request['password']);
             $user = User::findOrFail($user_role->user_id)->update($request->all());
             return redirect()->route('user_admin.index')->with("success", "Update data berhasil");
         } catch (\Exception $e) {
             return redirect()->back()->with("error", $e);
         }
     }
+
+    // $input['password'] = Hash::make($input['password']);
 
     /**
      * Remove the specified resource from storage.

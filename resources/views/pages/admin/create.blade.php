@@ -43,37 +43,37 @@
                         <div class="form-group">
                             <label for="Username">Username</label>
                             <input name="username" type="text" class="form-control" id="Username"
-                                placeholder="Username">
+                                placeholder="Masukkan username" required value="{{ old('username') }}">
                         </div>
                         <div class="form-group">
                             <label>Password</label>
                             <input name="password" type="password" class="form-control" id="password"
-                                placeholder="Password">
+                                placeholder="Masukkan password" required>
                         </div>
                         <div class="form-group">
                             <label for="Nama">Nama</label>
                             <input name="nama" type="text" class="form-control" id="Nama"
-                                placeholder="Nama">
+                                placeholder="Masukkan nama anda" required value="{{ old('nama') }}">
                         </div>
                         <div class="form-group">
                             <label for="nomor_telepon">Nomor Telepon</label>
                             <input name="nomor_telepon" type="text" class="form-control" id="nomor_telepon"
-                                placeholder="Nomor Telepon">
+                                placeholder="Masukkan no telepon (cth: 08xxxxxxxxxx)" required value="{{ old('nomor_telepon') }}">
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input name="email" type="email" class="form-control" id="email"
-                                placeholder="Email">
+                                placeholder="Masukkan email" required value="{{ old('email') }}">
                         </div>
                         <div class="form-group">
                             <label for="Tempat Lahir">Tempat Lahir</label>
                             <input name="tempat_lahir" type="text" class="form-control" id="TempatLahir"
-                                placeholder="Tempat Lahir">
+                                placeholder="Masukkan tempat lahir" required value="{{ old('tempat_lahir') }}">
                         </div>
                         <div class="form-group">
                             <label for="Tanggal Lahir">Tanggal Lahir</label>
                             <input name="tanggal_lahir" type="date" class="form-control" id="TanggalLahir"
-                                placeholder="Tanggal Lahir">
+                                placeholder="Masukkan tanggal lahir" required value="{{ old('tanggal_lahir') }}">
                         </div>
                         <div class="form-group">
                             <label for="Judul Berita">Jenis Kelamin</label>
@@ -84,8 +84,8 @@
                         </div>
                         <div class="form-group">
                             <label for="Alamat Rumah">Alamat Rumah</label>
-                            <textarea name="alamat_rumah" type="text" class="form-control" id="alamat_rumah"
-                                placeholder=""></textarea>
+                            <input name="alamat_rumah" type="text" class="form-control" id="alamat_rumah"
+                                placeholder="Masukkan alamat rumah" required value="{{ old('alamat_rumah') }}">
                         </div>
                     </div>
                     <div class="card-footer">

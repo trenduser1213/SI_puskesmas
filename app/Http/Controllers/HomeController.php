@@ -9,6 +9,8 @@ use App\Models\UserRole;
 use App\Models\Roles;
 use App\Models\Spesialis;
 use App\Models\UserSpesialis;
+use Illuminate\Support\Facades\Auth;
+use App\Helpers\Traits\Cek;
 
 class HomeController extends Controller
 {
@@ -29,10 +31,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['obat'] = Obat::count();
-        $data['dokter'] = UserSpesialis::count();
-        $data['pasien'] = UserRole::where('role_id', 3)->count();
-        $data['spesialis'] = Spesialis::count();
-        return view('pages.dashboard.dashboard', $data);
+        // $status=$this->cekRoleAdmin(Auth::user()->id);
+        // if ($status == false) {
+        //     return redirect()->route('pasien_home');
+        // }
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }else{
+            $data['obat'] = Obat::count();
+            $data['dokter'] = UserSpesialis::count();
+            $data['pasien'] = UserRole::where('role_id', 3)->count();
+            $data['spesialis'] = Spesialis::count();
+            return view('pages.dashboard.dashboard', $data);
+        }
+
+        
     }
 }
