@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label for="Judul Berita">Kode Obat</label>
                             <input name="kode" type="text" class="form-control" id="KodeObat"
-                                placeholder="kode obat (cth: B4)" required value="{{ old('kode') }}">
+                                placeholder="Masukkan kode obat (cth: B4)" required value="{{ old('kode') }}">
                         </div>
                         <div class="form-group">
                             <label>Kategori Obat</label>
@@ -63,17 +63,17 @@
                         <div class="form-group">
                             <label for="Judul Berita">Nama Obat</label>
                             <input name="nama" type="text" class="form-control" id="NamaObat"
-                                placeholder="nama obat" required value="{{ old('nama') }}">
+                                placeholder="Masukkan nama obat" required value="{{ old('nama') }}">
                         </div>
                         <div class="form-group">
                             <label for="Judul Berita">Dosis Obat</label>
                             <input name="dosis" type="text" class="form-control" id="DosisObat"
-                                placeholder="dosis obat (Jumlah dosis per hari)" required value="{{ old('dosis') }}">
+                                placeholder="Masukkan dosis obat" required value="{{ old('dosis') }}">
                         </div>
                         <div class="form-group">
                             <label for="Judul Berita">Harga Obat</label>
                             <input name="harga" type="text" class="form-control" id="HargaObat"
-                                placeholder="harga obat dalam rupiah (cth: 100000)" required value="{{ old('harga') }}">
+                                placeholder="Masukkan harga obat dalam rupiah (cth: 100000)" required value="{{ old('harga') }}">
                         </div>
                         <div class="form-group">
                             <label for="Judul Berita">Tanggal Produksi Obat</label>

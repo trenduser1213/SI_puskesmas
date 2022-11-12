@@ -63,17 +63,17 @@
                         <div class="form-group">
                             <label for="NamaObat">Nama Obat</label>
                             <input name="nama" type="text" class="form-control" id="NamaObat"
-                                placeholder="Nama Obat" value="{{$obat->nama}}" required>
+                                placeholder="Masukkan nama obat" value="{{$obat->nama}}" required>
                         </div>
                         <div class="form-group">
                             <label for="DosisObat">Dosis Obat</label>
                             <input name="dosis" type="text" class="form-control" id="DosisObat"
-                                placeholder="Dosis Obat" value="{{$obat->dosis}}" required>
+                                placeholder="Masukkan dosis obat" value="{{$obat->dosis}}" required>
                         </div>
                         <div class="form-group">
                             <label for="HargaObat">Harga Obat</label>
                             <input name="harga" type="text" class="form-control" id="HargaObat"
-                                placeholder="Harga Obat" value="{{$obat->harga}}" required>
+                                placeholder="Masukkan harga obat" value="{{$obat->harga}}" required>
                         </div>
                         <div class="form-group">
                             <label for="TanggalProduksi">Tanggal Produksi Obat</label>

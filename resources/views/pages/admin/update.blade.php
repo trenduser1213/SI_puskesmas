@@ -62,6 +62,11 @@
                                 placeholder="Username" value="{{$admin->users->username}}">
                         </div>
                         <div class="form-group">
+                            <label for="Password">Password</label>
+                            <input name="password" type="password" class="form-control" id="password"
+                                placeholder="password" value="{{$admin->users->password}}">
+                        </div>
+                        <div class="form-group">
                             <label for="Nama">Nama</label>
                             <input name="nama" type="text" class="form-control" id="Nama"
                                 placeholder="Nama" value="{{$admin->users->nama}}">
