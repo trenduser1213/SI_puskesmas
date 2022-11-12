@@ -54,6 +54,11 @@
                                     value="{{ old('username') }}">
                             </div>
                             <div class="form-group">
+                                <label for="Password">Password</label>
+                                <input name="password" type="password" class="form-control" id="password"
+                                    placeholder=" Masukkan password baru" value="{{ $pasien->users->password }}">
+                            </div>
+                            <div class="form-group">
                                 <label for="no_rm">Nomor RM</label>
                                 <input name="no_rm" type="text" class="form-control" id="no_rm"
                                     placeholder="Masukkan Nomor RM (cth : AAB10)" value="{{ $pasien->users->no_rm }}"
@@ -89,8 +94,8 @@
                             <div class="form-group">
                                 <label for="Tempat Lahir">Tempat Lahir</label>
                                 <input name="tempat_lahir" type="text" class="form-control" id="TempatLahir"
-                                    placeholder="Masukkan tempat lahir" value="{{ $pasien->users->tempat_lahir }}" required
-                                    value="{{ old('tempat_lahir') }}">
+                                    placeholder="Masukkan tempat lahir" value="{{ $pasien->users->tempat_lahir }}"
+                                    required value="{{ old('tempat_lahir') }}">
                             </div>
                             <div class="form-group">
                                 <label for="Tanggal Lahir">Tanggal Lahir</label>

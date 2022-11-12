@@ -25,9 +25,10 @@ class PasienUpdateRequest extends FormRequest
     {
         return [
             'username' => 'required',
+            'password' => 'required|min:8',
             'nama' => 'required',
-            'nomor_telepon' => 'required',
-            'email' => 'required',
+            'nomor_telepon' => 'required|numeric',
+            'email' => 'required|email:dns',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'no_rm' => 'required',
