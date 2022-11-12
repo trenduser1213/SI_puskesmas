@@ -29,6 +29,14 @@ class LayananController extends Controller
 
     public function berobat()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $data['jadwalSenin'] = JadwalDokter::with(['users'])->where('hari', 'senin')->get();
         $data['jadwalSelasa'] = JadwalDokter::with(['users'])->where('hari', 'selasa')->get();
         $data['jadwalRabu'] = JadwalDokter::with(['users'])->where('hari', 'rabu')->get();
@@ -41,6 +49,14 @@ class LayananController extends Controller
 
     public function pasien_mendaftar($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $userId = Auth::user()->id;
         $jadwal = JadwalDokter::with(['users'])->where('id', $id)->first();
         $nomor_antrian = $jadwal['nomor_antrian'] + 1;

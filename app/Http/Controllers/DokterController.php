@@ -21,6 +21,14 @@ class DokterController extends Controller
      */
     public function index()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $role = Roles::where('nama', 'dokter')->first();
         $spesialis = Spesialis::all();
         $dokterSpesialis = UserSpesialis::with(['users', 'user_spesialis'])->get();
@@ -35,6 +43,14 @@ class DokterController extends Controller
      */
     public function create()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $spesialis = Spesialis::all();
         return view('pages.dokter.create', compact('spesialis'));
     }
@@ -82,6 +98,14 @@ class DokterController extends Controller
      */
     public function edit($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $spesialis = Spesialis::all();
         $dokter = UserSpesialis::with(['users', 'user_spesialis'])->findOrFail($id);
         return view('pages.dokter.update', compact('dokter', 'spesialis'));
