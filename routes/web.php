@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\rujukanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +36,7 @@ Route::group(['middleware' => ['auth'], "prefix" => "/admin"], function () {
     Route::post('buat_jadwal_dokter', [App\Http\Controllers\DokterHomeController::class, 'buat_jadwal_dokter' ])->name('buat_jadwal_dokter');
     Route::delete('delete_jadwal_dokter/{id}', [App\Http\Controllers\DokterHomeController::class, 'delete_jadwal_dokter' ])->name('delete_jadwal_dokter');
     Route::get('/update-status-pendaftaran/{id}', [App\Http\Controllers\LayananController::class, 'update_status_pendaftaran' ]);
+    Route::resource('rujukan', App\Http\Controllers\rujukanController::class);
 });
 
 Route::group(['middleware' => ['auth'], "prefix" => "/pasien"], function(){
