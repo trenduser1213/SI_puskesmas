@@ -34,25 +34,30 @@
                 </div>
             </div> --}}
             <div class="card-body">
-                <form role="form" action="{{ route('rujukan.store') }}" method="POST">
+                <form role="form" action="{{ route('rujukan.update',$val->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="kode">kode</label>
                             <input name="kode" type="text" class="form-control" id="kode"
-                            placeholder="Masukkan kode pasien" required value="{{ old('kode') }}">
+                            placeholder="Masukkan kode pasien" required value="{{$val->kode}}{{ old('kode') }}">
                         </div>
                         <div class="form-group">
                             <label for="jenis_pemeriksaan">jenis pemeriksaan</label>
                             <input name="jenis_pemeriksaan" type="text" class="form-control" id="jenis_pemeriksaan"
-                            placeholder="Masukkan jenis pemeriksaan" required value="{{ old('jenis_pemeriksaan') }}">
+                            placeholder="Masukkan jenis pemeriksaan" required value="{{$val->jenis_pemeriksaan}}{{ old('jenis_pemeriksaan') }}">
                         </div>
                         <div class="form-group">
                             <label for="rekamedis">Rekamedis</label>
                             <select name="rekamedis" class="form-control">
                                 <option value="-" selected disabled>Pilih Rekamedis</option>
                                 @foreach($rekamedis as $rekamedis)
-                                    <option value="{{ $rekamedis->id }}">{{ $rekamedis->pasien_id}} - {{ $rekamedis->tanggal_pendaftaran}}</option>
+                                    @if($rekamedis->id == $val->rekamedis_id)  
+                                        <option value="{{ $rekamedis->id }}" selected>{{ $rekamedis->pasien_id}} - {{ $rekamedis->tanggal_pendaftaran}}</option>
+                                    @else
+                                        <option value="{{ $rekamedis->id }}">{{ $rekamedis->pasien_id}} - {{ $rekamedis->tanggal_pendaftaran}}</option>
+                                    @endif
                                 @endforeach
                                 {{-- <option value="P">Perempuan</option>
                                 <option value="L">Laki-laki</option> --}}
@@ -63,57 +68,15 @@
                             <select name="tempat_rujukan_id" class="form-control">
                                 <option value="-" selected disabled>Pilih tempat rujukan</option>
                                 @foreach($tempat as $tempat_rujukan)
-                                    <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>
+                                    @if($tempat_rujukan->id == $val->tempat_rujukan_id)
+                                        <option value="{{ $tempat_rujukan->id }}" selected>{{ $tempat_rujukan->nama }}</option>
+                                    @else
+                                        <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>       
+                                    @endif
                                 @endforeach
                                 {{-- <option value="L">Laki-laki</option> --}}
                             </select>
                         </div>
-                        {{-- <div class="form-group">
-                            <label>Password</label>
-                            <input name="password" type="password" class="form-control" id="password"
-                                placeholder="Masukkan password min. 8 karakter" required value="{{ old('password') }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Nama">Nama</label>
-                            <input name="nama" type="text" class="form-control" id="Nama"
-                                placeholder="Masukkan nama pasien" required value="{{ old('nama') }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="pekerjaan">Pekerjaan</label>
-                            <input name="pekerjaan" type="text" class="form-control" id="pekerjaan"
-                                placeholder="Masukkan pekerjaan pasien" required value="{{ old('pekerjaan') }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="nomor_telepon">Nomor Telepon</label>
-                            <input name="nomor_telepon" type="number" class="form-control" id="nomor_telepon"
-                                placeholder="Masukkan nomor telepon" required value="{{ old('nomor_telepon') }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input name="email" type="email" class="form-control" id="email"
-                                placeholder="Masukkan alamat email" required value="{{ old('email') }}">
-                            <small class="text-warning"><i class="fa fa-info-circle"></i> Pastikan email belum pernah di
-                                daftarkan
-                                sebelumnya</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="Tempat Lahir">Tempat Lahir</label>
-                            <input name="tempat_lahir" type="text" class="form-control" id="TempatLahir"
-                                placeholder="Masukkan tempat lahir" required value="{{ old('tempat_lahir') }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Tanggal Lahir">Tanggal Lahir</label>
-                            <input name="tanggal_lahir" type="date" class="form-control" id="TanggalLahir"
-                                placeholder="Masukkan Tanggal Lahir" required value="{{ old('tanggal_lahir') }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Alamat Rumah">Alamat Rumah</label>
-                            <textarea name="alamat_rumah" type="text" class="form-control" id="alamat_rumah"
-                                placeholder="Masukkan alamat lengkap" required value="">{{ old('alamat_rumah') }}</textarea>
-                        </div>
-                    </div>
-                     --}}
-                     {{-- <div class="card-footer"> --}}
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <a href="{{ route('rujukan.index') }}"><button id="buttonCancel" type="button"
                                 class="btn btn-default">Cancel</button></a>
