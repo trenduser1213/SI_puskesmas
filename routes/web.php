@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +26,10 @@ Auth::routes();
 Route::group(['middleware' => ['auth'], "prefix" => "/admin"], function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('obat', App\Http\Controllers\ObatController::class);
+    Route::resource('resep_obat', App\Http\Controllers\ResepObatController::class);
+    Route::resource('resep_obat_detail', App\Http\Controllers\ResepObatDetailController::class);
     Route::resource('kategori_obat', App\Http\Controllers\KategoriObatController::class);
+    Route::resource('tempat_rujukan', App\Http\Controllers\TempatRujukanController::class);
     Route::resource('user_admin', App\Http\Controllers\AdminController::class);
     Route::resource('user_dokter', App\Http\Controllers\DokterController::class);
     Route::resource('user_pasien', App\Http\Controllers\PasienController::class);
