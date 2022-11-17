@@ -57,6 +57,14 @@
                         </form>
                     </div>
                 </li>
+                <li class="nav-item menu-open">
+                  <a href="{{route('rujukan.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                      Rujukan
+                  </p>
+                  </a>
+              </li>
             </ul>
         </nav>
         <!-- /.navbar -->
