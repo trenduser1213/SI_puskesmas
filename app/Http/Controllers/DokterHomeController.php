@@ -24,6 +24,14 @@ class DokterHomeController extends Controller
     {
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $data['role'] = $userRole->roles->nama;
         $data['obat'] = Obat::count();
         $data['dokter'] = UserSpesialis::count();
@@ -34,6 +42,14 @@ class DokterHomeController extends Controller
 
     public function jadwal_dokter()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $data['jadwalSenin'] = JadwalDokter::with(['users'])->where('hari', 'senin')->get();
         $data['jadwalSelasa'] = JadwalDokter::with(['users'])->where('hari', 'selasa')->get();
         $data['jadwalRabu'] = JadwalDokter::with(['users'])->where('hari', 'rabu')->get();
@@ -47,6 +63,14 @@ class DokterHomeController extends Controller
 
     public function form_jadwal_dokter()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $role = Roles::where('nama', 'dokter')->first();
         $spesialis = Spesialis::all();
         $dokter = UserRole::with(['users', 'roles'])->where('role_id', $role->id)->get();
