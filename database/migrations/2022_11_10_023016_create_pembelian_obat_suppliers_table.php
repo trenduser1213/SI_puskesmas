@@ -15,7 +15,7 @@ class CreatePembelianObatSuppliersTable extends Migration
     {
         Schema::create('pembelian_obat_suppliers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('obat_id');
+            $table->integer('obat_id');
             $table->date('tanggalproduksi');
             $table->date('tanggalkadaluarsa');
             $table->integer('stok');

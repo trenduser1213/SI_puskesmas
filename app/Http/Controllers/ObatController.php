@@ -27,6 +27,7 @@ class ObatController extends Controller
         }elseif ($cek == "apoteker") {
             // # code...
         }
+        
         $obat = Obat::with(['kategori_obat'])->get();
         return view('pages.obat.index', compact('obat'));
     }
@@ -60,9 +61,9 @@ class ObatController extends Controller
     {
         try {
             Obat::create($request->all());
-            return redirect()->back()->with("success", "Tambah data berhasil");
+            return redirect('/admin/obat')->with("success", "Tambah data berhasil");
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', "Isi field dengan benar");
+            return redirect()->back()->with('error', $th);
         }
     }
 
