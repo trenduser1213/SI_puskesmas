@@ -1,0 +1,91 @@
+@extends('layouts/header')
+@section('content')
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Tamabah Rujukan</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <div class="container-fluid">
+        @if ($message = Session::get('success'))
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>Success!</strong> {{ $message }}
+                    </div>
+                @endif
+                @if ($message = Session::get('error'))
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>Error!</strong> {{ $message }}
+                    </div>
+                @endif
+        <div class="card">
+            {{-- <div class="row card-header">
+                <div class="col-sm-2 col-12">
+                    <a href="{{route('rujukan.create')}}"><button type="button" id="buttonTambahUserAdmin" class="btn btn-block btn-primary">Tambah
+                        Admin</button></a>
+                </div>
+            </div> --}}
+            <div class="card-body">
+                <form role="form" action="{{ route('rujukan.update',$val->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="kode">kode</label>
+                            <input name="kode" type="text" class="form-control" id="kode"
+                            placeholder="Masukkan kode pasien" required value="{{$val->kode}}{{ old('kode') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="jenis_pemeriksaan">jenis pemeriksaan</label>
+                            <input name="jenis_pemeriksaan" type="text" class="form-control" id="jenis_pemeriksaan"
+                            placeholder="Masukkan jenis pemeriksaan" required value="{{$val->jenis_pemeriksaan}}{{ old('jenis_pemeriksaan') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="rekamedis">Rekamedis</label>
+                            <select name="rekamedis" class="form-control">
+                                <option value="-" selected disabled>Pilih Rekamedis</option>
+                                @foreach($rekamedis as $rekamedis)
+                                    @if($rekamedis->id == $val->rekamedis_id)  
+                                        <option value="{{ $rekamedis->id }}" selected>{{ $rekamedis->pasien_id}} - {{ $rekamedis->tanggal_pendaftaran}}</option>
+                                    @else
+                                        <option value="{{ $rekamedis->id }}">{{ $rekamedis->pasien_id}} - {{ $rekamedis->tanggal_pendaftaran}}</option>
+                                    @endif
+                                @endforeach
+                                {{-- <option value="P">Perempuan</option>
+                                <option value="L">Laki-laki</option> --}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tempat_rujukan_id">tempat rujukan</label>
+                            <select name="tempat_rujukan_id" class="form-control">
+                                <option value="-" selected disabled>Pilih tempat rujukan</option>
+                                @foreach($tempat as $tempat_rujukan)
+                                    @if($tempat_rujukan->id == $val->tempat_rujukan_id)
+                                        <option value="{{ $tempat_rujukan->id }}" selected>{{ $tempat_rujukan->nama }}</option>
+                                    @else
+                                        <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>       
+                                    @endif
+                                @endforeach
+                                {{-- <option value="L">Laki-laki</option> --}}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="{{ route('rujukan.index') }}"><button id="buttonCancel" type="button"
+                                class="btn btn-default">Cancel</button></a>
+                    {{-- </div> --}}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- /.content-header -->
+</div>
+@endsection
