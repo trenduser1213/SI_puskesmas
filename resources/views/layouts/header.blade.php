@@ -95,10 +95,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                        <a href="{{ route('pembelian_obat_suppliers.index') }}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Pembelian Obat Supplier</p>
-                        </a>
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-capsules"></i>
                                 <p>
@@ -114,7 +110,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('obat.index') }}" class="nav-link">
+                                    <a href="{{ route('pembelian_obat_suppliers.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Pembelian Obat Supplier</p>
                                     </a>
