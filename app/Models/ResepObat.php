@@ -9,4 +9,15 @@ class ResepObat extends Model
 {
     use HasFactory;
     protected $guarded= ['id'];
+
+    public $table = 'resep_obats';
+    protected $fillable = [
+        'kode',
+        'tanggal_resep',
+    ];
+
+    public function resepobatdetails()
+    {
+        return $this->hasMany(ResepObatDetail::class, 'id_resep_obat');
+    }
 }

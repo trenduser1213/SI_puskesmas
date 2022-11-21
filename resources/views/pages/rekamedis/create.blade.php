@@ -1,19 +1,25 @@
 @extends('layouts/header_dokter')
 @section('content')
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Rekamedis</h1>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
+    <form role="form" action="{{route('rekamedis.store')}}" method="POST" id="formRekamMedis">
+        @csrf
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-12 d-inline-flex justify-content-between">
+                <h1 class="m-0">Rekam Medis</h1>
+                <button type="button" onclick="toggleResepObat()" id="btnTambahResep" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus-square" id="iconTambahResepObat"></i>
+                    Tambah Resep Obat
+                </button>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+
+        <div class="container-fluid">
+            <div class="card">
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -44,29 +50,33 @@
                         </ul>
                     </div>
                 @endif
-                <form role="form" action="{{route('rekamedis.store')}}" method="POST">
-                    @csrf
+                @csrf
+                <div class="card-body">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="Judul Berita">Tanggal Pendaftaran</label>
                             <input name="tanggal_pendaftaran" type="date" class="form-control" id="tanggal_pendaftaran"
-                                placeholder="Tanggal Pendaftaran">
+                                placeholder="Tanggal Pendaftaran" value="{{ @old('tanggal_pendaftaran') ?? '' }}">
                         </div>
                         <div class="form-group">
                             <label>Diagnosa</label>
                             <input name="diagnosa" type="text" class="form-control" id="diagnosa"
-                                placeholder="Diagnosa">
+                                placeholder="Diagnosa" value="{{ @old('diagnosa') ?? '' }}">
                         </div>
                         <div class="form-group">
-                            <label for="Tindakan">Tindakan</label>
-                            <textarea name="tindakan" type="text" rows="2" class="form-control" id="Tindakan"
-                                placeholder="Tindakan"></textarea>
+                            <label for="tindakan">Tindakan</label>
+                            <textarea name="tindakan" type="text" rows="2" class="form-control" id="tindakan"
+                                placeholder="Tindakan">{{ @old('tindakan') ?? '' }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="Judul Berita">Pasien</label>
                             <select name="pasien_id" class="form-control">
                                 @foreach ($pasien as $item)
-                                    <option value="{{$item->users->id}}">{{$item->users->nama}}</option>
+                                    @if(old('pasien_id') == $item->users->id)
+                                        <option value="{{$item->users->id}}" selected>{{$item->users->nama}}</option>
+                                    @else
+                                        <option value="{{$item->users->id}}">{{$item->users->nama}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -74,21 +84,69 @@
                             <label for="Dokter">Dokter</label>
                             <select name="dokter_id" class="form-control">
                                 @foreach ($dokter as $item)
-                                <option value="{{$item->users->id}}">{{$item->users->nama}}</option>
+                                    @if(old('dokter_id') == $item->users->id)
+                                        <option value="{{$item->users->id}}" selected>{{$item->users->nama}}</option>
+                                    @else
+                                        <option value="{{$item->users->id}}">{{$item->users->nama}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{ route('rekamedis.index') }}"><button id="buttonCancel" type="button"
-                            class="btn btn-default">Cancel</button></a>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
+{{--    </form>--}}
 
-    <!-- /.content-header -->
+{{--    <form role="form" action="{{ route('resep_obat.store') }}" method="POST" id="formResepObat">--}}
+{{--        @csrf--}}
+        <div class="container-fluid" id="resepObatForm" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Resep Obat</h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="Judul Berita">Kode Resep Obat</label>
+                            <input name="kode" type="text" class="form-control" id="KoderesepObat" placeholder="Kode resep Obat">
+                        </div>
+                        <div class="form-group">
+                            <label for="Judul Berita">Tanggal Resep Obat</label>
+                            <input name="tanggal_resep" type="date" class="form-control" id="resepObat" placeholder="Nama resep">
+                        </div>
+                    </div>
+{{--                    <div class="card-footer">--}}
+{{--                        <button type="submit" class="btn btn-primary">Simpan</button>--}}
+{{--                        <a href="{{ route('resep_obat.index') }}"><button id="buttonCancel" type="button" class="btn btn-default">Batal</button></a>--}}
+{{--                    </div>--}}
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pb-5 pl-4">
+            <a href="{{ route('rekamedis.index') }}"><button id="buttonCancel" type="button" class="btn btn-default">Cancel</button></a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
 </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        function toggleResepObat() {
+            if (document.getElementById('resepObatForm').style.display === 'none') {
+                document.getElementById('btnTambahResep').classList.remove("btn-primary");
+                document.getElementById('btnTambahResep').classList.add("btn-secondary");
+                document.getElementById('iconTambahResepObat').classList.remove("fa-plus-square");
+                document.getElementById('iconTambahResepObat').classList.add("fa-minus-square");
+                document.getElementById('resepObatForm').style.display = 'block';
+            } else {
+                document.getElementById('btnTambahResep').classList.remove("btn-secondary");
+                document.getElementById('btnTambahResep').classList.add("btn-primary");
+                document.getElementById('iconTambahResepObat').classList.remove("fa-minus-square");
+                document.getElementById('iconTambahResepObat').classList.add("fa-plus-square");
+                document.getElementById('resepObatForm').style.display = 'none';
+            }
+        }
+    </script>
 @endsection

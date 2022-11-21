@@ -15,6 +15,8 @@ class Rekamedis extends Model
         'tindakan',
         'pasien_id',
         'dokter_id',
+        'suratketerangan',
+        'resep_obat_id',
     ];
 
     public function pasien()
@@ -25,5 +27,15 @@ class Rekamedis extends Model
     public function dokter()
     {
         return $this->belongsTo(User::class, 'dokter_id');
+    }
+
+    public function resepobat()
+    {
+        return $this->belongsTo(ResepObat::class, 'resep_obat_id');
+    }
+
+    public function rujukans()
+    {
+        return $this->hasMany(RujukanLab::class, 'rekamedis_id');
     }
 }
