@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 3</title>
+    <title>SIM KLINIK</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -38,33 +38,37 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-
                 <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="fas fa-cog"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <div class="dropdown-divider"></div>
-                        <a href="{{ route('logout') }}" class="dropdown-item dropdown-footer" data-toggle="modal"
-                            data-target="#logoutModal"
-                            onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
                 <li class="nav-item menu-open">
                   <a href="{{route('rujukan.index')}}" class="nav-link">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>
-                      Rujukan
-                  </p>
-                  </a>
+                    <div class="d-flex "> 
+                        <i class="nav-icon fas fa-stethoscope mr-2"></i>
+                        <p>
+                            Rujukan
+                        </p>
+                    </div>
+                 </a>                 
               </li>
+
+
+              {{-- user account --}}
+              <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="fas fa-cog"></i> 
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ route('logout') }}" class="dropdown-item dropdown-footer" data-toggle="modal"
+                        data-target="#logoutModal"
+                        onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -72,9 +76,9 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="{{ route('home') }}" class="brand-link">
+            <a href="{{ route('home') }}" class="brand-link text-center">
                 {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light "><strong>SIM KLINIK</strong></span>
             </a>
 
             <!-- Sidebar -->
@@ -86,8 +90,8 @@
                         <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
 
-                        <li class="nav-item menu-open">
-                            <a href="{{ route('home') }}" class="nav-link active">
+                        <li class="nav-item ">
+                            <a href="{{ route('home') }}" class="nav-link {{request()->is('admin/dashboard*') ? ' active' : ''}}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -95,7 +99,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="#" class="nav-link 
+                            {{request()->is('admin/obat*') || request()->is('admin/pembelian_obat_suppliers*') || request()->is('admin/kategori_obat*') || 
+                            request()->is('admin/resep_obat*') ? ' active' : ''}}  
+        
+                            ">
                                 <i class="nav-icon fas fa-capsules"></i>
                                 <p>
                                     Layanan Obat
@@ -103,7 +111,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                                <li class="nav-item"> 
                                     <a href="{{ route('obat.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Obat</p>
@@ -129,16 +137,17 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="{{ route('user_admin.index') }}" class="nav-link">
+                        <li class="nav-item ">
+                            <a href="{{ route('user_admin.index') }}" class="nav-link {{request()->is('admin/user_admin*') ? ' active' : ''}}">
                                 <i class="nav-icon fas fa-user-cog"></i>
                                 <p>
                                     Admin
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="{{ route('user_dokter.index') }}" class="nav-link">
+                        <li class="nav-item ">
+                            <a href="{{ route('user_dokter.index') }}" class="nav-link {{request()->is('admin/user_dokter*') || request()->is('admin/jadwal_dokters*')
+                             ? ' active' : ''}}">
                                 <i class="nav-icon fas fa-user-md "></i>
                                 <p>
                                     Dokter
@@ -160,16 +169,26 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="{{ route('user_pasien.index') }}" class="nav-link">
+                        <li class="nav-item ">
+                            <a href="{{ route('user_pasien.index') }}" class="nav-link {{request()->is('admin/user_pasien*') ? ' active' : ''}}">
                                 <i class="nav-icon fas fa-hospital-user"></i>
                                 <p>
                                     Pasien
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="{{ route('spesialis.index') }}" class="nav-link">
+
+                        <li class="nav-item ">
+                            <a href="{{ route('user_pasien.index') }}" class="nav-link {{request()->is('admin/transaksi*') ? ' active' : ''}}">
+                                <i class="nav-icon fas fa-money-bill"></i>
+                                <p>
+                                    Transaksi
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a href="{{ route('spesialis.index') }}" class="nav-link {{request()->is('admin/spesialis*') ? ' active' : ''}}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Spesialis
@@ -191,7 +210,7 @@
 
         <!-- Main Footer -->
         {{-- <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+        <strong>Copyright &copy; 2014-2021 <a href="https:/adminlte.io">AdminLTE.io</a>.</strong>
         All rights reserved.
         <div class="float-right d-none d-sm-inline-block">
           <b>Version</b> 3.2.0

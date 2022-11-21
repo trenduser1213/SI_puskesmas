@@ -47,7 +47,18 @@ class UserSeeder extends Seeder
         ]); 
 
         $paseinarray['user_id'] = $pasien->id;
-        $paseinarray['role_id'] = 1;
+        $paseinarray['role_id'] = 3;
+        $userRole = UserRole::create($paseinarray);
+
+        $pasien = User::create([            
+            'username' => 'apoteker',
+            'nama' => 'apoteker',
+            'email' => 'apoteker',
+            'password' => bcrypt('apoteker'),                        
+        ]); 
+
+        $paseinarray['user_id'] = $pasien->id;
+        $paseinarray['role_id'] = 4;
         $userRole = UserRole::create($paseinarray);
 
     }
