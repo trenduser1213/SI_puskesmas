@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KategoriObat;
+use App\Models\UserRole;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\KategoriObatRequest;
 use App\Http\Requests\KategoriObatUpdateRequest;
 
@@ -16,6 +18,14 @@ class KategoriObatController extends Controller
      */
     public function index()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $kategori_obat = KategoriObat::all();
         return view('pages.kategori_obat.index', compact('kategori_obat'));
     }
@@ -27,6 +37,14 @@ class KategoriObatController extends Controller
      */
     public function create()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         return view('pages.kategori_obat.create');
     }
 
@@ -65,6 +83,14 @@ class KategoriObatController extends Controller
      */
     public function edit($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $kategori_obat = KategoriObat::findOrFail($id);
         return view('pages.kategori_obat.update', compact('kategori_obat'));
     }

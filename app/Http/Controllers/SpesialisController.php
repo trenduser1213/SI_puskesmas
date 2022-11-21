@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Spesialis;
+use App\Models\UserRole;
 use App\Http\Requests\SpesialisRequest;
 use App\Http\Requests\SpesialisUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class SpesialisController extends Controller
 {
@@ -16,6 +18,14 @@ class SpesialisController extends Controller
      */
     public function index()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $spesialis = Spesialis::all();
         return view('pages.spesialis.index', compact('spesialis'));
     }
@@ -27,6 +37,14 @@ class SpesialisController extends Controller
      */
     public function create()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         return view('pages.spesialis.create');
     }
 
@@ -65,6 +83,14 @@ class SpesialisController extends Controller
      */
     public function edit($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }
         $spesialis = Spesialis::findOrFail($id);
         return view('pages.spesialis.update', compact('spesialis'));
     }

@@ -22,12 +22,21 @@ class PasienHomeController extends Controller
     {
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
-        $data['role'] = $userRole->roles->nama;
-        $data['obat'] = Obat::count();
-        $data['dokter'] = UserSpesialis::count();
-        $data['pasien'] = UserRole::where('role_id', 3)->count();
-        $data['spesialis'] = Spesialis::count();
-        return view('pages.dashboard.pasien_dashboard', $data);
+        $cek = $userRole->roles->nama;
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "apoteker") {
+            // # code...
+        }else{
+            $userId = Auth::user()->id;
+            $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+            $data['role'] = $userRole->roles->nama;
+            $data['obat'] = Obat::count();
+            $data['dokter'] = UserSpesialis::count();
+            $data['pasien'] = UserRole::where('role_id', 3)->count();
+            $data['spesialis'] = Spesialis::count();
+            return view('pages.dashboard.pasien_dashboard', $data);
+        }
     }
 
     /**
