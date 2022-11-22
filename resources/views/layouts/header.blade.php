@@ -179,7 +179,7 @@
                         </li>
 
                         <li class="nav-item ">
-                            <a href="{{ route('user_pasien.index') }}" class="nav-link {{request()->is('admin/transaksi*') ? ' active' : ''}}">
+                            <a href="{{ route('transaksi.index') }}" class="nav-link {{request()->is('admin/transaksi*') ? ' active' : ''}}">
                                 <i class="nav-icon fas fa-money-bill"></i>
                                 <p>
                                     Transaksi

@@ -26,4 +26,10 @@ class Rekamedis extends Model
     {
         return $this->belongsTo(User::class, 'dokter_id');
     }
+
+    public function transaksi()
+    {
+        return $this->hasOne(Transaksi::class, 'rekammedis_id');
+    }
+
 }
