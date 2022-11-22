@@ -116,7 +116,7 @@
                                                         Jam Periksa : {{$jadwal->waktu_mulai}} - {{$jadwal->waktu_selesai}}<br>
                                                         Ruangan : {{$jadwal->ruangan}}
                                                     </div>
-                                                    <center><img src="{{$qrcode}}" width="210" height="auto"></center>
+                                                    <center><span>{{$qrcode}}</span></center>
                                                     Harap menunjukan email ini ketika datang periksa! Jangan lupa memakai masker!
                                                 </div>
                                             </div>

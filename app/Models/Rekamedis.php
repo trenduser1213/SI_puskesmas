@@ -43,4 +43,6 @@ class Rekamedis extends Model
     {
         return $this->hasMany(RujukanLab::class, 'rekamedis_id');
     }
+
+    
 }
