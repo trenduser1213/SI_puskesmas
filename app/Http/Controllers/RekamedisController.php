@@ -58,13 +58,20 @@ class RekamedisController extends Controller
     {
         try {
             $rekamedis = null;
-            if ($request->has(['kode', 'tanggal_resep'])){
+            if ($request->filled(['kode', 'tanggal_resep'])) {
+                // Add new Resep Obat in Rekam Medis page
                 $resepObat = new ResepObat();
                 $resepObat->kode = $request->kode;
                 $resepObat->tanggal_resep = $request->tanggal_resep;
                 $resepObat->save();
-                $request->request->add(['resep_obat_id' => $resepObat->id]);
-                $rekamedis = Rekamedis::create($request->except(['kode', 'tanggal_resep']));
+
+                if ($request->filled(['tanggal_pendaftaran'])) {    // If Resep Obat added in create page
+                    $request->request->add(['resep_obat_id' => $resepObat->id]);
+                    $rekamedis = Rekamedis::create($request->except(['kode', 'tanggal_resep']));
+                } elseif ($request->has(['rekam_medis_id'])) {  // If Resep Obat added in edit page
+                    $rekamedis = Rekamedis::findOrFail($request->rekam_medis_id);
+                    $rekamedis->update(['resep_obat_id' => $resepObat->id]);
+                }
             } else {
                 $rekamedis = Rekamedis::create($request->all());
             }
