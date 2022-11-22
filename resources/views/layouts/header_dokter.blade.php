@@ -157,6 +157,7 @@
         <!-- /.sidebar -->
       </aside>
       @yield('content')
+      @yield('scripts')
       <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
       </aside>

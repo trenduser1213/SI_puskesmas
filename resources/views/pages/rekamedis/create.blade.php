@@ -96,10 +96,7 @@
                 </div>
             </div>
         </div>
-{{--    </form>--}}
 
-{{--    <form role="form" action="{{ route('resep_obat.store') }}" method="POST" id="formResepObat">--}}
-{{--        @csrf--}}
         <div class="container-fluid" id="resepObatForm" style="display: none;">
             <div class="card">
                 <div class="card-header">
@@ -116,10 +113,6 @@
                             <input name="tanggal_resep" type="date" class="form-control" id="resepObat" placeholder="Nama resep">
                         </div>
                     </div>
-{{--                    <div class="card-footer">--}}
-{{--                        <button type="submit" class="btn btn-primary">Simpan</button>--}}
-{{--                        <a href="{{ route('resep_obat.index') }}"><button id="buttonCancel" type="button" class="btn btn-default">Batal</button></a>--}}
-{{--                    </div>--}}
                 </div>
             </div>
         </div>
