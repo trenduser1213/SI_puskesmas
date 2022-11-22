@@ -43,10 +43,9 @@ Route::group(['middleware' => ['auth'], "prefix" => "/admin"], function () {
     Route::resource('rujukan', App\Http\Controllers\rujukanController::class);
     Route::resource('transaksi', App\Http\Controllers\TransaksiController::class);
     
+    Route::get('/transaksi/{transaksi}', [App\Http\Controllers\TransaksiController::class,'createTransaksi'])->name('transaksi.createTransaksi');
     Route::get('listrekammedis', [App\Http\Controllers\TransaksiController::class,'listrekammedis'])->name('transaksi.listrekammedis');
-
-
-
+    
 });
 
 Route::group(['middleware' => ['auth'], "prefix" => "/pasien"], function(){

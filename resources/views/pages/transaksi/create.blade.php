@@ -29,6 +29,9 @@
         <div class="row">
             <div class="col">
                 <div class="card">
+                    <div class="card-header">
+                        <h4>List Resep Obat : </h4>
+                    </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
@@ -37,13 +40,27 @@
                                     <th>Kategori Obat</th>
                                     <th>Jumlah Obat</th>
                                     <th>Keterangan Obat</th>
-                                    <th>Harga Obat</th>
+                                    <th>Harga Obat (Rp.)</th>
+                                    <th>Subtotal (Rp.)</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($resepObat as $item)
                                 <tr>
+                                    <td>{{$item->obat->nama}}</td>
+                                    <td>{{$item->obat->kategori_obat->nama}}</td>
+                                    <td>{{$item->jumlah_obat}}</td>
+                                    <td>{{$item->keterangan_obat}}</td>
+                                    <td> {{ number_format($item->obat->harga, 0, ',', '.') }}</td>
+                                    <td>{{ number_format((int)$item->obat->harga * (int)$item->jumlah_obat, 0, ',', '.') }} </td>
 
                                 </tr>
+                                @endforeach
+                                <tr>
+                                    <th colspan="5" class="text-left">Total (Rp.)</th>
+                                    <td colspan="1">{{ number_format($total, 0, ',', '.') }}</td>
+                                </tr>
+                               
         
                             </tbody>
                         </table>
@@ -52,6 +69,9 @@
             </div>
             <div class="col">
                 <div class="card">
+                    <div class="card-header">
+                        <h4>Form Transaksi : </h4>
+                    </div>
                     <div class="card-body">
                         <form role="form" action="{{route('transaksi.store')}}" method="POST">
                             @csrf
@@ -59,7 +79,7 @@
                                 <div class="form-group">
                                     <label for="Kode">No Registrasi</label>
                                     <input name="no_regis" type="text" class="form-control" id="kode"
-                                        placeholder="Kode Spesialis">
+                                        placeholder="No Registrasi">
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Tanggal Periksa</label>
@@ -74,22 +94,22 @@
                                 <div class="form-group">
                                     <label for="nama">Total</label>
                                     <input name="total" type="text" class="form-control" id="total"
-                                        placeholder="Total Biaya">
+                                        value="{{number_format($total, 0, ',', '.')}}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Jasa Dokter</label>
-                                    <input name="jasa_dokter" type="text" class="form-control" id="nama"
-                                        placeholder="Jasa Dokter">
+                                    <input name="jasa_dokter" type="number" class="form-control" id="jasadokter"
+                                        placeholder="Jasa Dokter" value="0">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="nama">Grand Total</label>
                                     <input name="grandtotal" type="text" class="form-control" id="grandtotal"
-                                        placeholder="Grand Total">
+                                        placeholder="Grand Total"  readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Jumlah Bayar</label>
-                                    <input name="junlah_bayar" type="text" class="form-control" id="jumlahbayar"
+                                    <input name="jumlah_bayar" type="text" class="form-control" id="jumlahbayar"
                                         placeholder="Jumlah Bayar">
                                 </div>
                                 <div class="form-group">
@@ -114,4 +134,24 @@
 
     <!-- /.content-header -->
 </div>
+@endsection
+
+@section('scripts')
+<script>
+
+     $(document).ready(function() {
+
+        $("#jasadokter").change(function(params){
+             jasadokter = $('#jasadokter').val();
+
+             total = {{$total}} + parseInt(jasadokter);
+             $('#grandtotal').val(total);
+        });
+        
+        
+     });
+
+   
+
+</script>
 @endsection

@@ -14,7 +14,7 @@ class CreateRekamedisTable extends Migration
     public function up()
     {
         Schema::create('rekamedis', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->date("tanggal_pendaftaran");
             $table->string("diagnosa");
             $table->string("tindakan");

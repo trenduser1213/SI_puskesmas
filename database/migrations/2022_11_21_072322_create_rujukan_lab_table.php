@@ -19,12 +19,13 @@ class CreateRujukanLabTable extends Migration
             $table->string("jenis_pemeriksaan");
             $table->integer('pasien_id')->unsigned();
             $table->integer('tempat_rujukan_id')->unsigned();
+            $table->integer('rekamedis_id')->unsigned();
             $table->integer('dokter_id')->unsigned();
-            $table->foreignId('rekamedis_id')->constrained('rekamedis')->cascadeOnDelete();
             $table->date("tglberkunjung")->nullable();
             $table->foreign('tempat_rujukan_id')->references('id')->on('tempat_rujukan')->onDelete('cascade');
             $table->foreign('pasien_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('dokter_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('rekamedis_id')->references('id')->on('rekamedis')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -170,7 +170,7 @@
                             </ul>
                         </li>
                         <li class="nav-item ">
-                            <a href="{{ route('user_pasien.index') }}" class="nav-link {{request()->is('admin/user_pasien*') ? ' active' : ''}}">
+                            <a href="{{ route('user_pasien.index') }}" class="nav-link {{ request()->is('admin/user_pasien*') ? ' active' : ''}}">
                                 <i class="nav-icon fas fa-hospital-user"></i>
                                 <p>
                                     Pasien
@@ -179,7 +179,7 @@
                         </li>
 
                         <li class="nav-item ">
-                            <a href="{{ route('transaksi.index') }}" class="nav-link {{request()->is('admin/transaksi*') ? ' active' : ''}}">
+                            <a href="{{ route('transaksi.index') }}" class="nav-link {{ request()->is('admin/transaksi*') || request()->is('admin/listrekammedis*') ? ' active' : ''}}">
                                 <i class="nav-icon fas fa-money-bill"></i>
                                 <p>
                                     Transaksi
@@ -202,7 +202,7 @@
             <!-- /.sidebar -->
         </aside>
         @yield('content')
-        @yield('scripts')
+       
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
@@ -234,8 +234,9 @@
     <script src="{{ asset('dist/Chart.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('dist/demo.js') }}"></script>
+
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('dist/dashboard3.js') }}"></script>
+    {{-- <script src="{{ asset('dist/dashboard3.js') }}"></script> --}}
 
     <!-- fullCalendar 2.2.5 -->
     <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
@@ -269,6 +270,8 @@
 
         calendar.render();
     </script>
+
+    @yield('scripts')
 </body>
 
 </html>

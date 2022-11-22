@@ -18,6 +18,7 @@ class CreateTransaksiTable extends Migration
             $table->string("no_regis");
             $table->integer('resep_id')->unsigned();
             $table->integer('pasien_id')->unsigned();
+            $table->integer('rekammedis_id')->unsigned();
             $table->date('tanggal_periksa');
             $table->date("tanggal_bayar");
             $table->double("jasa_dokter");
@@ -25,7 +26,6 @@ class CreateTransaksiTable extends Migration
             $table->string("nomor_antrian");
             $table->foreign('resep_id')->references('id')->on('pelayanan_obat')->onDelete('cascade');
             $table->foreign('pasien_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('rekammedis_id')->unsigned();
             $table->foreign('rekammedis_id')->references('id')->on('rekamedis')->onDelete('cascade');
             $table->string('stasus');
             $table->timestamps();
