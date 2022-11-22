@@ -21,7 +21,7 @@ class HomeController extends Controller
         $this->middleware('auth'); 
     }
 
-    
+  
     public function index()
     {
         // $status=$this->cekRoleAdmin(Auth::user()->id);

@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('nama');
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
-            $table->string('jenis_kelamin');
+            $table->string('jenis_kelamin')->nullable();
             $table->string('alamat_rumah')->nullable();
             $table->string('nomor_telepon')->nullable();
             $table->string('pekerjaan')->nullable();

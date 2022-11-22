@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRujukanLabTable extends Migration
+class CreateRekamedisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateRujukanLabTable extends Migration
      */
     public function up()
     {
-        Schema::create('rujukan', function (Blueprint $table) {
+        Schema::create('rekamedis', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("kode");
-            $table->string("jenis_pemeriksaan");
+            $table->date("tanggal_pendaftaran");
+            $table->string("diagnosa");
+            $table->string("tindakan");
             $table->integer('pasien_id')->unsigned();
-            $table->integer('tempat_rujukan_id')->unsigned();
             $table->integer('dokter_id')->unsigned();
-            $table->integer('rekamedis_id')->unsigned();
-            $table->foreign('rekamedis_id')->references('id')->on('rekamedis')->onDelete('cascade');
-            $table->foreign('tempat_rujukan_id')->references('id')->on('tempat_rujukan')->onDelete('cascade');
+            $table->enum("suratketerangan", ['ya', 'tidak']);
+            $table->foreignId('resep_obat_id')->nullable()->constrained('resep_obats')->cascadeOnDelete();
             $table->foreign('pasien_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('dokter_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
@@ -36,6 +35,6 @@ class CreateRujukanLabTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rujukan_lab');
+        Schema::dropIfExists('rekamedis');
     }
 }

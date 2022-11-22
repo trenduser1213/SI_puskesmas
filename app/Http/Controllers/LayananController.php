@@ -21,7 +21,7 @@ class LayananController extends Controller
 
     public function index()
     {
-        //
+        
     }
 
     public function berobat()
@@ -44,6 +44,7 @@ class LayananController extends Controller
         return view('pages.pasien.berobat',$data);
     }
 
+    // fungsi untuk pendaftaran pasien
     public function pasien_mendaftar($id)
     {
         $userId = Auth::user()->id;
@@ -76,8 +77,10 @@ class LayananController extends Controller
             'qrcode' => $qrcode
         ];
 
+        // fungsi untuk print pdf
         $pdf = FacadePdf::loadView('nomor_antrian_pdf',$data)->setPaper('a4', 'portrait');
 
+        // fungsi untuk mengirimkan email
         Mail::to($mailTo)->send(new KirimNomorAntrianEmail($nomor_antrian, $jadwal, $qrcode, $nama));
         $pdf->set_option('setRemoteEnabled',TRUE);
 

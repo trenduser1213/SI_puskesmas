@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRekamedisTable extends Migration
+class CreateRujukanLabTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,19 @@ class CreateRekamedisTable extends Migration
      */
     public function up()
     {
-        Schema::create('rekamedis', function (Blueprint $table) {
+        Schema::create('rujukan', function (Blueprint $table) {
             $table->increments('id');
-            $table->date("tanggal_pendaftaran");
-            $table->string("diagnosa");
-            $table->string("tindakan");
+            $table->string("kode");
+            $table->string("jenis_pemeriksaan");
             $table->integer('pasien_id')->unsigned();
+            $table->integer('tempat_rujukan_id')->unsigned();
+            $table->integer('rekamedis_id')->unsigned();
             $table->integer('dokter_id')->unsigned();
+            $table->date("tglberkunjung")->nullable();
+            $table->foreign('tempat_rujukan_id')->references('id')->on('tempat_rujukan')->onDelete('cascade');
             $table->foreign('pasien_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('dokter_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('rekamedis_id')->references('id')->on('rekamedis')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +37,6 @@ class CreateRekamedisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rekamedis');
+        Schema::dropIfExists('rujukan');
     }
 }
