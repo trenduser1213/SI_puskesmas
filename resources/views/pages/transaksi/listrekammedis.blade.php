@@ -35,28 +35,29 @@
                             <th>Tanggal Pendaftaran</th>
                             <th>Nama Pasien</th>
                             <th>Nama Dokter</th>
-                            <th>Tanggal Bayar</th>
+                            <th>Diagnosa</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $no=1;
+                        @endphp
                         @foreach ($rekammedis as $item)
                         <tr>
-                            <td>{{$item->kode}}</td>
-                            <td>{{$item->nama}}</td>
+                            <td>{{$no++}}</td>
+                            <td>{{\Carbon\Carbon::parse($item->tanggal_pendaftaran)->format('d F Y')}}</td>
+                            <td>{{$item->pasien->nama}}</td>
+                            <td>{{$item->dokter->nama}}</td>
+                            <td>{{$item->diagnosa}}</td>
                             <td>
-                                <a href="{{route('spesialis.edit', $item->id)}}">
-                                    <button type="button" class="btn btn-warning">Update</button>
+                                <a href="{{ route('transaksi.createTransaksi', ['transaksi'=>$item->id]) }}">
+                                    <button type="button" class="btn btn-info btn-rounded"><i class="fas fa-check-circle"></i> Detail</button>
                                 </a>
-                                <form style="margin-top: 5px;display:inline-block;" action="{{route('spesialis.destroy', $item->id)}}"
-                                    method="POST">
-                                    @csrf
-                                    @method("DELETE")
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
                             </td>
                         </tr>
                         @endforeach
+                       
 
                     </tbody>
                 </table>
