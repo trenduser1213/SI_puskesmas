@@ -18,7 +18,7 @@ class CreateResepObatDetailsTable extends Migration
             $table->string("keterangan_obat");
             $table->string("jumlah_obat");
             $table->foreignId("id_obat");
-            $table->foreignId("id_resep_obat");
+            $table->foreignId("id_resep_obat")->nullable()->constrained('resep_obats')->cascadeOnDelete();
             $table->timestamps();
         });
     }

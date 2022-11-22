@@ -16,7 +16,8 @@ class RujukanLab extends Model
         'pasien_id',
         'dokter_id',
         'tempat_rujukan_id',
-        'rekamedis',
+        'rekamedis_id',
+        'tglberkunjung',
     ];
 
     public function pasien()
@@ -27,6 +28,11 @@ class RujukanLab extends Model
     public function dokter()
     {
         return $this->belongsTo(User::class, 'dokter_id');
+    }
+
+    public function dokterspesialis()
+    {
+        return $this->belongsTo(UserSpesialis::class, 'dokter_id', 'user_id');
     }
 
     public function tempatRujukan()

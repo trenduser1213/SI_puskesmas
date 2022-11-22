@@ -41,6 +41,12 @@ Route::group(['middleware' => ['auth'], "prefix" => "/admin"], function () {
     Route::delete('delete_jadwal_dokter/{id}', [App\Http\Controllers\DokterHomeController::class, 'delete_jadwal_dokter' ])->name('delete_jadwal_dokter');
     Route::get('/update-status-pendaftaran/{id}', [App\Http\Controllers\LayananController::class, 'update_status_pendaftaran' ]);
     Route::resource('rujukan', App\Http\Controllers\rujukanController::class);
+    Route::resource('transaksi', App\Http\Controllers\TransaksiController::class);
+    
+    Route::get('listrekammedis', [App\Http\Controllers\TransaksiController::class,'listrekammedis'])->name('transaksi.listrekammedis');
+
+
+
 });
 
 Route::group(['middleware' => ['auth'], "prefix" => "/pasien"], function(){

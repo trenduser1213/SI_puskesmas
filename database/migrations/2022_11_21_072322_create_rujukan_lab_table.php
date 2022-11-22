@@ -17,9 +17,11 @@ class CreateRujukanLabTable extends Migration
             $table->increments('id');
             $table->integer("kode");
             $table->string("jenis_pemeriksaan");
-            $table->integer('rekamedis_id')->unsigned();
-            $table->foreign('rekamedis_id')->references('id')->on('rekamedis')->onDelete('cascade');
+            $table->integer('pasien_id')->unsigned();
             $table->integer('tempat_rujukan_id')->unsigned();
+            $table->integer('dokter_id')->unsigned();
+            $table->foreignId('rekamedis_id')->constrained('rekamedis')->cascadeOnDelete();
+            $table->date("tglberkunjung")->nullable();
             $table->foreign('tempat_rujukan_id')->references('id')->on('tempat_rujukan')->onDelete('cascade');
             $table->dateTime('tglrujukandibuat',$precision=0);
             $table->dateTime('tglberkunjung',$precision=0);
@@ -39,6 +41,6 @@ class CreateRujukanLabTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rujukan_lab');
+        Schema::dropIfExists('rujukan');
     }
 }

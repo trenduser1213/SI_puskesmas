@@ -14,12 +14,14 @@ class CreateRekamedisTable extends Migration
     public function up()
     {
         Schema::create('rekamedis', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->date("tanggal_pendaftaran");
             $table->string("diagnosa");
             $table->string("tindakan");
             $table->integer('pasien_id')->unsigned();
             $table->integer('dokter_id')->unsigned();
+            $table->enum("suratketerangan", ['ya', 'tidak']);
+            $table->foreignId('resep_obat_id')->nullable()->constrained('resep_obats')->cascadeOnDelete();
             $table->foreign('pasien_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('dokter_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
