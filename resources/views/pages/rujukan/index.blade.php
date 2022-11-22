@@ -29,8 +29,7 @@
         <div class="card">
             <div class="row card-header">
                 <div class="col-sm-2 col-12">
-                    <a href="{{route('rujukan.create')}}"><button type="button" id="buttonTambahUserAdmin" class="btn btn-block btn-primary">Tambah
-                        Admin</button></a>
+                    <a href="{{route('rujukan.create')}}"><button type="button" id="buttonTambahUserAdmin" class="btn btn-block btn-primary">Tambah Rujukan</button></a>
                 </div>
             </div>
             <div class="card-body">

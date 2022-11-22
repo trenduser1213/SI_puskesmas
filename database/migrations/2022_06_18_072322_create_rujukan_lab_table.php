@@ -15,16 +15,19 @@ class CreateRujukanLabTable extends Migration
     {
         Schema::create('rujukan', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("kode");
+            $table->integer("kode");
             $table->string("jenis_pemeriksaan");
-            $table->integer('pasien_id')->unsigned();
-            $table->integer('tempat_rujukan_id')->unsigned();
-            $table->integer('dokter_id')->unsigned();
             $table->integer('rekamedis_id')->unsigned();
             $table->foreign('rekamedis_id')->references('id')->on('rekamedis')->onDelete('cascade');
+            $table->integer('tempat_rujukan_id')->unsigned();
             $table->foreign('tempat_rujukan_id')->references('id')->on('tempat_rujukan')->onDelete('cascade');
-            $table->foreign('pasien_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('dokter_id')->references('id')->on('users')->onDelete('cascade');
+            $table->dateTime('tglrujukandibuat',$precision=0);
+            $table->dateTime('tglberkunjung',$precision=0);
+            
+            // $table->integer('pasien_id')->unsigned();
+            // $table->integer('dokter_id')->unsigned();
+            // $table->foreign('pasien_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('dokter_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
