@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Obat;
+use App\Models\TempatRujukan;
 use App\Models\UserRole;
 use Illuminate\Support\Facades\Auth;
-use App\Models\KategoriObat;
-use App\Http\Requests\ObatRequest;
-use App\Http\Requests\ObatUpdateRequest;
+use App\Http\Requests\TempatRujukanRequest;
+use App\Http\Requests\TempatRujukanUpdateRequest;
 
-class ObatController extends Controller
+class TempatRujukanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,8 +27,9 @@ class ObatController extends Controller
             // # code...
         }
         
-        $obat = Obat::with(['kategori_obat'])->get();
-        return view('pages.obat.index', compact('obat'));
+        $tempat_rujukan = TempatRujukan::all();
+
+        return view('pages.tempat_rujukan.index', compact('tempat_rujukan'));
     }
 
     /**
@@ -47,8 +47,7 @@ class ObatController extends Controller
         }elseif ($cek == "apoteker") {
             // # code...
         }
-        $kategori_obat = KategoriObat::all();
-        return view('pages.obat.create', compact('kategori_obat'));
+        return view('pages.tempat_rujukan.create');
     }
 
     /**
@@ -57,11 +56,11 @@ class ObatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ObatRequest $request)
+    public function store(TempatRujukanRequest $request)
     {
         try {
-            Obat::create($request->all());
-            return redirect('/admin/obat')->with("success", "Tambah data berhasil");
+            TempatRujukan::create($request->all());
+            return redirect('admin/tempat_rujukan')->with("success", "Tambah data berhasil");
         } catch (\Exception $th) {
             return redirect()->back()->with('error', $th);
         }
@@ -94,9 +93,8 @@ class ObatController extends Controller
         }elseif ($cek == "apoteker") {
             // # code...
         }
-        $obat = Obat::with(['kategori_obat'])->findOrFail($id);
-        $kategori_obat = KategoriObat::all();
-        return view('pages.obat.update', compact('obat', 'kategori_obat'));
+        $tempat_rujukan = TempatRujukan::findOrFail($id);
+        return view('pages.tempat_rujukan.update', compact('tempat_rujukan'));
     }
 
     /**
@@ -106,12 +104,12 @@ class ObatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ObatUpdateRequest $request, $id)
+    public function update(TempatRujukanUpdateRequest $request, $id)
     {
         $req = $request->except('_method', '_token', 'submit');
         try {
-            Obat::findOrFail($id)->update($request->all());
-            return redirect()->route('obat.index')->with("success", "Update data berhasil");
+            TempatRujukan::findOrFail($id)->update($request->all());
+            return redirect()->route('tempat_rujukan.index')->with("success", "Update data berhasil");
         } catch (\Exception $e) {
             return redirect()->back()->with("error", "Update gagal");
         }
@@ -125,8 +123,8 @@ class ObatController extends Controller
      */
     public function destroy($id)
     {
-        $obat = Obat::findOrFail($id);
-        $obat->delete();
+        $tempat_rujukan = TempatRujukan::findOrFail($id);
+        $tempat_rujukan->delete();
         return redirect()->back()->with("success", "Hapus data berhasil");
     }
 }

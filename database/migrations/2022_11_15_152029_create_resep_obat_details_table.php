@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePembelianObatSuppliersTable extends Migration
+class CreateResepObatDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreatePembelianObatSuppliersTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembelian_obat_suppliers', function (Blueprint $table) {
+        Schema::create('resep_obat_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('obat_id');
-            $table->date('tanggalproduksi');
-            $table->date('tanggalkadaluarsa');
-            $table->integer('stok');
-            $table->integer('sisa_obat');
+            $table->string("keterangan_obat");
+            $table->string("jumlah_obat");
+            $table->foreignId("id_obat");
+            $table->foreignId("id_resep_obat")->nullable()->constrained('resep_obats')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreatePembelianObatSuppliersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembelian_obat_suppliers');
+        Schema::dropIfExists('resep_obat_details');
     }
 }

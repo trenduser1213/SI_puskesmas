@@ -10,14 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        DB::table('roles')->delete();
         DB::table('roles')->insert([
                 'nama' => "admin",
                 'created_at' => Carbon::now(),
@@ -30,6 +24,12 @@ class RoleSeeder extends Seeder
         ]);
         DB::table('roles')->insert([
             'nama' => "pasien",
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('roles')->insert([
+            'nama' => "apoteker",
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
