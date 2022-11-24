@@ -26,7 +26,7 @@ class rujukanController extends Controller
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
         }
-        $data = RujukanLab::with(['pasien'],['dokter'],['tempatRujukan'])->get();
+        $data = RujukanLab::with(['tempatRujukan'])->get();
         // dd($data);
         return view('pages.rujukan.index')->with('data',$data);
     }
@@ -112,7 +112,7 @@ class rujukanController extends Controller
         }
         $rekamedis  = Rekamedis::all();
         $tempat     = TempatRujukan::all();
-        $val        = RujukanLab::with(['rekamedis'],['tempatRujukan'])->find($id)->first();
+        $val        = RujukanLab::with(['pasien'],['dokter'],['tempatRujukan'])->find($id)->first();
 
         // dd($rekamedis);
         $data = [
