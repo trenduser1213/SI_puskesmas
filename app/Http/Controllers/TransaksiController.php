@@ -86,6 +86,7 @@ class TransaksiController extends Controller
 
                 // kruangi produk di master
         }
+        return redirect()->route('transaksi.index')->with('success','Data Berhasil Ditambahkan');
 
        
     }
