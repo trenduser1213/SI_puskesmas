@@ -53,9 +53,11 @@ Route::group(['middleware' => ['auth'], "prefix" => "/pasien"], function(){
     Route::get('/dashboard', [App\Http\Controllers\PasienHomeController::class, 'index'])->name('pasien_home');
     Route::get('/berobat', [App\Http\Controllers\LayananController::class, 'berobat'])->name('berobat');
     Route::get('/pasien_mendaftar/{id}', [App\Http\Controllers\LayananController::class, 'pasien_mendaftar'])->name('pasien_mendaftar');
+    
 });
 
 Route::group(['middleware' => ['auth'], "prefix" => "/dokter"], function(){
     Route::get('/dashboard', [App\Http\Controllers\DokterHomeController::class, 'index'])->name('dokter_home');
     Route::resource('rekamedis', App\Http\Controllers\RekamedisController::class);
+    Route::resource('dokterrujukan', App\Http\Controllers\dokterRujukanController::class);
 });

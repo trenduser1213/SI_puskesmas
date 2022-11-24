@@ -23,8 +23,8 @@ class KategoriObatController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $kategori_obat = KategoriObat::all();
         return view('pages.kategori_obat.index', compact('kategori_obat'));
@@ -42,8 +42,8 @@ class KategoriObatController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         return view('pages.kategori_obat.create');
     }
@@ -88,8 +88,8 @@ class KategoriObatController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $kategori_obat = KategoriObat::findOrFail($id);
         return view('pages.kategori_obat.update', compact('kategori_obat'));

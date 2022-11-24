@@ -25,8 +25,8 @@ class PasienHomeController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "admin") {
             return redirect()->route('home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }else{
             $userId = Auth::user()->id;
             $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();

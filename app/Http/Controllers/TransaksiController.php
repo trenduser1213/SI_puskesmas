@@ -10,14 +10,23 @@ use App\Models\TransaksiDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\PDF;
-
+use App\Models\UserRole;
+use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
 {
     
     public function index()
     {
-        $transaksi = Transaksi::with('pasien')->get();
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
+        $transaksi = Transaksi::get();
 
         return view('pages.transaksi.index',compact('transaksi'));
     }
@@ -25,6 +34,14 @@ class TransaksiController extends Controller
 
     public function createTransaksi($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
         $total = 0;
 
         // get rekamedis
@@ -159,6 +176,14 @@ class TransaksiController extends Controller
 
     public function listRekamMedis()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
         $rekammedis = Rekamedis::with(['pasien','dokter'])->doesntHave('transaksi')->get();
         
 

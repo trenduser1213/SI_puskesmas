@@ -6,11 +6,11 @@ use App\Mail\KirimNomorAntrianEmail;
 use Illuminate\Http\Request;
 use App\Models\JadwalDokter;
 use App\Models\UserSpesialis;
-use App\Models\UserRole;
 use App\Models\Obat;
 use App\Models\Spesialis;
 use App\Models\PendaftaranPasien;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use App\Models\UserRole;
 use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Mail;
@@ -31,8 +31,8 @@ class LayananController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "admin") {
             return redirect()->route('home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $data['jadwalSenin'] = JadwalDokter::with(['users'])->where('hari', 'senin')->get();
         $data['jadwalSelasa'] = JadwalDokter::with(['users'])->where('hari', 'selasa')->get();
@@ -52,8 +52,8 @@ class LayananController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "admin") {
             return redirect()->route('home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $userId = Auth::user()->id;
         $jadwal = JadwalDokter::with(['users'])->where('id', $id)->first();
@@ -91,6 +91,14 @@ class LayananController extends Controller
 
     public function update_status_pendaftaran($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
         $pendaftaran = PendaftaranPasien::where('id', $id)->update(['status' => 'sudah dilayani']);
         $data['obat'] = Obat::count();
         $data['dokter'] = UserSpesialis::count();

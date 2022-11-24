@@ -27,8 +27,8 @@ class DokterController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $role = Roles::where('nama', 'dokter')->first();
         $spesialis = Spesialis::all();
@@ -104,8 +104,8 @@ class DokterController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $spesialis = Spesialis::all();
         $dokter = UserSpesialis::with(['users', 'user_spesialis'])->findOrFail($id);

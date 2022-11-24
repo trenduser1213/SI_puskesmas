@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use App\Models\Rekamedis;
 use App\Models\UserRole;
 use App\Models\Roles;
+use App\Models\TempatRujukan;
+use Illuminate\Support\Facades\Auth;
+// use App\Models\UserRole;
 
 class RekamedisController extends Controller
 {
@@ -23,6 +26,14 @@ class RekamedisController extends Controller
      */
     public function index()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }
         $rekamedis = Rekamedis::with([
             'pasien',
             'dokter',
@@ -30,7 +41,9 @@ class RekamedisController extends Controller
             'rujukans.tempatRujukan',
             'rujukans.dokterspesialis.user_spesialis'
         ])->get();
-        return view('pages.rekamedis.index', compact('rekamedis'));
+        $tempat = TempatRujukan::all();
+        // dd($rekamedis->rujukans->last()->dokterspesialis->user_spesialis->nama);
+        return view('pages.rekamedis.index', compact('rekamedis', 'tempat'));
     }
 
     /**
@@ -40,6 +53,14 @@ class RekamedisController extends Controller
      */
     public function create()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }
         $roleDokter = Roles::where('nama', 'dokter')->first();
         $rolePasien = Roles::where('nama', 'pasien')->first();
         $dokter = UserRole::with(['users', 'roles'])->where('role_id', $roleDokter->id)->get();
@@ -100,6 +121,14 @@ class RekamedisController extends Controller
      */
     public function edit($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }
         $rekamedis = Rekamedis::with([
             'pasien',
             'dokter',
@@ -110,7 +139,8 @@ class RekamedisController extends Controller
         $dokter = UserRole::with(['users', 'roles'])->where('role_id', $roleDokter->id)->get();
         $pasien = UserRole::with(['users', 'roles'])->where('role_id', $rolePasien->id)->get();
         $obats = Obat::all();
-        return view('pages.rekamedis.update', compact('rekamedis', 'dokter', 'pasien', 'obats'));
+        $tempat = TempatRujukan::all();
+        return view('pages.rekamedis.update', compact('rekamedis', 'dokter', 'pasien', 'obats', 'tempat'));
     }
 
     /**

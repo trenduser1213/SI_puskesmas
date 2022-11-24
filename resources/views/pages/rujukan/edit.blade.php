@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Tamabah Rujukan</h1>
+            <h1 class="m-0">Edit Rujukan</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -26,6 +26,34 @@
                         <strong>Error!</strong> {{ $message }}
                     </div>
                 @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="card">
+                    <div class="card-body row">
+                        <div class="col-6 row">
+                            <div class="col-4">Diagnosa</div>
+                            <div class="mr-2">:</div>
+                            <div class="">{{ $val->rekamedis->diagnosa }}</div>
+                        </div>
+                        <div class="col-6 row">
+                            <div class="col-4">Tindakan</div>
+                            <div class="mr-2">:</div>
+                            <div class="">{{ $val->rekamedis->tindakan }}</div>
+                        </div>
+                        <div class="col-6 row">
+                            <div class="col-4">Tindakan</div>
+                            <div class="mr-2">:</div>
+                            <div class="">{{ $val->rekamedis->pasien->nama }}</div>
+                        </div>
+                    </div>
+                </div>
         <div class="card">
             {{-- <div class="row card-header">
                 <div class="col-sm-2 col-12">
@@ -49,6 +77,11 @@
                             placeholder="Masukkan jenis pemeriksaan" required value="{{$val->jenis_pemeriksaan}}{{ old('jenis_pemeriksaan') }}">
                         </div>
                         <div class="form-group">
+                            <label for="tgl_berkunjung">jenis pemeriksaan</label>
+                            <input name="tgl_berkunjung" type="date" class="form-control" id="tgl_berkunjung"
+                            placeholder="Masukkan jenis pemeriksaan" required value="{{$val->tglberkunjung}}{{ old('jenis_pemeriksaan') }}">
+                        </div>
+                        {{-- <div class="form-group">
                             <label for="rekamedis">Rekamedis</label>
                             <select name="rekamedis" class="form-control">
                                 <option value="-" selected disabled>Pilih Rekamedis</option>
@@ -59,10 +92,8 @@
                                         <option value="{{ $rekamedis->id }}">{{ $rekamedis->pasien_id}} - {{ $rekamedis->tanggal_pendaftaran}}</option>
                                     @endif
                                 @endforeach
-                                {{-- <option value="P">Perempuan</option>
-                                <option value="L">Laki-laki</option> --}}
                             </select>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="tempat_rujukan_id">tempat rujukan</label>
                             <select name="tempat_rujukan_id" class="form-control">
@@ -73,8 +104,7 @@
                                     @else
                                         <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>       
                                     @endif
-                                @endforeach
-                                {{-- <option value="L">Laki-laki</option> --}}
+                                @endforeach 
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
