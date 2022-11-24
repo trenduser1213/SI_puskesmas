@@ -25,10 +25,10 @@ class DokterHomeController extends Controller
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
-        if ($cek == "pasien") {
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
         }
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
@@ -47,8 +47,8 @@ class DokterHomeController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $data['jadwalSenin'] = JadwalDokter::with(['users'])->where('hari', 'senin')->get();
         $data['jadwalSelasa'] = JadwalDokter::with(['users'])->where('hari', 'selasa')->get();
@@ -63,13 +63,13 @@ class DokterHomeController extends Controller
 
     public function form_jadwal_dokter()
     {
-        $userId = Auth::user()->id;
+        $$userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $role = Roles::where('nama', 'dokter')->first();
         $spesialis = Spesialis::all();

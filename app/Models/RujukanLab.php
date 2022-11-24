@@ -20,15 +20,20 @@ class RujukanLab extends Model
         'tglberkunjung',
     ];
 
-    public function pasien()
+    // public function pasien()
+    // {
+    //     return $this->belongsTo(User::class, 'pasien_id');
+    // }
+
+    // public function dokter()
+    // {
+    //     return $this->belongsTo(User::class, 'dokter_id');
+    // }
+    public function rekamedis()
     {
-        return $this->belongsTo(User::class, 'pasien_id');
+        return $this->belongsTo(Rekamedis::class, 'rekamedis_id');
     }
 
-    public function dokter()
-    {
-        return $this->belongsTo(User::class, 'dokter_id');
-    }
 
     public function dokterspesialis()
     {

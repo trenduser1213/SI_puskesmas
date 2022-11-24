@@ -6,6 +6,8 @@ use App\Models\PembelianObatSuppliers;
 use App\Models\Obat;
 use Illuminate\Http\Request;
 use App\Http\Requests\PembelianObatSuppliersRequest;
+use App\Models\UserRole;
+use Illuminate\Support\Facades\Auth;
 
 
 class PembelianObatSuppliersController extends Controller
@@ -20,7 +22,14 @@ class PembelianObatSuppliersController extends Controller
         // return view('pages.pembelian_obat_supplier.index', [
         //     'pembelian_obat_supplier' => PembelianObatSupplier::where('user_id', auth()->user()->id)->get()
         // ]);
-        
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
         $pembelian_obat_suppliers = PembelianObatSuppliers::with(['obat'])->get();
         // dd($pembelian_obat_suppliers);
         return view('pages.pembelian_obat_suppliers.index', compact('pembelian_obat_suppliers'));
@@ -34,6 +43,14 @@ class PembelianObatSuppliersController extends Controller
      */
     public function create()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
         $pembelian_obat_suppliers = PembelianObatSuppliers::all();
         $obat_id = Obat::all();
         return view('pages.pembelian_obat_suppliers.create', compact('pembelian_obat_suppliers', 'obat_id'));
@@ -75,6 +92,14 @@ class PembelianObatSuppliersController extends Controller
      */
     public function edit($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
         $pembelian_obat_suppliers = PembelianObatSuppliers::with(['obat'])->findOrFail($id);
         $obat_id = Obat::all();
         return view('pages.pembelian_obat_suppliers.update', compact('pembelian_obat_suppliers', 'obat_id'));

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\RujukanLab;
 use App\Models\Rekamedis;
 use App\Models\TempatRujukan;
+use App\Models\UserRole;
+use Illuminate\Support\Facades\Auth;
 
 class rujukanController extends Controller
 {
@@ -16,6 +18,14 @@ class rujukanController extends Controller
      */
     public function index()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
         $data = RujukanLab::with(['pasien'],['dokter'],['tempatRujukan'])->get();
         // dd($data);
         return view('pages.rujukan.index')->with('data',$data);
@@ -28,15 +38,23 @@ class rujukanController extends Controller
      */
     public function create()
     {
-        $rekamedis  = Rekamedis::all();
-        $tempat     = TempatRujukan::all();
-        // dd($rekamedis);
-        $data = [
-            'rekamedis' => $rekamedis,
-            'tempat'    => $tempat
-        ];
+        // $userId = Auth::user()->id;
+        // $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        // $cek = $userRole->roles->nama;
+        // if ($cek == "pasien") {
+        //     return redirect()->route('pasien_home');
+        // }elseif ($cek == "dokter") {
+        //     return redirect()->route('dokter_home');
+        // }
+        // $rekamedis  = Rekamedis::all();
+        // $tempat     = TempatRujukan::all();
+        // // dd($rekamedis);
+        // $data = [
+        //     'rekamedis' => $rekamedis,
+        //     'tempat'    => $tempat
+        // ];
 
-        return view('pages.rujukan.create',$data);
+        // return view('pages.rujukan.create',$data);
     }
 
     /**
@@ -47,25 +65,22 @@ class rujukanController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'kode'      => 'required',
-            'jenis_pemeriksaan' =>'required',
-            'rekamedis' => 'required',
-            'tempat_rujukan_id' => 'required',
-        ]);
-        $rekamedis = Rekamedis::with(['pasien'],['dokter'])->find($request->rekamedis)->first();
-        $idPasien = $rekamedis->pasien->id;
-        $idDokter = $rekamedis->dokter->id;
-        // dd($id);
-        $input = new RujukanLab();
-        $input->kode = $request->kode; 
-        $input->jenis_pemeriksaan = $request->jenis_pemeriksaan; 
-        $input->pasien_id = $idPasien; 
-        $input->tempat_rujukan_id = $request->tempat_rujukan_id; 
-        $input->dokter_id = $idDokter; 
-        $input->rekamedis_id = $request->rekamedis; 
-        $input->save();
-        return redirect()->back()->with("success", "Data berhasil ditambahkan");
+        // dd($request->all());
+        // $this->validate($request,[
+        //     'kode'      => 'required','integer',
+        //     'jenis_pemeriksaan' =>'required',
+        //     'rekamedis' => 'required',
+        //     'tgl_berkunjung' => 'required','date',
+        //     'tempat_rujukan_id' => 'required',
+        // ]);
+        // $input = new RujukanLab();
+        // $input->kode = $request->kode; 
+        // $input->jenis_pemeriksaan = $request->jenis_pemeriksaan; 
+        // $input->tempat_rujukan_id = $request->tempat_rujukan_id; 
+        // $input->tglberkunjung = $request->tgl_berkunjung;
+        // $input->rekamedis_id = $request->rekamedis; 
+        // $input->save();
+        // return redirect()->back()->with("success", "Rujukan Berhasil Ditambahkan");
     }
 
     /**
@@ -87,9 +102,17 @@ class rujukanController extends Controller
      */
     public function edit($id)
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
+        if ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
         $rekamedis  = Rekamedis::all();
         $tempat     = TempatRujukan::all();
-        $val        = RujukanLab::with(['pasien'],['dokter'],['tempatRujukan'])->find($id)->first();
+        $val        = RujukanLab::with(['rekamedis'],['tempatRujukan'])->find($id)->first();
 
         // dd($rekamedis);
         $data = [
@@ -117,12 +140,10 @@ class rujukanController extends Controller
         if ($request->jenis_pemeriksaan) {
             $input->jenis_pemeriksaan = $request->jenis_pemeriksaan;
         }
+        if ($request->tgl_berkunjung) {
+            $input->tglberkunjung = $request->tgl_berkunjung;
+        }
         if($request->rekamedis){
-            $rekamedis = Rekamedis::with(['pasien'],['dokter'])->find($request->rekamedis)->first();
-            $idPasien = $rekamedis->pasien->id;
-            $idDokter = $rekamedis->dokter->id;
-            $input->pasien_id = $idPasien;
-            $input->dokter_id = $idDokter; 
             $input->rekamedis_id = $request->rekamedis;
         }
         $input->update();

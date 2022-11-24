@@ -92,6 +92,153 @@
     </div>
     <div class="container">
         <div class="card">
+            <div class="card-header"><div class="pl-4">Rujukan</div></div>
+            <div class="card-body">
+                <div class="card-body">
+                    @if(!$rekamedis->rujukans->isEmpty())
+                        <div class="row">
+                            <div class="col-6 row">
+                                <div class="col-4">Kode Rujukan</div>
+                                <div class="mr-2">:</div>
+                                <div class="">{{ $rekamedis->rujukans->last()->kode }}</div>
+                            </div>
+                            <div class="col-6 row">
+                                <div class="col-4">Jenis Pemeriksaan</div>
+                                <div class="mr-2">:</div>
+                                <div class="">{{ $rekamedis->rujukans->last()->jenis_pemeriksaan }}</div>
+                            </div>
+                            <div class="col-6 row">
+                                <div class="col-4">Tempat Rujukan</div>
+                                <div class="mr-2">:</div>
+                                    <div class="">{{ $rekamedis->rujukans->last()->tempatrujukan->nama }}</div>
+                            </div>
+                            <div class="col-6 row">
+                                <div class="col-4">Tgl. Berkunjung</div>
+                                <div class="mr-2">:</div>
+                                <div class="">{{ date('d F Y', strtotime($rekamedis->rujukans->last()->tglberkunjung)) }}</div>
+                            </div>
+                        </div>
+                        <div class="pt-4">
+                            <div class="btn btn-primary" data-toggle="modal" data-target="#edit-rujuk{{$rekamedis->id}}">edit</div>
+                            <form style="margin-top: 5px;display:inline-block;" action="{{route('dokterrujukan.destroy', $rekamedis->rujukans->last()->id)}}"
+                                method="POST">
+                                @csrf
+                                @method("DELETE")
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                        <div class="modal fade" id="edit-rujuk{{$rekamedis->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Tambahkan Rujukan</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ route('dokterrujukan.update',$rekamedis->rujukans->last()->id) }}" method="POST">
+                                    @csrf
+                                    @method('put')
+                                    <div class="modal-body">
+                                        {{-- <div class="card-body"> --}}
+                                            {{-- {{ Form::hidden( 'rekamedis',$rekamedis->id,) }} --}}
+                                            <div class="form-group">
+                                                <label for="kode">kode</label>
+                                                <input name="kode" type="text" class="form-control" id="kode"
+                                                placeholder="Masukkan kode pasien" required value="{{ $rekamedis->rujukans->last()->kode }} {{ old('kode') }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jenis_pemeriksaan">jenis pemeriksaan</label>
+                                                <input name="jenis_pemeriksaan" type="text" class="form-control" id="jenis_pemeriksaan"
+                                                placeholder="Masukkan jenis pemeriksaan" required value="{{ $rekamedis->rujukans->last()->jenis_pemeriksaan }} {{ old('jenis_pemeriksaan') }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tgl_berkunjung">Tanggal Berkunjung</label>
+                                                <input name="tgl_berkunjung" type="date" class="form-control" id="tgl_berkunjung"
+                                                placeholder="Masukkan jenis pemeriksaan" required value="{{ $rekamedis->rujukans->last()->kode }}{{ old('tgl_berkunjung') }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tempat_rujukan_id">tempat rujukan</label>
+                                                <select name="tempat_rujukan_id" class="form-control">
+                                                    <option value="-" selected disabled>Pilih tempat rujukan</option>
+                                                    @foreach($tempat as $tempat_rujukan)
+                                                        @if($tempat_rujukan->id == $rekamedis->rujukans->last()->tempatrujukan->id)
+                                                        <option selected value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option> 
+                                                        @else
+                                                        <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>                                                            
+                                                        @endif
+                                                    @endforeach
+                                                    {{-- <option value="L">Laki-laki</option> --}}
+                                                </select>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="btn btn-primary" data-toggle="modal" data-target="#rujuk{{$rekamedis->id}}">Tambahkan Rujukan</div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="rujuk{{$rekamedis->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Tambahkan Rujukan</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form role="form" action="{{ route('dokterrujukan.store') }}" method="POST">
+                                    @csrf
+                                    @method('post')
+                                    <div class="modal-body">
+                                        {{-- <div class="card-body"> --}}
+                                            {{ Form::hidden( 'rekamedis',$rekamedis->id,) }}
+                                            <div class="form-group">
+                                                <label for="kode">kode</label>
+                                                <input name="kode" type="text" class="form-control" id="kode"
+                                                placeholder="Masukkan kode pasien" required value="{{ old('kode') }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jenis_pemeriksaan">jenis pemeriksaan</label>
+                                                <input name="jenis_pemeriksaan" type="text" class="form-control" id="jenis_pemeriksaan"
+                                                placeholder="Masukkan jenis pemeriksaan" required value="{{ old('jenis_pemeriksaan') }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tgl_berkunjung">Tanggal Berkunjung</label>
+                                                <input name="tgl_berkunjung" type="date" class="form-control" id="tgl_berkunjung"
+                                                placeholder="Masukkan jenis pemeriksaan" required value="{{ old('tgl_berkunjung') }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tempat_rujukan_id">tempat rujukan</label>
+                                                <select name="tempat_rujukan_id" class="form-control">
+                                                    <option value="-" selected disabled>Pilih tempat rujukan</option>
+                                                    @foreach($tempat as $tempat_rujukan)
+                                                        <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>
+                                                    @endforeach
+                                                    {{-- <option value="L">Laki-laki</option> --}}
+                                                </select>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card">
             <div class="card-body">
                 <div class="card-body">
                     <form role="form" action="{{ route($rekamedis->resep_obat_id ? 'resep_obat.update' : 'rekamedis.store', $rekamedis->resep_obat_id ?: []) }}" method="POST">

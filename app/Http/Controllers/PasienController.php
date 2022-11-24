@@ -25,8 +25,8 @@ class PasienController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $pasien = UserRole::with(['users', 'roles'])->where('role_id', 3)->get();
         return view('pages.pasien.index', compact('pasien'));
@@ -44,8 +44,8 @@ class PasienController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         return view('pages.pasien.create');
     }
@@ -96,8 +96,8 @@ class PasienController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $pasien = UserRole::with(['users', 'roles'])->findOrFail($id);
         return view('pages.pasien.update', compact('pasien'));

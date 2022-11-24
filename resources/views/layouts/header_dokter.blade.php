@@ -189,5 +189,35 @@
     <script src="{{asset('dist/demo.js')}}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{asset('dist/dashboard3.js')}}"></script>
+     {{-- datatables --}}
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+       
+     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+     
+     <script>
+     
+             $(function() {
+                 let table = new DataTable('#example1', {
+                     paging: true,
+                     lengthChange: true,
+                     searching: true,
+                     ordering: true,
+                     info: true,
+                     autoWidth: false,
+                     // 
+                 });
+             });
+             $(function() {
+                let table = new DataTable('#example2', {
+                    paging: true,
+                    lengthChange: true,
+                    searching: true,
+                    ordering: true,
+                    info: true,
+                    autoWidth: false,
+                    // 
+                });
+            });
+     </script>
     </body>
     </html>

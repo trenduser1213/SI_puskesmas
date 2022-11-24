@@ -99,7 +99,7 @@
                 <h3 class="card-title">Pasien Selesai Diperiksa</h3>
             </div>
             <div class="card-body">
-                <table id="example1" class="table table-bordered table-hover">
+                <table id="example2" class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>No</th>
@@ -224,13 +224,18 @@
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                             </div>
                         </div>
-                        @if(!$data->rujukans->isEmpty())
                         <div class="card-body">
+                            @if(!$data->rujukans->isEmpty())
                             <div class="row">
                                 <div class="col-6 row">
-                                    <div class="col-4">Spesialis</div>
+                                    <div class="col-4">Kode Rujukan</div>
                                     <div class="mr-2">:</div>
-                                    <div class="">{{ $data->rujukans->last()->dokterspesialis->user_spesialis->nama }}</div>
+                                    <div class="">{{ $data->rujukans->last()->kode }}</div>
+                                </div>
+                                <div class="col-6 row">
+                                    <div class="col-4">Jenis Pemeriksaan</div>
+                                    <div class="mr-2">:</div>
+                                    <div class="">{{ $data->rujukans->last()->jenis_pemeriksaan }}</div>
                                 </div>
                                 <div class="col-6 row">
                                     <div class="col-4">Tempat Rujukan</div>
@@ -243,8 +248,60 @@
                                     <div class="">{{ date('d F Y', strtotime($data->rujukans->last()->tglberkunjung)) }}</div>
                                 </div>
                             </div>
+                            @else
+                                <div class="btn btn-primary" data-toggle="modal" data-target="#rujuk{{$data->id}}">Tambahkan Rujukan</div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="rujuk{{$data->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Tambahkan Rujukan</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form role="form" action="{{ route('dokterrujukan.store') }}" method="POST">
+                                            @csrf
+                                            @method('post')
+                                            <div class="modal-body">
+                                                {{-- <div class="card-body"> --}}
+                                                    {{ Form::hidden( 'rekamedis',$data->id,) }}
+                                                    <div class="form-group">
+                                                        <label for="kode">kode</label>
+                                                        <input name="kode" type="text" class="form-control" id="kode"
+                                                        placeholder="Masukkan kode pasien" required value="{{ old('kode') }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="jenis_pemeriksaan">jenis pemeriksaan</label>
+                                                        <input name="jenis_pemeriksaan" type="text" class="form-control" id="jenis_pemeriksaan"
+                                                        placeholder="Masukkan jenis pemeriksaan" required value="{{ old('jenis_pemeriksaan') }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="tgl_berkunjung">Tanggal Berkunjung</label>
+                                                        <input name="tgl_berkunjung" type="date" class="form-control" id="tgl_berkunjung"
+                                                        placeholder="Masukkan jenis pemeriksaan" required value="{{ old('tgl_berkunjung') }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="tempat_rujukan_id">tempat rujukan</label>
+                                                        <select name="tempat_rujukan_id" class="form-control">
+                                                            <option value="-" selected disabled>Pilih tempat rujukan</option>
+                                                            @foreach($tempat as $tempat_rujukan)
+                                                                <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>
+                                                            @endforeach
+                                                            {{-- <option value="L">Laki-laki</option> --}}
+                                                        </select>
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
-                        @endif
                     </div>
 
                     <div class="card">

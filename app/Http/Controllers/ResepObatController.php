@@ -26,8 +26,8 @@ class ResepObatController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         
         $resep_obat = ResepObat::all();
@@ -47,8 +47,8 @@ class ResepObatController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
 
         $data = [
@@ -117,8 +117,8 @@ class ResepObatController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
-        }elseif ($cek == "apoteker") {
-            // # code...
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
 
         // $kode_obat = ResepObat::findOrFail($id)->kode;
