@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Spesialis</h1>
+            <h1 class="m-0">List Transaksi</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -43,24 +43,33 @@
                             <th>Tanggal Periksa</th>
                             <th>Tanggal Bayar</th>
                             <th>Grand Total</th>
-                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $no=1;
+                        @endphp
                         @foreach ($transaksi as $item)
                         <tr>
-                            <td>{{$item->kode}}</td>
-                            <td>{{$item->nama}}</td>
+                            <td>{{$no++}}</td>
+                            <td>{{$item->no_regis}}</td>
+                            <td>{{$item->pasien->nama}}</td>
+                            <td>{{\Carbon\Carbon::parse($item->tanggal_periksa)->format('d F Y')}}</td>
+                            <td>{{\Carbon\Carbon::parse($item->tanggal_bayar)->format('d F Y')}}</td>
+                            <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
                             <td>
-                                <a href="{{route('spesialis.edit', $item->id)}}">
-                                    <button type="button" class="btn btn-warning">Update</button>
+                                <a href="{{ route('transaksi.invoice', ['transaksi'=>$item->id]) }}">
+                                    <button type="button" class="btn btn-info btn-sm">Invoice</button>
                                 </a>
-                                <form style="margin-top: 5px;display:inline-block;" action="{{route('spesialis.destroy', $item->id)}}"
+                                <a href="{{ route('transaksi.edit', ['transaksi'=>$item->id]) }}">
+                                    <button type="button" class="btn btn-success btn-sm">Update</button>
+                                </a>
+                                <form style="margin-top: 5px;display:inline-block;" action="{{ route('transaksi.destroy', ['transaksi'=>$item->id]) }}"
                                     method="POST">
                                     @csrf
                                     @method("DELETE")
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                 </form>
                             </td>
                         </tr>

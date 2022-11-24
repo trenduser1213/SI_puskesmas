@@ -73,23 +73,24 @@
                         <h4>Form Transaksi : </h4>
                     </div>
                     <div class="card-body">
-                        <form role="form" action="{{route('transaksi.store')}}" method="POST">
+                        <form role="form" action="{{ route('transaksi.update', ['transaksi'=>$transaksi->id]) }}" method="POST">
+                            @method('PUT')
                             @csrf
-                            <input type="hidden" name="rekammedis_id" value="{{$rekammedis->id}}">
+                            {{-- <input type="hidden" name="rekammedis_id" value="{{$rekammedis->id}}"> --}}
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="Kode">No Registrasi</label>
                                     <input name="no_regis" type="text" class="form-control" id="kode"
-                                        placeholder="No Registrasi">
+                                        placeholder="No Registrasi" value="{{$transaksi->no_regis}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Tanggal Periksa</label>
                                     <input name="tanggal_periksa" type="date" class="form-control" id="nama"
-                                         required>
+                                         required value="{{$transaksi->tanggal_periksa}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Tanggal Bayar</label>
-                                    <input name="tanggal_bayar" type="date" class="form-control" id="nama"
+                                    <input name="tanggal_bayar" type="date" class="form-control" id="nama" value="{{$transaksi->tanggal_bayar}}"
                                          required >
                                 </div>
                                 <div class="form-group">
@@ -100,23 +101,23 @@
                                 <div class="form-group">
                                     <label for="nama">Jasa Dokter</label>
                                     <input name="jasa_dokter" type="number" class="form-control" id="jasadokter"
-                                        placeholder="Jasa Dokter" value="0" required >
+                                        placeholder="Jasa Dokter" value="{{$transaksi->jasa_dokter}}"" required >
                                 </div>
 
                                 <div class="form-group">
                                     <label for="nama">Grand Total</label>
-                                    <input name="grandtotal" type="text" class="form-control" id="grandtotal"
+                                    <input name="grandtotal" type="text" class="form-control" id="grandtotal" value="{{$transaksi->total}}""
                                         placeholder="Grand Total"  readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Jumlah Bayar</label>
                                     <input name="jumlah_bayar" type="number" class="form-control" id="jumlahbayar"
-                                        placeholder="Jumlah Bayar" required>
+                                        placeholder="Jumlah Bayar" value="{{$transaksi->bayar}}""  required>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Kembalian</label>
                                     <input name="kembalian" type="text" class="form-control" id="kembalian"
-                                        placeholder="Kembalian" readonly>
+                                        placeholder="Kembalian" value="{{$transaksi->kembalian}}" readonly>
                                 </div>
                                 
                             </div>
@@ -139,34 +140,36 @@
 
 @section('scripts')
 <script>    
-     let total = 0 ; 
-     let kembalian = 0
-     let i = 0;
+    let grandtotal = $('#grandtotal').val();
      $(document).ready(function() {
-
+        let total =   $('#total').val(); 
+        let kembalian =$('#kembalian').val();
+        let i = 0;
+ 
         $("#jasadokter").change(function(params){
 
              jasadokter = $('#jasadokter').val();
-             console.log(jasadokter);
-             total = {{$total}} + parseInt(jasadokter);
-             $('#grandtotal').val(total);
+           
+             grandtotal = {{$total}} + parseInt(jasadokter);
+             $('#grandtotal').val(grandtotal);
 
              jumlahbayar = $('#jumlahbayar').val();
-             kembalian = parseInt(jumlahbayar) - total;
+             kembalian = parseInt(jumlahbayar) - grandtotal;
              $('#kembalian').val(kembalian);
         });
 
         $("#jumlahbayar").change(function(params){
              jumlahbayar = $('#jumlahbayar').val();
-             if (jumlahbayar < total) {
+             if (jumlahbayar < grandtotal) {
                 alert('Pembayaran kurang dari total pembayaran')
              }
-             kembalian = parseInt(jumlahbayar) - total;
+
+             kembalian = parseInt(jumlahbayar) - grandtotal;
              $('#kembalian').val(kembalian);
 
              jasadokter = $('#jasadokter').val();
-             total = {{$total}} + parseInt(jasadokter);
-             $('#grandtotal').val(total);
+             grandtotal = {{$total}} + parseInt(jasadokter);
+             $('#grandtotal').val(grandtotal);
         });
         
        

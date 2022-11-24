@@ -13,14 +13,16 @@ class Transaksi extends Model
 
     protected $fillable = [
         'no_regis',
-        'resep_id',
-        'no_regis',
+        'resep_obat_id',
         'pasien_id',
         'tanggal_periksa',
         'tanggal_bayar',
         'total',
-        'nomor_antrian',
-        'rekammedis_id'
+        'rekammedis_id',
+        'jasa_dokter',
+        'total',
+        'bayar',
+        'kembalian'
     ];
 
     public function resep()
@@ -28,10 +30,21 @@ class Transaksi extends Model
         return $this->belongsTo(Resep::class, 'resep_id', 'id');
     }
 
+    public function rekammedis()
+    {
+        return $this->belongsTo(Rekamedis::class, 'rekammedis_id', 'id');
+    }
+
 
    
     public function pasien()
     {
         return $this->belongsTo(User::class, 'pasien_id', 'id');
+    }
+
+    
+    public function transaksidetail()
+    {
+        return $this->hasMany(TransaksiDetail::class, 'transaksi_id');
     }
 }

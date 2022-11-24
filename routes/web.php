@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth'], "prefix" => "/admin"], function () {
     
     Route::get('/transaksi/{transaksi}', [App\Http\Controllers\TransaksiController::class,'createTransaksi'])->name('transaksi.createTransaksi');
     Route::get('listrekammedis', [App\Http\Controllers\TransaksiController::class,'listrekammedis'])->name('transaksi.listrekammedis');
+    Route::get('/transaksi/{transaksi}/invoice', [App\Http\Controllers\TransaksiController::class,'print'])->name('transaksi.invoice');
     
 });
 

@@ -17,6 +17,8 @@ class CreateTransaksiDetailTable extends Migration
             $table->increments('id');
             $table->integer('transaksi_id')->unsigned();
             $table->integer('obat_id')->unsigned();
+            $table->integer('jumlah');
+            $table->double('subtotal');
             $table->foreign('transaksi_id')->references('id')->on('transaksi')->onDelete('cascade');
             $table->foreign('obat_id')->references('id')->on('obat')->onDelete('cascade');
             $table->timestamps();

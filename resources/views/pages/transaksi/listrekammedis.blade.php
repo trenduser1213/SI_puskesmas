@@ -52,7 +52,7 @@
                             <td>{{$item->diagnosa}}</td>
                             <td>
                                 <a href="{{ route('transaksi.createTransaksi', ['transaksi'=>$item->id]) }}">
-                                    <button type="button" class="btn btn-info btn-rounded"><i class="fas fa-check-circle"></i> Detail</button>
+                                    <button type="button" class="btn btn-info btn-rounded"><i class="fas fa-check-circle"></i> Pilih</button>
                                 </a>
                             </td>
                         </tr>
