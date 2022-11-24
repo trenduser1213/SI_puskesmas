@@ -138,7 +138,7 @@
 </div>
 @endsection
 
-@section('scripts')
+@section('js')
 <script>    
     let grandtotal = $('#grandtotal').val();
      $(document).ready(function() {

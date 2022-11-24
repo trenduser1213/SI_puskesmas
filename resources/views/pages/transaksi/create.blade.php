@@ -137,7 +137,7 @@
 </div>
 @endsection
 
-@section('scripts')
+@section('js')
 <script>    
      let total = 0 ; 
      let kembalian = 0
@@ -167,13 +167,7 @@
              jasadokter = $('#jasadokter').val();
              total = {{$total}} + parseInt(jasadokter);
              $('#grandtotal').val(total);
-        });
-        
-       
-        
+        });    
      });
-
-   
-
 </script>
 @endsection
