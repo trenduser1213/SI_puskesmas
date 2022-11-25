@@ -40,6 +40,7 @@
                                     <th>Kategori Obat</th>
                                     <th>Jumlah Obat</th>
                                     <th>Keterangan Obat</th>
+                                    <th>Status Stok</th>
                                     <th>Harga Obat (Rp.)</th>
                                     <th>Subtotal (Rp.)</th>
                                 </tr>
@@ -51,6 +52,16 @@
                                     <td>{{$item->obat->kategori_obat->nama}}</td>
                                     <td>{{$item->jumlah_obat}}</td>
                                     <td>{{$item->keterangan_obat}}</td>
+                                    <td><i>@php
+                                        $count=  explode(" ",$item->jumlah_obat);
+                                         if ($count[0] > $item->obat->stok) {
+                                            echo "Stok Kurang";
+                                         }else {
+                                            echo "Stok Ada";
+                                         }
+                                   
+                                         @endphp</i>
+                                    </td>
                                     <td> {{ number_format($item->obat->harga, 0, ',', '.') }}</td>
                                     <td>{{ number_format((int)$item->obat->harga * (int)$item->jumlah_obat, 0, ',', '.') }} </td>
 
