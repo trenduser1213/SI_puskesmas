@@ -26,7 +26,7 @@ class rujukanController extends Controller
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
         }
-        $data = RujukanLab::with(['tempatRujukan'])->get();
+        $data = RujukanLab::with(['tempatRujukan'],['rekamedis'])->get();
         // dd($data);
         return view('pages.rujukan.index')->with('data',$data);
     }

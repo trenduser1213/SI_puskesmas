@@ -36,24 +36,26 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr class="text-center">
+                            <th>No</th>
                             <th>Kode</th>
                             <th>Jenis pemeriksaan</th>
-                            {{-- <th>Pasien</th> --}}
                             <th>Tempat rujukan</th>
-                            {{-- <th>Dokter</th> --}}
-                            <th>Rekamedis</th>
-                            <th>Option</th>
+                            {{-- <th>Rekamedis</th> --}}
+                            <th>Nama Pasien</th>
+                            <th>Diagnosa</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody><?php $no=1?>
                         @foreach($data as $datas)
                         <tr>
+                            <th>{{$no++}}</th>
                             <th>{{$datas->kode}}</th>
                             <th>{{$datas->jenis_pemeriksaan}}</th>
-                            {{-- <th>{{$datas->pasien->username}}</th> --}}
                             <th>{{$datas->tempatRujukan->nama}}</th>
-                            {{-- <th>{{$datas->dokter->username}}</th> --}}
-                            <th>{{$datas->rekamedis_id}}</th>
+                            {{-- <th>{{$datas->rekamedis_id}}</th> --}}
+                            <th>{{$datas->rekamedis->pasien->nama}}</th>
+                            <th>{{$datas->rekamedis->diagnosa}}</th>
                             <th>
                                 <a href="{{route('rujukan.edit', $datas->id)}}">
                                     <button type="button" class="btn btn-warning">Update</button>

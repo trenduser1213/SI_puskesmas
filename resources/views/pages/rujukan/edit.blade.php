@@ -48,7 +48,7 @@
                             <div class="">{{ $val->rekamedis->tindakan }}</div>
                         </div>
                         <div class="col-6 row">
-                            <div class="col-4">Tindakan</div>
+                            <div class="col-4">Nama Pasien</div>
                             <div class="mr-2">:</div>
                             <div class="">{{ $val->rekamedis->pasien->nama }}</div>
                         </div>
@@ -67,24 +67,24 @@
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="kode">kode</label>
+                            <label for="kode">Kode</label>
                             <input name="kode" type="text" class="form-control" id="kode"
-                            placeholder="Masukkan kode pasien" required value="{{$val->kode}}{{ old('kode') }}">
+                            placeholder="Masukkan Kode Rujukan" required value="{{$val->kode}}{{ old('kode') }}">
                         </div>
                         <div class="form-group">
-                            <label for="jenis_pemeriksaan">jenis pemeriksaan</label>
+                            <label for="jenis_pemeriksaan">Jenis Pemeriksaan</label>
                             <input name="jenis_pemeriksaan" type="text" class="form-control" id="jenis_pemeriksaan"
-                            placeholder="Masukkan jenis pemeriksaan" required value="{{$val->jenis_pemeriksaan}}{{ old('jenis_pemeriksaan') }}">
+                            placeholder="Masukkan Jenis Pemeriksaan" required value="{{$val->jenis_pemeriksaan}}{{ old('jenis_pemeriksaan') }}">
                         </div>
                         <div class="form-group">
-                            <label for="tgl_berkunjung">jenis pemeriksaan</label>
+                            <label for="tgl_berkunjung">Tanggal Berkunjung</label>
                             <input name="tgl_berkunjung" type="date" class="form-control" id="tgl_berkunjung"
-                            placeholder="Masukkan jenis pemeriksaan" required value="{{$val->tglberkunjung}}{{ old('jenis_pemeriksaan') }}">
+                            placeholder="" required value="{{$val->tglberkunjung}}{{ old('jenis_pemeriksaan') }}">
                         </div>
                         <div class="form-group">
-                            <label for="tempat_rujukan_id">tempat rujukan</label>
+                            <label for="tempat_rujukan_id">Tempat Rujukan</label>
                             <select name="tempat_rujukan_id" class="form-control">
-                                <option value="-" selected disabled>Pilih tempat rujukan</option>
+                                <option value="-" selected disabled>Pilih Tempat Rujukan</option>
                                 @foreach($tempat as $tempat_rujukan)
                                     @if($tempat_rujukan->id == $val->tempat_rujukan_id)
                                         <option value="{{ $tempat_rujukan->id }}" selected>{{ $tempat_rujukan->nama }}</option>
