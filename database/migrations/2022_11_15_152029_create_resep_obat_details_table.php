@@ -16,7 +16,7 @@ class CreateResepObatDetailsTable extends Migration
         Schema::create('resep_obat_details', function (Blueprint $table) {
             $table->id();
             $table->string("keterangan_obat");
-            $table->string("jumlah_obat");
+            $table->integer("jumlah_obat");
             $table->foreignId("id_obat");
             $table->foreignId("id_resep_obat")->nullable()->constrained('resep_obats')->cascadeOnDelete();
             $table->timestamps();
