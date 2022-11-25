@@ -276,12 +276,12 @@
                                                 {{-- <div class="card-body"> --}}
                                                     {{ Form::hidden( 'rekamedis',$data->id,) }}
                                                     <div class="form-group">
-                                                        <label for="kode">kode</label>
+                                                        <label for="kode">Kode</label>
                                                         <input name="kode" type="text" class="form-control" id="kode"
                                                         placeholder="Masukkan kode pasien" required value="{{ old('kode') }}">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="jenis_pemeriksaan">jenis pemeriksaan</label>
+                                                        <label for="jenis_pemeriksaan">Jenis Pemeriksaan</label>
                                                         <input name="jenis_pemeriksaan" type="text" class="form-control" id="jenis_pemeriksaan"
                                                         placeholder="Masukkan jenis pemeriksaan" required value="{{ old('jenis_pemeriksaan') }}">
                                                     </div>
@@ -291,7 +291,7 @@
                                                         placeholder="Masukkan jenis pemeriksaan" required value="{{ old('tgl_berkunjung') }}">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="tempat_rujukan_id">tempat rujukan</label>
+                                                        <label for="tempat_rujukan_id">Tempat Rujukan</label>
                                                         <select name="tempat_rujukan_id" class="form-control">
                                                             <option value="-" selected disabled>Pilih tempat rujukan</option>
                                                             @foreach($tempat as $tempat_rujukan)
