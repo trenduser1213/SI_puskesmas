@@ -17,13 +17,13 @@ class ResepObatDetailSeeder extends Seeder
         ResepObatDetail::insert([
             [
                 'keterangan_obat' => 'Pagi dan malam',
-                'jumlah_obat' => '10 biji',
+                'jumlah_obat' => '10',
                 'id_obat' => '1',
                 'id_resep_obat' => '1',
             ],
             [
                 'keterangan_obat' => 'Sebelum makan',
-                'jumlah_obat' => '3 lembar',
+                'jumlah_obat' => '3',
                 'id_obat' => '2',
                 'id_resep_obat' => '1',
             ],
