@@ -29,11 +29,13 @@ class LayananController extends Controller
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
+
         if ($cek == "admin") {
             return redirect()->route('home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
         }
+
         $data['jadwalSenin'] = JadwalDokter::with(['users'])->where('hari', 'senin')->get();
         $data['jadwalSelasa'] = JadwalDokter::with(['users'])->where('hari', 'selasa')->get();
         $data['jadwalRabu'] = JadwalDokter::with(['users'])->where('hari', 'rabu')->get();
@@ -63,7 +65,6 @@ class LayananController extends Controller
 
         $url = url('/update-status-pendaftaran/' . $pendaftaranPasien->id);
         $qrcode= QrCode::generate($url);
-        
         
         $mailTo = Auth::user()->email;
         $nama = Auth::user()->nama;
@@ -107,11 +108,7 @@ class LayananController extends Controller
         return view('pages.dashboard.dashboard', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
        

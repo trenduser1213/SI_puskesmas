@@ -19,11 +19,6 @@ use Illuminate\Support\Facades\Auth;
 
 class RekamedisController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     */
     public function index()
     {
         $userId = Auth::user()->id;

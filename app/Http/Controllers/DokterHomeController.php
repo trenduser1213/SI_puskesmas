@@ -63,7 +63,7 @@ class DokterHomeController extends Controller
 
     public function form_jadwal_dokter()
     {
-        $$userId = Auth::user()->id;
+        $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
