@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Kategori Obat</h1>
+            <h1 class="m-0">Data Obat</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -42,8 +42,7 @@
                             <th>Nama</th>
                             <th>Dosis</th>
                             <th>Harga</th>
-                            <th>Tanggal Produksi</th>
-                            <th>Tanggal Kadaluarsa</th>
+                            <th>Stok</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -55,8 +54,7 @@
                             <td>{{$item->nama}}</td>
                             <td>{{$item->dosis}}</td>
                             <td>{{$item->harga}}</td>
-                            <td>{{$item->tanggal_produksi}}</td>
-                            <td>{{$item->tanggal_kadaluarsa}}</td>
+                            <td>{{$item->stok}}</td>
                             <td>
                                 <a href="{{route('obat.edit', $item->id)}}">
                                     <button type="button" class="btn btn-warning">Update</button>
@@ -66,6 +64,49 @@
                                     @csrf
                                     @method("DELETE")
                                     <button type="submit" class="btn btn-danger">Delete</button>
+                                     <!-- Modal Delete -->
+                                    <div class="modal fade" id="delete_modal">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Hapus data</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            Yakin akan dihapus ?
+                                            <form method="post" id="delete_form" />
+                                            <input type="hidden" name="delete_id" id="delete_id_p" />
+                                            
+                                            </div>
+                                            <div class="modal-footer">
+                                            <input type="submit" name="delete" id="delete" value="Delete" class="btn btn-success" /> 
+                                            </form>  
+                                            <button type="button" data-dismiss="modal" class="btn">Cancel</button>          
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal Delete Sukses -->
+                                    <div class="modal fade" id="sukses_hapus">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Hapus data</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            Data telah dihapus       
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" class="btn">Tutup</button>           
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
                                 </form>
                             </td>
                         </tr>
