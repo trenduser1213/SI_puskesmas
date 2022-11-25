@@ -145,7 +145,7 @@ class ResepObatDetailController extends Controller
     {
 
         $input = ResepObatDetail::find($id);
-        
+        // dd($request);
         // jika request lebih banyak dari data yang sudah disimpan
         if ($request->jumlah_obat >= $input->jumlah_obat) {
             $selisih = $request->jumlah_obat - $input->jumlah_obat;

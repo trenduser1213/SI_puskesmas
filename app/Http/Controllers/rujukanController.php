@@ -105,6 +105,7 @@ class rujukanController extends Controller
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
+        
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
@@ -112,7 +113,7 @@ class rujukanController extends Controller
         }
         $rekamedis  = Rekamedis::all();
         $tempat     = TempatRujukan::all();
-        $val        = RujukanLab::with(['pasien'],['dokter'],['tempatRujukan'])->find($id)->first();
+        $val        = RujukanLab::with(['tempatRujukan'])->find($id)->first();
 
         // dd($rekamedis);
         $data = [

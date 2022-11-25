@@ -81,19 +81,6 @@
                             <input name="tgl_berkunjung" type="date" class="form-control" id="tgl_berkunjung"
                             placeholder="Masukkan jenis pemeriksaan" required value="{{$val->tglberkunjung}}{{ old('jenis_pemeriksaan') }}">
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="rekamedis">Rekamedis</label>
-                            <select name="rekamedis" class="form-control">
-                                <option value="-" selected disabled>Pilih Rekamedis</option>
-                                @foreach($rekamedis as $rekamedis)
-                                    @if($rekamedis->id == $val->rekamedis_id)  
-                                        <option value="{{ $rekamedis->id }}" selected>{{ $rekamedis->pasien_id}} - {{ $rekamedis->tanggal_pendaftaran}}</option>
-                                    @else
-                                        <option value="{{ $rekamedis->id }}">{{ $rekamedis->pasien_id}} - {{ $rekamedis->tanggal_pendaftaran}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div> --}}
                         <div class="form-group">
                             <label for="tempat_rujukan_id">tempat rujukan</label>
                             <select name="tempat_rujukan_id" class="form-control">

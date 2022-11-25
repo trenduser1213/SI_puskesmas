@@ -52,22 +52,22 @@
                                     <td>{{$item->obat->kategori_obat->nama}}</td>
                                     <td>{{$item->jumlah_obat}}</td>
                                     <td>{{$item->keterangan_obat}}</td>
-                                    <td><i>{{
-                                              $count=  explode(" ",$item->jumlah_obat);
+                                    <td><i>@php
+                                             $count=  explode(" ",$item->jumlah_obat);
                                               if ($count[0] > $item->obat->stok) {
                                                  echo "Stok Kurang";
                                               }else {
                                                  echo "Stok Ada";
                                               }
                                         
-                                        }}</i></td>
+                                              @endphp</i></td>
                                     <td> {{ number_format($item->obat->harga, 0, ',', '.') }}</td>
                                     <td>{{ number_format((int)$item->obat->harga * (int)$item->jumlah_obat, 0, ',', '.') }} </td>
 
                                 </tr>
                                 @endforeach
                                 <tr>
-                                    <th colspan="5" class="text-left">Total (Rp.)</th>
+                                    <th colspan="6" class="text-right">Total (Rp.)</th>
                                     <td colspan="1">{{ number_format($total, 0, ',', '.') }}</td>
                                 </tr>
                                
@@ -90,7 +90,7 @@
                                 <div class="form-group">
                                     <label for="Kode">No Registrasi</label>
                                     <input name="no_regis" type="text" class="form-control" id="kode"
-                                        placeholder="No Registrasi">
+                                        placeholder="No Registrasi" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Tanggal Periksa</label>
