@@ -22,18 +22,6 @@
                     </button>
                 </a>
             </div>
-            <div class="col-md-3 col-12 mb-3">
-                <button type="button" class="btn btn-block btn-danger">
-                    <i class="fas fa-file-pdf"></i>
-                    Export to PDF
-                </button>
-            </div>
-            <div class="col-md-3 col-12 mb-3">
-                <button type="button" class="btn btn-block btn-success">
-                    <i class="fas fa-file-excel"></i>
-                    Export to Excel
-                </button>
-            </div>
         </div>
     </div>
 
