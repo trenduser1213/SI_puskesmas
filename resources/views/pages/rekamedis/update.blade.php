@@ -163,9 +163,9 @@
                                                     <option value="-" selected disabled>Pilih Tempat Rujukan</option>
                                                     @foreach($tempat as $tempat_rujukan)
                                                         @if($tempat_rujukan->id == $rekamedis->rujukans->last()->tempatrujukan->id)
-                                                        <option selected value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option> 
+                                                        <option selected value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>
                                                         @else
-                                                        <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>                                                            
+                                                        <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>
                                                         @endif
                                                     @endforeach
                                                     {{-- <option value="L">Laki-laki</option> --}}
@@ -173,7 +173,7 @@
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </form>
@@ -225,7 +225,7 @@
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </form>
