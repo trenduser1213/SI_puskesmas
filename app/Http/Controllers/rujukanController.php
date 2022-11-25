@@ -112,7 +112,7 @@ class rujukanController extends Controller
         }
         $rekamedis  = Rekamedis::all();
         $tempat     = TempatRujukan::all();
-        $val        = RujukanLab::with(['pasien'],['dokter'],['tempatRujukan'])->find($id)->first();
+        $val        = RujukanLab::with(['tempatRujukan'])->find($id)->first();
 
         // dd($rekamedis);
         $data = [

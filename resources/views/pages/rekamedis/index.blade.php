@@ -99,6 +99,15 @@
                 <h3 class="card-title">Pasien Selesai Diperiksa</h3>
             </div>
             <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
                     <tr>
