@@ -143,12 +143,12 @@
                                         {{-- <div class="card-body"> --}}
                                             {{-- {{ Form::hidden( 'rekamedis',$rekamedis->id,) }} --}}
                                             <div class="form-group">
-                                                <label for="kode">kode</label>
+                                                <label for="kode">Kode</label>
                                                 <input name="kode" type="text" class="form-control" id="kode"
                                                 placeholder="Masukkan kode pasien" required value="{{ $rekamedis->rujukans->last()->kode }} {{ old('kode') }}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="jenis_pemeriksaan">jenis pemeriksaan</label>
+                                                <label for="jenis_pemeriksaan">Jenis Pemeriksaan</label>
                                                 <input name="jenis_pemeriksaan" type="text" class="form-control" id="jenis_pemeriksaan"
                                                 placeholder="Masukkan jenis pemeriksaan" required value="{{ $rekamedis->rujukans->last()->jenis_pemeriksaan }} {{ old('jenis_pemeriksaan') }}">
                                             </div>
@@ -158,14 +158,14 @@
                                                 placeholder="Masukkan jenis pemeriksaan" required value="{{ $rekamedis->rujukans->last()->kode }}{{ old('tgl_berkunjung') }}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="tempat_rujukan_id">tempat rujukan</label>
+                                                <label for="tempat_rujukan_id">Tempat Rujukan</label>
                                                 <select name="tempat_rujukan_id" class="form-control">
-                                                    <option value="-" selected disabled>Pilih tempat rujukan</option>
+                                                    <option value="-" selected disabled>Pilih Tempat Rujukan</option>
                                                     @foreach($tempat as $tempat_rujukan)
                                                         @if($tempat_rujukan->id == $rekamedis->rujukans->last()->tempatrujukan->id)
-                                                        <option selected value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option> 
+                                                        <option selected value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>
                                                         @else
-                                                        <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>                                                            
+                                                        <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>
                                                         @endif
                                                     @endforeach
                                                     {{-- <option value="L">Laki-laki</option> --}}
@@ -173,7 +173,7 @@
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </form>
@@ -199,12 +199,12 @@
                                         {{-- <div class="card-body"> --}}
                                             {{ Form::hidden( 'rekamedis',$rekamedis->id,) }}
                                             <div class="form-group">
-                                                <label for="kode">kode</label>
+                                                <label for="kode">Kode</label>
                                                 <input name="kode" type="text" class="form-control" id="kode"
                                                 placeholder="Masukkan kode pasien" required value="{{ old('kode') }}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="jenis_pemeriksaan">jenis pemeriksaan</label>
+                                                <label for="jenis_pemeriksaan">Jenis Pemeriksaan</label>
                                                 <input name="jenis_pemeriksaan" type="text" class="form-control" id="jenis_pemeriksaan"
                                                 placeholder="Masukkan jenis pemeriksaan" required value="{{ old('jenis_pemeriksaan') }}">
                                             </div>
@@ -214,9 +214,9 @@
                                                 placeholder="Masukkan jenis pemeriksaan" required value="{{ old('tgl_berkunjung') }}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="tempat_rujukan_id">tempat rujukan</label>
+                                                <label for="tempat_rujukan_id">Tempat Rujukan</label>
                                                 <select name="tempat_rujukan_id" class="form-control">
-                                                    <option value="-" selected disabled>Pilih tempat rujukan</option>
+                                                    <option value="-" selected disabled>Pilih Tempat Rujukan</option>
                                                     @foreach($tempat as $tempat_rujukan)
                                                         <option value="{{ $tempat_rujukan->id }}">{{ $tempat_rujukan->nama }}</option>
                                                     @endforeach
@@ -225,7 +225,7 @@
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </form>
