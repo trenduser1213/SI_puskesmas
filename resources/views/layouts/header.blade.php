@@ -38,23 +38,10 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <!-- Notifications Dropdown Menu -->
-                <li class="nav-item menu-open">
-                  <a href="{{route('rujukan.index')}}" class="nav-link">
-                    <div class="d-flex "> 
-                        <i class="nav-icon fas fa-stethoscope mr-2"></i>
-                        <p>
-                            Rujukan
-                        </p>
-                    </div>
-                 </a>                 
-              </li>
-
-
               {{-- user account --}}
               <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="fas fa-cog"></i> 
+                    <i class="fas fa-cog"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <div class="dropdown-divider"></div>
@@ -98,11 +85,19 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item ">
+                            <a href="{{ route('rujukan.index') }}" class="nav-link {{request()->is('admin/rujukan*') ? ' active' : ''}}">
+                                <i class="nav-icon fas fa-ambulance"></i>
+                                <p>
+                                    Rujukan
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link 
-                            {{request()->is('admin/obat*') || request()->is('admin/pembelian_obat_suppliers*') || request()->is('admin/kategori_obat*') || 
-                            request()->is('admin/resep_obat*') ? ' active' : ''}}  
-        
+                            <a href="#" class="nav-link
+                            {{request()->is('admin/obat*') || request()->is('admin/pembelian_obat_suppliers*') || request()->is('admin/kategori_obat*') ||
+                            request()->is('admin/resep_obat*') ? ' active' : ''}}
+
                             ">
                                 <i class="nav-icon fas fa-capsules"></i>
                                 <p>
@@ -111,7 +106,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item"> 
+                                <li class="nav-item">
                                     <a href="{{ route('obat.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Obat</p>
@@ -202,7 +197,7 @@
             <!-- /.sidebar -->
         </aside>
         @yield('content')
-       
+
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
@@ -273,11 +268,11 @@
     {{-- datatables --}}
     {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
-      
+
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-    
+
     <script>
-    
+
             $(function() {
                 let table = new DataTable('#example1', {
                     paging: true,
@@ -286,7 +281,7 @@
                     ordering: true,
                     info: true,
                     autoWidth: false,
-                    // 
+                    //
                 });
             });
             $(function() {
@@ -297,7 +292,7 @@
                     ordering: true,
                     info: true,
                     autoWidth: false,
-                    // 
+                    //
                 });
             });
     </script>

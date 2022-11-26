@@ -21,7 +21,7 @@
                         <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-number">Appointment</span>
-                            <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Buat Janji Temu</a>
+                            <a href="/pasien/berobat" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Buat Janji Temu</a>
                         </div>
                     </div>
                 </div>
