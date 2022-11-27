@@ -21,8 +21,6 @@ class CreateObatTable extends Migration
             $table->string("dosis");
             $table->bigInteger("harga");
             $table->integer("stok");
-            $table->date("tanggal_produksi");
-            $table->date("tanggal_kadaluarsa");
             $table->foreign('kategori_obat_id')->references('id')->on('kategori_obat')->onDelete('cascade');
             $table->timestamps();
         });

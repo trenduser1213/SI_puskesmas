@@ -70,8 +70,6 @@
                                     <th colspan="6" class="text-right">Total (Rp.)</th>
                                     <td colspan="1">{{ number_format($total, 0, ',', '.') }}</td>
                                 </tr>
-                               
-        
                             </tbody>
                         </table>
                     </div>
@@ -127,8 +125,7 @@
                                     <label for="nama">Kembalian</label>
                                     <input name="kembalian" type="text" class="form-control" id="kembalian"
                                         placeholder="Kembalian" readonly>
-                                </div>
-                                
+                                </div>                             
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info btn-rounded">Konfirmasi Pembayaran</button>

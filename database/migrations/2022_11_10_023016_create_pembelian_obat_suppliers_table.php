@@ -19,7 +19,6 @@ class CreatePembelianObatSuppliersTable extends Migration
             $table->date('tanggalproduksi');
             $table->date('tanggalkadaluarsa');
             $table->integer('stok');
-            $table->integer('sisa_obat');
             $table->timestamps();
         });
     }

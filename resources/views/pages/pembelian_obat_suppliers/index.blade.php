@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Pembelian Obat Supplier</h1>
+            <h1 class="m-0">Data Pembelian Obat Supplier</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -40,7 +40,6 @@
                             <th>Kode Obat</th>
                             <th>Nama Obat</th>
                             <th>Stok Obat</th>
-                            <th>Sisa Obat</th>
                             <th>Tanggal Produksi</th>
                             <th>Tanggal Kadaluarsa</th>
                             <th>Action</th>
@@ -60,28 +59,16 @@
                             <td>{{$item->obat->kode}}</td>
                             <td>{{$item->obat->nama}}</td>
                             <td>{{$item->stok}}</td>
-                            <td>{{$item->sisa_obat}}</td>
                             <td>{{$item->tanggalproduksi}}</td>
                             <td>{{$item->tanggalkadaluarsa}}</td>
                             <td>
                                 <a href="{{route('pembelian_obat_suppliers.edit', $item->id)}}">
                                     <button type="button" class="btn btn-warning">Update</button>
                                 </a>
-                                <form style="margin-top: 5px;display:inline-block;" action="{{route('pembelian_obat_suppliers.destroy', $item->id)}}"
-                                    method="POST">
-                                    @csrf
-                                    @method("DELETE")
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                                {{-- <a href="{{route('obat.edit', $item->id)}}">
-                                    <button type="button" class="btn btn-warning">Update</button>
-                                </a>
-                                <form style="margin-top: 5px;display:inline-block;" action="{{route('obat.destroy', $item->id)}}"
-                                    method="POST">
-                                    @csrf
-                                    @method("DELETE")
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form> --}}
+                                
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                         @endforeach
@@ -90,7 +77,29 @@
             </div>
         </div>
     </div>
-
+    <div class="modal modal-danger fade" id="modal-danger">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Perhatian!!!</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>Jika anda menghapus data Pembelian Obat Supplier, maka data stok Obat yang ada di Data Obat akan berkurang. <br><br> Apakah anda yakin?&hellip;</p>
+                </div>
+                <form style="margin-top: 5px;display:inline-block;" action="{{route('pembelian_obat_suppliers.destroy', $item->id)}}"
+                    method="POST">
+                    @csrf
+                    @method("DELETE")
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
+                        <button type="submit" class="btn btn-danger">Ya, saya yakin</button>
+                    </div>
+                </form>
+            </div>
+        </div>     
+    </div>
     <!-- /.content-header -->
 </div>
 

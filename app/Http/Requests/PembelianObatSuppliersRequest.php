@@ -26,7 +26,6 @@ class PembelianObatSuppliersRequest extends FormRequest
         return [
             'obat_id' => 'required',
             'stok' => 'required|numeric',
-            'sisa_obat' => 'required|numeric',
             'tanggalproduksi' => 'required',
             'tanggalkadaluarsa' => 'required'
         ];

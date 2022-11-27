@@ -13,7 +13,6 @@ class PembelianObatSuppliers extends Model
     protected $fillable = [
         'obat_id',
         'stok',
-        'sisa_obat',
         'tanggalproduksi',
         'tanggalkadaluarsa'
     ];
