@@ -77,6 +77,7 @@
             </div>
         </div>
     </div>
+    @foreach ($pembelian_obat_suppliers as $item)
     <div class="modal modal-danger fade" id="modal-danger">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -100,6 +101,7 @@
             </div>
         </div>     
     </div>
+    @endforeach
     <!-- /.content-header -->
 </div>
 
