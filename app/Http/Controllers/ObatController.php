@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\KategoriObat;
 use App\Http\Requests\ObatRequest;
 use App\Http\Requests\ObatUpdateRequest;
-use App\Models\Transaksi;
+use App\Models\TransaksiDetail;
 use App\Models\ResepObatDetail;
 
 class ObatController extends Controller
@@ -127,9 +127,10 @@ class ObatController extends Controller
      */
     public function destroy($id)
     {
-        $resepObat = ResepObatDetail::where('id_obat', $id)->get();
+        $resepObat = ResepObatDetail::where('id_obat', $id)->first();
+        $transaksiDetail = TransaksiDetail::where('obat_id', $id)->first();
         $obat = Obat::findOrFail($id);
-        if ($resepObat) {
+        if ($resepObat || $transaksiDetail != NULL) {
             return redirect()->back()->with("error", "Hapus data tidak berhasil, karena Obat sudah digunakan di Resep Obat dan Transaksi");
         }
         else {
