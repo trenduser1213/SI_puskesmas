@@ -146,7 +146,7 @@ class PembelianObatSuppliersController extends Controller
             $updateStok->update([
                 'stok' => $updateStok->stok - $pembelian_obat_suppliers->stok
             ]);
-        $pembelian_obat_suppliers->delete();
+            $pembelian_obat_suppliers->delete();
         return redirect()->back()->with("success", "Hapus data berhasil");
     }
 }

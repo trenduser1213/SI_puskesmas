@@ -53,8 +53,7 @@ class TransaksiController extends Controller
         
 
         foreach ($resepObat as $item ) {
-            $count=  explode(" ",$item->jumlah_obat);
-            $total += $count[0] * $item->obat->harga;
+            $total += $item->jumlah_obat * $item->obat->harga;
         }
        
 
@@ -121,8 +120,7 @@ class TransaksiController extends Controller
         
 
         foreach ($resepObat as $item ) {
-            $count=  explode(" ",$item->jumlah_obat);
-            $total += $count[0] * $item->obat->harga;
+            $total += $item->jumlah_obat * $item->obat->harga;
         }
        
 

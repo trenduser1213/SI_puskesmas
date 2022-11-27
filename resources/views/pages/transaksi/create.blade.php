@@ -53,8 +53,8 @@
                                     <td>{{$item->jumlah_obat}}</td>
                                     <td>{{$item->keterangan_obat}}</td>
                                     <td><i>@php
-                                             $count=  explode(" ",$item->jumlah_obat);
-                                              if ($count[0] > $item->obat->stok) {
+                                        
+                                              if ($item->jumlah_obat > $item->obat->stok) {
                                                  echo "Stok Kurang";
                                               }else {
                                                  echo "Stok Ada";
