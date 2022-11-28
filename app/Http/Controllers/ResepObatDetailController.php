@@ -73,6 +73,11 @@ class ResepObatDetailController extends Controller
             'jumlah_obat' => 'required',
         ]);
         // dd($request->all());
+        $updateStok = Obat::find($request->obat_id);
+        $updateStok->update([
+            'stok' => $updateStok->stok - $request->jumlah_obat,
+        ]);
+
         $input = new ResepObatDetail();
         $input->id_resep_obat = $request->id;
         $input->id_obat = $request->obat_id;
@@ -81,14 +86,6 @@ class ResepObatDetailController extends Controller
         $input->save();
 
         return redirect()->back()->with("success", "Tambah data berhasil");
-        // try {
-        //     ResepObatDetail::create($request->all());
-        //     return redirect('admin/resep_obat_detail')->with("success", "Tambah data berhasil");
-        // } catch (\Exception $th) {
-        //     return redirect()->back()->with('error', $th);
-        // }
-
-        // $input = new ResepObatDetail();
     }
 
     /**
@@ -148,12 +145,54 @@ class ResepObatDetailController extends Controller
     {
 
         $input = ResepObatDetail::find($id);
+        // dd($request);
+        // jika request lebih banyak dari data yang sudah disimpan
+        if ($request->jumlah_obat >= $input->jumlah_obat) {
+            $selisih = $request->jumlah_obat - $input->jumlah_obat;
+
+            $updateStok = Obat::find($request->obat_id);
+
+            $updateStok->update([
+            'stok' => $updateStok->stok - $selisih,
+        ]);
+
+        // jika request lebih sedikit dari data yang sudah disimpan
+        } elseif ($request->jumlah_obat <= $input->jumlah_obat) {
+            $selisih = $input->jumlah_obat - $request->jumlah_obat;
+            $updateStok = Obat::find($request->obat_id);
+
+            $updateStok->update([
+            'stok' => $updateStok->stok + $selisih,
+        ]); 
+        } 
 
         $input->update([
             'id_obat' => $request->obat_id,
             'keterangan_obat' => $request->keterangan_obat,
             'jumlah_obat' => $request->jumlah_obat,
         ]);
+        
+        // dd($request);
+
+        // jika request lebih banyak dari data yang sudah disimpan
+        if ($input->jumlah_obat < $request->jumlah_obat) {
+            $selisih = $request->jumlah_obat - $input->jumlah_obat;
+
+            $updateStok = Obat::find($request->obat_id);
+
+            $updateStok->update([
+            'stok' => $updateStok->stok + $selisih,
+        ]);
+
+        // jika request lebih sedikit dari data yang sudah disimpan
+        } elseif ($input->jumlah_obat > $request->jumlah_obat) {
+            $selisih = $input->jumlah_obat - $request->jumlah_obat;
+            $updateStok = Obat::find($request->obat_id);
+
+            $updateStok->update([
+            'stok' => $updateStok->stok - $selisih,
+        ]); 
+        }        
 
         return redirect()->back()->with("success", "Update data berhasil");
     }
@@ -165,8 +204,16 @@ class ResepObatDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
         $resep_obat_detail = ResepObatDetail::findOrFail($id);
+
+        $updateStok = Obat::find($resep_obat_detail->id_obat);
+
+        // dd($resep_obat_detail);
+        $updateStok->update([
+            'stok' => $updateStok->stok + $resep_obat_detail->jumlah_obat,
+        ]);
+
         $resep_obat_detail->delete();
         return redirect()->back()->with("success", "Hapus data berhasil");
     }

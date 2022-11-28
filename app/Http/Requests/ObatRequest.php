@@ -29,8 +29,6 @@ class ObatRequest extends FormRequest
             'nama' => 'required',
             'dosis' => 'required',
             'harga' => 'required|numeric',
-            'tanggal_produksi' => 'required',
-            'tanggal_kadaluarsa' => 'required'
         ];
     }
 }

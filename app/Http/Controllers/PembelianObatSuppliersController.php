@@ -66,6 +66,10 @@ class PembelianObatSuppliersController extends Controller
     {
         // dd($request->all());
         try {
+            $updateStok = Obat::find($request->obat_id);
+            $updateStok->update([
+                'stok' => $updateStok->stok + $request->stok
+            ]);
             PembelianObatSuppliers::create($request->all());
             return redirect('/admin/pembelian_obat_suppliers')->with("success", "Tambah data berhasil");
         } catch (\Exception $th) {
@@ -116,6 +120,12 @@ class PembelianObatSuppliersController extends Controller
     {
         $req = $request->except('_method', '_token', 'submit');
         try {
+            $updateStok = Obat::find($request->obat_id);
+            $perubahanA = PembelianObatSuppliers::findOrFail($id)->stok;
+            $perubahanStok = $request->stok - $perubahanA;
+            $updateStok->update([
+                'stok' => $updateStok->stok + $perubahanStok
+            ]);
             PembelianObatSuppliers::findOrFail($id)->update($request->all());
             return redirect()->route('pembelian_obat_suppliers.index')->with("success", "Update data berhasil");
         } catch (\Exception $e) {
@@ -132,7 +142,11 @@ class PembelianObatSuppliersController extends Controller
     public function destroy($id)
     {
         $pembelian_obat_suppliers = PembelianObatSuppliers::findOrFail($id);
-        $pembelian_obat_suppliers->delete();
+        $updateStok = Obat::find($pembelian_obat_suppliers->obat_id);
+            $updateStok->update([
+                'stok' => $updateStok->stok - $pembelian_obat_suppliers->stok
+            ]);
+            $pembelian_obat_suppliers->delete();
         return redirect()->back()->with("success", "Hapus data berhasil");
     }
 }

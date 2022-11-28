@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\KategoriObat;
 use App\Http\Requests\ObatRequest;
 use App\Http\Requests\ObatUpdateRequest;
+use App\Models\Transaksi;
+use App\Models\ResepObatDetail;
 
 class ObatController extends Controller
 {
@@ -117,16 +119,17 @@ class ObatController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
+        $resepObat = ResepObatDetail::where('id_obat', $id)->get();
         $obat = Obat::findOrFail($id);
-        $obat->delete();
-        return redirect()->back()->with("success", "Hapus data berhasil");
+        if ($resepObat) {
+            return redirect()->back()->with("error", "Hapus data tidak berhasil, karena Obat sudah digunakan di Resep Obat dan Transaksi");
+        }
+        else {
+            $obat->delete();
+            return redirect()->back()->with("success", "Hapus data berhasil");
+        }
     }
 }

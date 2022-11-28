@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Obat</h1>
+                        <h1 class="m-0">Tambah Obat</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -77,14 +77,10 @@
                                     value="{{ old('harga') }}">
                             </div>
                             <div class="form-group">
-                                <label for="Judul Berita">Tanggal Produksi Obat</label>
-                                <input name="tanggal_produksi" type="date" class="form-control" id="TanggalProduksi"
-                                    placeholder="Tanggal Produksi Obat" required value="{{ old('tanggal_produksi') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="Judul Berita">Tanggal Kadaluarsa Obat</label>
-                                <input name="tanggal_kadaluarsa" type="date" class="form-control" id="TanggalKadaluarsa"
-                                    placeholder="Tanggal Kadaluarsa Obat" required value="{{ old('tanggal_kadaluarsa') }}">
+                                <label for="Judul Berita">Stok Obat</label>
+                                <input name="stok" type="number" class="form-control" id="stokObat"
+                                    placeholder="Masukkan stok obat yang ada" required
+                                    value="{{ old('stok') }}">
                             </div>
                         </div>
                         <div class="card-footer">

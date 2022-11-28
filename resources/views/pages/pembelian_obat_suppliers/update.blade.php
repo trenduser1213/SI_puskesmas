@@ -63,11 +63,6 @@
                                     placeholder="Masukkan jumlah stok obat" required value="{{ $pembelian_obat_suppliers->stok }}">
                             </div>
                             <div class="form-group">
-                                <label for="Judul Berita">Sisa Obat</label>
-                                <input name="sisa_obat" type="number" class="form-control" id="sisaObat"
-                                    placeholder="Masukkan sisa obat" required value="{{ $pembelian_obat_suppliers->sisa_obat }}">
-                            </div>
-                            <div class="form-group">
                                 <label for="Judul Berita">Tanggal Produksi Obat</label>
                                 <input name="tanggalproduksi" type="date" class="form-control" id="TanggalProduksi"
                                     placeholder="Tanggal Produksi Obat" required value="{{ $pembelian_obat_suppliers->tanggalproduksi }}">

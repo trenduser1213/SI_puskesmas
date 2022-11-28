@@ -124,19 +124,25 @@
                                                 <div class="modal-body">
                                                     <input type="hidden" id="id" name="id"
                                                         value="{{ $resep_obat_id }}">
+                                                    <input type="hidden" name="obat_id" value="{{ $item->id_obat }}">
                                                     <div class="form-group">
                                                         <label for="Judul Berita">Pilih Obat</label>
+                                                        {{-- <input class="form-control" type="text" name="obat_id"
+                                                            value="{{ $item->id_obat }}" disabled> --}}
                                                         <select name="obat_id" id="obat_id" class="form-control">
                                                             @foreach ($obat as $items)
-                                                                @if ($items->id === $item->id)
-                                                                    <option value="{{ $items->id }}" selected>
+                                                                @if ($items->id === $item->id_obat)
+                                                                    <option value="{{ $items->id }}" selected disabled>
                                                                         {{ $items->nama }}</option>
-                                                                @else
+                                                                    {{-- @else
                                                                     <option value="{{ $items->id }}">
-                                                                        {{ $items->nama }}</option>
+                                                                        {{ $items->nama }}</option> --}}
                                                                 @endif
                                                             @endforeach
                                                         </select>
+                                                        <small class="text-warning"><i class="fa fa-info-circle"></i>
+                                                            Obat tidak bisa di ganti, silahkan hapus data ini dan tambahkan
+                                                            data yang baru jika ingin mengganti obat</small>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Judul Berita">Keterangan</label>
@@ -146,7 +152,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Judul Berita">Jumlah Obat</label>
-                                                        <input name="jumlah_obat" type="text" class="form-control"
+                                                        <input name="jumlah_obat" type="number" class="form-control"
                                                             id="resepObat" placeholder="Masukkan Jumlah Obat"
                                                             value="{{ $item->jumlah_obat }}">
                                                     </div>
@@ -194,7 +200,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="Judul Berita">Jumlah Obat</label>
-                                        <input name="jumlah_obat" type="text" class="form-control" id="resepObat"
+                                        <input name="jumlah_obat" type="number" class="form-control" id="resepObat"
                                             placeholder="Masukkan Jumlah Obat">
                                     </div>
                                 </div>

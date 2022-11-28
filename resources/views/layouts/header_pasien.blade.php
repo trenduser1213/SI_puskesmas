@@ -81,7 +81,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('berobat')}}" class="nav-link">
-                    <i class="nav-icon fas fa-users-medical"></i>
+                    <i class="fas fa-clinic-medical"></i>
                     <p>
                         Pendaftaran Berobat
                     </p>

@@ -53,8 +53,8 @@
                                     <td>{{$item->jumlah_obat}}</td>
                                     <td>{{$item->keterangan_obat}}</td>
                                     <td><i>@php
-                                             $count=  explode(" ",$item->jumlah_obat);
-                                              if ($count[0] > $item->obat->stok) {
+                                        
+                                              if ($item->jumlah_obat > $item->obat->stok) {
                                                  echo "Stok Kurang";
                                               }else {
                                                  echo "Stok Ada";
@@ -70,8 +70,6 @@
                                     <th colspan="6" class="text-right">Total (Rp.)</th>
                                     <td colspan="1">{{ number_format($total, 0, ',', '.') }}</td>
                                 </tr>
-                               
-        
                             </tbody>
                         </table>
                     </div>
@@ -127,8 +125,7 @@
                                     <label for="nama">Kembalian</label>
                                     <input name="kembalian" type="text" class="form-control" id="kembalian"
                                         placeholder="Kembalian" readonly>
-                                </div>
-                                
+                                </div>                             
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info btn-rounded">Konfirmasi Pembayaran</button>

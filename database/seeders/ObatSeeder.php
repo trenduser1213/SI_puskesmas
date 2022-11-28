@@ -21,9 +21,7 @@ class ObatSeeder extends Seeder
                 'nama' => 'Gastrucid',
                 'dosis' => '2x1',
                 'harga' => '10000',
-                'stok' => 99,
-                'tanggal_produksi' => '2014-03-01',
-                'tanggal_kadaluarsa' => '2016-03-01'
+                'stok' => 99
             ],
             [
                 'kode' => 'A2',
@@ -31,9 +29,7 @@ class ObatSeeder extends Seeder
                 'nama' => 'Biogesic',
                 'dosis' => '3x1',
                 'harga' => '2000',
-                'stok' => 99,
-                'tanggal_produksi' => '2014-03-01',
-                'tanggal_kadaluarsa' => '2016-03-01'
+                'stok' => 99
             ]
         ]);
     }
