@@ -41,11 +41,8 @@ Route::group(['middleware' => ['auth'], "prefix" => "/admin"], function () {
     Route::delete('delete_jadwal_dokter/{id}', [App\Http\Controllers\DokterHomeController::class, 'delete_jadwal_dokter' ])->name('delete_jadwal_dokter');
     Route::get('/update-status-pendaftaran/{id}', [App\Http\Controllers\LayananController::class, 'update_status_pendaftaran' ]);
     Route::resource('rujukan', App\Http\Controllers\rujukanController::class);
-    Route::resource('transaksi', App\Http\Controllers\TransaksiController::class);
+    // Route::resource('transaksi', App\Http\Controllers\TransaksiController::class);
     
-    Route::get('/transaksi/{transaksi}', [App\Http\Controllers\TransaksiController::class,'createTransaksi'])->name('transaksi.createTransaksi');
-    Route::get('listrekammedis', [App\Http\Controllers\TransaksiController::class,'listrekammedis'])->name('transaksi.listrekammedis');
-    Route::get('/transaksi/{transaksi}/invoice', [App\Http\Controllers\TransaksiController::class,'print'])->name('transaksi.invoice');
     
 });
 
@@ -60,4 +57,15 @@ Route::group(['middleware' => ['auth'], "prefix" => "/dokter"], function(){
     Route::get('/dashboard', [App\Http\Controllers\DokterHomeController::class, 'index'])->name('dokter_home');
     Route::resource('rekamedis', App\Http\Controllers\RekamedisController::class);
     Route::resource('dokterrujukan', App\Http\Controllers\dokterRujukanController::class);
+});
+
+Route::group(['middleware' => ['auth'], "prefix" => "/apoteker"], function(){
+    Route::get('/dashboard', [App\Http\Controllers\ApotekerHomeController::class, 'index'])->name('apoteker_home');
+    // Route::resource('rekamedis', App\Http\Controllers\RekamedisController::class);
+    // Route::resource('dokterrujukan', App\Http\Controllers\dokterRujukanController::class);
+    Route::resource('transaksi', App\Http\Controllers\TransaksiController::class);
+    Route::get('/transaksi/{transaksi}', [App\Http\Controllers\TransaksiController::class,'createTransaksi'])->name('transaksi.createTransaksi');
+    Route::get('listrekammedis', [App\Http\Controllers\TransaksiController::class,'listrekammedis'])->name('transaksi.listrekammedis');
+    Route::get('/transaksi/{transaksi}/invoice', [App\Http\Controllers\TransaksiController::class,'print'])->name('transaksi.invoice');
+
 });

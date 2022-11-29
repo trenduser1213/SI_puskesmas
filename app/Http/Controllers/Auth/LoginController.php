@@ -82,6 +82,8 @@ class LoginController extends Controller
                 return redirect()->route('pasien_home');
             } else if ($userRole->roles->nama == 'dokter') {
                 return redirect()->route('dokter_home');
+            }else if ($userRole->roles->nama == 'apoteker') {
+                return redirect()->route('apoteker_home');
             }
 
             return redirect()->route('home');
