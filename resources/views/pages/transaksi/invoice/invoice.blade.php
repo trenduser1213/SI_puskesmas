@@ -21,7 +21,7 @@
         <div>
             <table>
                 
-                    <th>
+                   
                         <tr>
                             <td>No</td>
                             <td>Nama Obat</td>
@@ -31,7 +31,7 @@
                             <td>Harga Obat (Rp.)</td>
                             <td>Subtotal (Rp.)</td>
                         </tr>
-                    </th>
+                   
 
                     @php
                         $no=1;

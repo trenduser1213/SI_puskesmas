@@ -13,7 +13,7 @@ class CreatePendaftaranPasienTable extends Migration
      */
     public function up()
     {
-        Schema::create('pendaftaran_pasien', function (Blueprint $table) {
+        Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned();
             $table->integer('nomor_antrian');
@@ -30,6 +30,6 @@ class CreatePendaftaranPasienTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pendaftaran_pasien');
+        Schema::dropIfExists('appointments');
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PendaftaranPasien extends Model
 {
     use HasFactory;
-    public $table = 'pendaftaran_pasien';
+    public $table = 'appointments';
 
     protected $fillable = [
         'user_id',

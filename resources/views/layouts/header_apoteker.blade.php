@@ -166,6 +166,7 @@
       </aside>
       @yield('content')
       @yield('scripts')
+
       <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
       </aside>
@@ -201,6 +202,8 @@
      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
        
      <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+
+     @yield('js')
      
      <script>
      

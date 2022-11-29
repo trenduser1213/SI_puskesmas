@@ -85,18 +85,16 @@ class TransaksiController extends Controller
             'total' => $request->grandtotal,
             'rekammedis_id' => $rekammedis->id
         ]);
-
       
         foreach ($resepObat as $item ) {
             
-            $count=  explode(" ",$item->jumlah_obat);
               // save to detail
               $detail = TransaksiDetail::create(
                     [
                         'transaksi_id' => $transaksi->id,
                         'obat_id' => $item->id_obat,
-                        'jumlah' => $count[0],
-                        'subtotal' => $count[0] * $item->obat->harga
+                        'jumlah' => $item->jumlah_obat,
+                        'subtotal' => $item->jumlah_obat * $item->obat->harga
                     ]
                 );
 
@@ -152,15 +150,13 @@ class TransaksiController extends Controller
   
         
           foreach ($resepObat as $item ) {
-              
-              $count=  explode(" ",$item->jumlah_obat);
                 // save to detail
                 $detail = TransaksiDetail::create(
                       [
                           'transaksi_id' => $transaksi->id,
                           'obat_id' => $item->id_obat,
-                          'jumlah' => $count[0],
-                          'subtotal' => $count[0] * $item->obat->harga
+                          'jumlah' => $item->jumlah_obat,
+                          'subtotal' => $item->jumlah_obat * $item->obat->harga
                       ]
                   );
   
@@ -209,8 +205,7 @@ class TransaksiController extends Controller
                           ->with('obat.kategori_obat')
                           ->get();
         foreach ($resepObat as $item ) {
-            $count=  explode(" ",$item->jumlah_obat);
-            $total += $count[0] * $item->obat->harga;
+            $total += $item->jumlah_obat * $item->obat->harga;
          }
 
          $data = [
@@ -221,6 +216,12 @@ class TransaksiController extends Controller
 
         $pdf = PDF::loadView('pages.transaksi.invoice.invoice', $data)->setPaper('a4', 'potrait');;
         return $pdf->download('Invoice Pemeriksaan.pdf');
+
+        // return view('pages.transaksi.invoice.invoice',[
+        //     'total' => $total,
+        //    'transaksi' => $transaksi,
+        //    'resepObat' => $resepObat 
+        // ]);
     }
 
 
