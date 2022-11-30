@@ -42,21 +42,23 @@ Route::group(['middleware' => ['auth'], "prefix" => "/admin"], function () {
     Route::get('/update-status-pendaftaran/{id}', [App\Http\Controllers\LayananController::class, 'update_status_pendaftaran' ]);
     Route::resource('rujukan', App\Http\Controllers\rujukanController::class);
     // Route::resource('transaksi', App\Http\Controllers\TransaksiController::class);
-    
-    
+
+
 });
 
 Route::group(['middleware' => ['auth'], "prefix" => "/pasien"], function(){
     Route::get('/dashboard', [App\Http\Controllers\PasienHomeController::class, 'index'])->name('pasien_home');
     Route::get('/berobat', [App\Http\Controllers\LayananController::class, 'berobat'])->name('berobat');
     Route::get('/pasien_mendaftar/{id}', [App\Http\Controllers\LayananController::class, 'pasien_mendaftar'])->name('pasien_mendaftar');
-    
+
 });
 
 Route::group(['middleware' => ['auth'], "prefix" => "/dokter"], function(){
     Route::get('/dashboard', [App\Http\Controllers\DokterHomeController::class, 'index'])->name('dokter_home');
     Route::resource('rekamedis', App\Http\Controllers\RekamedisController::class);
     Route::resource('dokterrujukan', App\Http\Controllers\dokterRujukanController::class);
+    Route::resource('pasien', App\Http\Controllers\AntrianPasienController::class);
+    Route::post('pasien/batal/{id}', [App\Http\Controllers\AntrianPasienController::class, 'batal'])->name('pasien.batal');
 });
 
 Route::group(['middleware' => ['auth'], "prefix" => "/apoteker"], function(){

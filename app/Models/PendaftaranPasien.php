@@ -10,6 +10,10 @@ class PendaftaranPasien extends Model
     use HasFactory;
     public $table = 'appointments';
 
+    const STATUS_ANTRI = 'Antri';
+    const STATUS_TELAH_DIPERIKSA = 'Telah Diperiksa';
+    const STATUS_BATAL = 'Dibatalkan';
+
     protected $fillable = [
         'user_id',
         'nomor_antrian',
