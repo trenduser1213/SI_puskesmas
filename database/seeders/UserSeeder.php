@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
         $pasien = User::create([
             'username' => 'pasien',
             'nama' => 'pasien',
-            'email' => 'pasien',
+            'email' => 'pasien@gmail.com',
             'tanggal_lahir' => '1971-03-03',
             'jenis_kelamin' => 'L',
             'no_rm' => '00001',

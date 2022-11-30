@@ -20,5 +20,19 @@ class UserSpesialisSeeder extends Seeder
                 'spesialis_id' => 1,
             ],
         ]);
+
+        UserSpesialis::insert([
+            [
+                'user_id' => 2,
+                'spesialis_id' => 2,
+            ],
+        ]);
+
+        UserSpesialis::insert([
+            [
+                'user_id' => 2,
+                'spesialis_id' => 3,
+            ],
+        ]);
     }
 }

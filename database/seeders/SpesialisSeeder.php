@@ -20,5 +20,19 @@ class SpesialisSeeder extends Seeder
                'nama' => 'Penyakit Dalam',
            ]
         ]);
+
+        Spesialis::insert([
+            [
+                'kode' => 'SP002',
+                'nama' => 'Penyakit Luar',
+            ]
+         ]);
+
+         Spesialis::insert([
+            [
+                'kode' => 'SP003',
+                'nama' => 'Penyakit Kulit',
+            ]
+         ]);
     }
 }
