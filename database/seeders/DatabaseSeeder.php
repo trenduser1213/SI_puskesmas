@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             RekamMedisSeeder::class,
             TempatRujukanSeeder::class,
             RujukanSeeder::class,
+            AppointmentSeeder::class,
         ]);
     }
 }

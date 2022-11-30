@@ -16,9 +16,12 @@ class CreatePendaftaranPasienTable extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned();
+            $table->integer('dokter_id')->unsigned();
             $table->integer('nomor_antrian');
             $table->string('status');
+            $table->date('tanggal');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('dokter_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
