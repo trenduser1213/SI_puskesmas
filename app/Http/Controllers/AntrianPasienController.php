@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PendaftaranPasien;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,11 @@ class AntrianPasienController extends Controller
     public function index()
     {
         // TODO: Show data for related dokter_id
-        $appointments = PendaftaranPasien::whereStatus(PendaftaranPasien::STATUS_ANTRI)->whereDokterId(Auth::user()->id)->with(['users'])->get();
+        $appointments = PendaftaranPasien::whereStatus(PendaftaranPasien::STATUS_ANTRI)
+            ->whereDokterId(Auth::user()->id)
+            ->whereDate('tanggal', '>=', Carbon::yesterday()->format('Y-m-d'))
+            ->with(['users'])
+            ->get();
         $data = ['appointments' => $appointments];
         return view('pages.rekamedis.appointment', $data);
     }
