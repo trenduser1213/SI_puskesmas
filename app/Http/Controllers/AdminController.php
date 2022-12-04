@@ -25,6 +25,8 @@ class AdminController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $admin = UserRole::with(['users', 'roles'])->where('role_id', 1)->get();
         return view('pages.admin.index', compact('admin'));
@@ -44,6 +46,8 @@ class AdminController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         return view('pages.admin.create');
     }
@@ -102,6 +106,8 @@ class AdminController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $admin = UserRole::with(['users', 'roles'])->findOrFail($id);
         return view('pages.admin.update', compact('admin'));

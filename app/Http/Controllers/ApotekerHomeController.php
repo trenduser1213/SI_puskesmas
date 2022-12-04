@@ -30,6 +30,8 @@ class ApotekerHomeController extends Controller
             return redirect()->route('home');
         }elseif ($cek == "pasien") {
             return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();

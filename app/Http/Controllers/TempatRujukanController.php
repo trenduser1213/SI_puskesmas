@@ -25,6 +25,8 @@ class TempatRujukanController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         
         $tempat_rujukan = TempatRujukan::all();
@@ -46,6 +48,8 @@ class TempatRujukanController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         return view('pages.tempat_rujukan.create');
     }
@@ -92,6 +96,8 @@ class TempatRujukanController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $tempat_rujukan = TempatRujukan::findOrFail($id);
         return view('pages.tempat_rujukan.update', compact('tempat_rujukan'));

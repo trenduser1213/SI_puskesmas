@@ -25,6 +25,8 @@ class SpesialisController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $spesialis = Spesialis::all();
         return view('pages.spesialis.index', compact('spesialis'));
@@ -42,8 +44,10 @@ class SpesialisController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }elseif ($cek == "apoteker") {
-            // # code...
+            return redirect()->route('apoteker_home');
         }
         return view('pages.spesialis.create');
     }
@@ -90,6 +94,8 @@ class SpesialisController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $spesialis = Spesialis::findOrFail($id);
         return view('pages.spesialis.update', compact('spesialis'));

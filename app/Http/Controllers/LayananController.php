@@ -43,6 +43,8 @@ class LayananController extends Controller
             return redirect()->route('home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
 
         $spesialis = Spesialis::get();
@@ -80,6 +82,8 @@ class LayananController extends Controller
             return redirect()->route('home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
 
         // end of cek roles
@@ -223,6 +227,13 @@ class LayananController extends Controller
 
    public function print($id)
    {
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
+        }
         $pendaftaranPasien = PendaftaranPasien::with('jadwal')->where('id',$id)->first();
 
         $url = url('/update-status-pendaftaran/' . $pendaftaranPasien->id);

@@ -29,6 +29,8 @@ class PembelianObatSuppliersController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $pembelian_obat_suppliers = PembelianObatSuppliers::with(['obat'])->get();
         // dd($pembelian_obat_suppliers);
@@ -50,6 +52,8 @@ class PembelianObatSuppliersController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $pembelian_obat_suppliers = PembelianObatSuppliers::all();
         $obat_id = Obat::all();
@@ -103,6 +107,8 @@ class PembelianObatSuppliersController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $pembelian_obat_suppliers = PembelianObatSuppliers::with(['obat'])->findOrFail($id);
         $obat_id = Obat::all();

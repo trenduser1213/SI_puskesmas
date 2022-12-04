@@ -29,6 +29,8 @@ class DokterHomeController extends Controller
             return redirect()->route('home');
         }elseif ($cek == "pasien") {
             return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
@@ -49,6 +51,8 @@ class DokterHomeController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $data['jadwalSenin'] = JadwalDokter::with(['users'])->where('hari', 'senin')->get();
         $data['jadwalSelasa'] = JadwalDokter::with(['users'])->where('hari', 'selasa')->get();
@@ -70,6 +74,8 @@ class DokterHomeController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $role = Roles::where('nama', 'dokter')->first();
         $spesialis = Spesialis::all();

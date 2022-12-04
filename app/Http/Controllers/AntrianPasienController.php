@@ -16,6 +16,13 @@ class AntrianPasienController extends Controller
      */
     public function index()
     {
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
+        }
         // TODO: Show data for related dokter_id
         $appointments = PendaftaranPasien::whereStatus(PendaftaranPasien::STATUS_ANTRI)
             ->whereDokterId(Auth::user()->id)

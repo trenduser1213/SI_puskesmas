@@ -28,6 +28,8 @@ class RekamedisController extends Controller
             return redirect()->route('home');
         }elseif ($cek == "pasien") {
             return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $rekamedis = Rekamedis::with([
             'pasien',
@@ -55,6 +57,8 @@ class RekamedisController extends Controller
             return redirect()->route('home');
         }elseif ($cek == "pasien") {
             return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $pasien_id = $request->id;
         $antrian = PendaftaranPasien::where('user_id', $pasien_id)->whereStatus(PendaftaranPasien::STATUS_ANTRI)->firstOrFail();
@@ -129,6 +133,8 @@ class RekamedisController extends Controller
             return redirect()->route('home');
         }elseif ($cek == "pasien") {
             return redirect()->route('pasien_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $rekamedis = Rekamedis::with([
             'pasien',

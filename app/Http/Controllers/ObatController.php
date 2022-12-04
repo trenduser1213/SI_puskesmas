@@ -28,6 +28,8 @@ class ObatController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         
         $obat = Obat::with(['kategori_obat'])->get();
@@ -48,6 +50,8 @@ class ObatController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $kategori_obat = KategoriObat::all();
         return view('pages.obat.create', compact('kategori_obat'));
@@ -95,6 +99,8 @@ class ObatController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $obat = Obat::with(['kategori_obat'])->findOrFail($id);
         $kategori_obat = KategoriObat::all();

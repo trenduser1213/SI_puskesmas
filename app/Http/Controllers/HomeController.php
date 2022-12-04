@@ -35,6 +35,8 @@ class HomeController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }else{
             $data['obat'] = Obat::count();
             $data['dokter'] = UserSpesialis::count();

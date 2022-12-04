@@ -25,6 +25,8 @@ class rujukanController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $data = RujukanLab::with(['tempatRujukan'],['rekamedis'])->get();
         // dd($data);
@@ -110,6 +112,8 @@ class rujukanController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $rekamedis  = Rekamedis::all();
         $tempat     = TempatRujukan::all();

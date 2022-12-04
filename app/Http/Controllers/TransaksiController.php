@@ -21,7 +21,9 @@ class TransaksiController extends Controller
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
-        if ($cek == "pasien") {
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "pasien") {
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
@@ -37,7 +39,9 @@ class TransaksiController extends Controller
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
-        if ($cek == "pasien") {
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "pasien") {
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
@@ -107,6 +111,13 @@ class TransaksiController extends Controller
 
     public function edit($id)
     {
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
         $total = 0;
 
         // get rekamedis
@@ -173,7 +184,9 @@ class TransaksiController extends Controller
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
-        if ($cek == "pasien") {
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "pasien") {
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
@@ -197,6 +210,13 @@ class TransaksiController extends Controller
 
     public function print($id)
     {
+        if ($cek == "admin") {
+            return redirect()->route('home');
+        }elseif ($cek == "pasien") {
+            return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
+        }
         $total = 0;
           // get data obat dan data rekamedis
           $transaksi = Transaksi::with('rekammedis.resepobat')->findOrFail($id);

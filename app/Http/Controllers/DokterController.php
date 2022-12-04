@@ -29,6 +29,8 @@ class DokterController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $role = Roles::where('nama', 'dokter')->first();
         $spesialis = Spesialis::all();
@@ -49,8 +51,10 @@ class DokterController extends Controller
         $cek = $userRole->roles->nama;
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
+        }elseif ($cek == "dokter") {
+            return redirect()->route('dokter_home');
         }elseif ($cek == "apoteker") {
-            // # code...
+            return redirect()->route('apoteker_home');
         }
         $spesialis = Spesialis::all();
         return view('pages.dokter.create', compact('spesialis'));
@@ -106,6 +110,8 @@ class DokterController extends Controller
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
+        }elseif ($cek == "apoteker") {
+            return redirect()->route('apoteker_home');
         }
         $spesialis = Spesialis::all();
         $dokter = UserSpesialis::with(['users', 'user_spesialis'])->findOrFail($id);
