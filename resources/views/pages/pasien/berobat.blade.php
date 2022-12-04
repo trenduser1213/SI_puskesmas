@@ -108,6 +108,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
+                        @if (count($daftarUser) > 0)
                         @foreach ($daftarUser as $item)
                            
                                 <div class="col-md-4">
@@ -121,17 +122,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6" >
-                                                     <h4 style="font-size:98%"><i><i class="fas fa-bookmark text-blue"></i> {{$item->spesialis->nama}}</i></h4>
-                                                     <h4 style="font-size:98%"><i class="fas fa-clock text-blue"></i> {{\Carbon\Carbon::parse($item->tanggal)->format('l , d F Y')}}</h4>                                                     
-                                                     <h4 style="font-size:98%"><i>{{$item->jadwal->waktu_mulai}} - {{$item->jadwal->waktu_selesai}}</i></h4>
+                                                    <h4 style="font-size:98%"><i><i class="fas fa-bookmark text-blue"></i> {{$item->spesialis->nama}}</i></h4>
+                                                    <h4 style="font-size:98%"><i class="fas fa-clock text-blue"></i> {{\Carbon\Carbon::parse($item->tanggal)->format('l , d F Y')}}</h4>                                                     
+                                                    <h4 style="font-size:98%"><i>{{$item->jadwal->waktu_mulai}} - {{$item->jadwal->waktu_selesai}}</i></h4>
 
-                                                     <h4 style="font-size:100%" class="badge badge-primary badge-lg">{{$item->status}}</h4>
+                                                    <h4 style="font-size:100%" class="badge badge-primary badge-lg">{{$item->status}}</h4>
 
                                                 </div>
                                             </div>                                         
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                   <hr style="color:rgb(28, 5, 5)">
+                                                <hr style="color:rgb(28, 5, 5)">
                                                 </div>  
                                             </div> 
 
@@ -147,13 +148,13 @@
 
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                   <hr style="color:rgb(28, 5, 5)">
+                                                <hr style="color:rgb(28, 5, 5)">
                                                 </div>  
                                             </div> 
 
                                             <div class="row">                                               
                                                 <div class="col-md-4 pl-4">
-                                                     @if ($item->dokter->jenis_kelamin=="P")
+                                                    @if ($item->dokter->jenis_kelamin=="P")
                                                         <img src="{{ asset('/icon/dokterwanita.png') }}" width="50px" height="50px">
                                                     @else
                                                         <img src="{{ asset('/icon/doktercowo.png') }}" width="50px" height="50px">
@@ -166,21 +167,21 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                   <hr style="color:rgb(28, 5, 5)">
+                                                <hr style="color:rgb(28, 5, 5)">
                                                 </div>  
                                             </div> 
 
                                             <div class="row align-items-center">
                                                 <div class="col-md-6">
                                                     <h4 style="font-size:98%">Jenis Pembayaran</h4> 
-                                                   <h4 class="text-blue"><u>{{ucfirst($item->tipe_pembayaran)}}</u></h4>
+                                                <h4 class="text-blue"><u>{{ucfirst($item->tipe_pembayaran)}}</u></h4>
                                                 </div>
-                                               
+                                            
                                                 <div class="col-md-6">
                                                     <a href="{{ route('berobat.print', ['id'=>$item->id]) }}" class="btn btn-block  btn-warning "><i class="fas fa-file-pdf"></i> Download PDF</a>
                                                 </div>                                                
                                             </div>
-                                           
+                                        
                                         </div>
                                         @if ($item->status == 'Antri')
                                             <div class="card-footer">
@@ -189,14 +190,22 @@
                                         @else
                                             <div class="card-footer">
                                                 <a  class="btn  btn-outline-info btn-block" onclick="deleteDaftar('{{$item->status}}',null)"><i class="fas fa-check-circle"></i> Pemeriksaan Telah Selesei</a>
-                                               
+                                            
                                             </div>
                                         @endif
-                                       
+                                    
                                     </div>
                                 </div>
-                              
-                        @endforeach
+                            
+                             @endforeach
+                        @else
+                            <div class="col-12">
+                                <div class="bg-grey text-center">
+                                    <h6><i>Belum Ada Pendaftaran</i></h6>
+                                </div>
+                            </div>    
+                        @endif
+                        
                     </div>
                     </div>
                 </div>
