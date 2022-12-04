@@ -49,6 +49,8 @@ Route::group(['middleware' => ['auth'], "prefix" => "/admin"], function () {
 Route::group(['middleware' => ['auth'], "prefix" => "/pasien"], function(){
     Route::get('/dashboard', [App\Http\Controllers\PasienHomeController::class, 'index'])->name('pasien_home');
     Route::get('/berobat', [App\Http\Controllers\LayananController::class, 'berobat'])->name('berobat');
+    Route::get('/berobat/{id}/print', [App\Http\Controllers\LayananController::class, 'print'])->name('berobat.print');
+
 
     Route::post('/berobat/daftar', [App\Http\Controllers\LayananController::class, 'pilihDokter'])->name('pasien.pilihdokter');
     Route::post('/pasien_mendaftar', [App\Http\Controllers\LayananController::class, 'pasien_mendaftar'])->name('pasien.daftar');

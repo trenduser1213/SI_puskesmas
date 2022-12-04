@@ -52,7 +52,32 @@ class JadwalDokterSeeder extends Seeder
 
         JadwalDokter::create([
             'dokter_id' => 2,
-            'hari' => 'kamis',
+            'hari' => 'jumat',
+            'waktu_mulai' => "08:00",
+            'waktu_selesai'=> "17:00",
+            'ruangan' => "A301",
+            'stok' => 10
+        ]);
+        JadwalDokter::create([
+            'dokter_id' => 2,
+            'hari' => 'sabtu',
+            'waktu_mulai' => "08:00",
+            'waktu_selesai'=> "17:00",
+            'ruangan' => "A301",
+            'stok' => 10
+        ]);
+        JadwalDokter::create([
+            'dokter_id' => 2,
+            'hari' => 'minggu',
+            'waktu_mulai' => "08:00",
+            'waktu_selesai'=> "17:00",
+            'ruangan' => "A301",
+            'stok' => 10
+        ]);
+
+        JadwalDokter::create([
+            'dokter_id' => 2,
+            'hari' => 'senin',
             'waktu_mulai' => "08:00",
             'waktu_selesai'=> "17:00",
             'ruangan' => "A301",

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Obat;
+use App\Models\PendaftaranPasien;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Roles;
@@ -35,7 +36,24 @@ class PasienHomeController extends Controller
             $data['dokter'] = UserSpesialis::count();
             $data['pasien'] = UserRole::where('role_id', 3)->count();
             $data['spesialis'] = Spesialis::count();
-            return view('pages.dashboard.pasien_dashboard', $data);
+
+            // get data antrian
+            $daftarUser = PendaftaranPasien::where('status','Antri')->with(['dokter','spesialis','jadwal'])->where('user_id',$userId)->latest()->get();
+
+            // get nomor antrian berdasarkan spesialis dan tanggal dan dokter
+            // status antri dan dapatkan antrian paling
+            foreach ($daftarUser as $item => $user) {
+                $no = PendaftaranPasien::where('dokter_id',$user->dokter_id)
+                                           ->where('spesialis_id',$user->spesialis_id)
+                                           ->where('jadwal_id',$user->jadwal_id)
+                                           ->where('tanggal',$user->tanggal)
+                                           ->where('status','Antri')
+                                           ->min('nomor_antrian');
+                $user['nomor_antrian_sekarang'] = $no;
+            }
+
+
+            return view('pages.dashboard.pasien_dashboard', compact('data','daftarUser'));
         }
     }
 

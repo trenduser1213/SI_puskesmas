@@ -45,11 +45,24 @@ class LayananController extends Controller
             return redirect()->route('dokter_home');
         }
 
-      
-
         $spesialis = Spesialis::get();
 
         $daftarUser = PendaftaranPasien::with(['dokter','spesialis','jadwal'])->where('user_id',$userId)->latest()->get();
+
+        // get nomor antrian berdasarkan spesialis dan tanggal dan dokter
+        // status antri dan dapatkan antrian paling
+        foreach ($daftarUser as $item => $user) {
+            $data = PendaftaranPasien::where('dokter_id',$user->dokter_id)
+                                       ->where('spesialis_id',$user->spesialis_id)
+                                       ->where('jadwal_id',$user->jadwal_id)
+                                       ->where('tanggal',$user->tanggal)
+                                       ->where('status','Antri')
+                                       ->min('nomor_antrian');
+            $user['nomor_antrian_sekarang'] = $data;
+        }
+
+        // dd($daftarUser);
+
         return view('pages.pasien.berobat',compact('spesialis','daftarUser'));
     }
 
@@ -86,30 +99,6 @@ class LayananController extends Controller
                 'spesialis_id' => $request->spesialis_id,
                 'jadwal_id' => $request->jadwal_id
            ]);
-
-        $url = url('/update-status-pendaftaran/' . $pendaftaranPasien->id);
-        $qrcode= QrCode::generate($url);
-        
-        $mailTo = Auth::user()->email;
-        $nama = Auth::user()->nama;
-
-        $data = [
-            'nomor_antrian' => $nomor_antrian,
-            'dokter' => $jadwal->dokter->nama,
-            'waktu_mulai' => $jadwal->waktu_mulai,
-            'waktu_selesai' => $jadwal->waktu_selesai,
-            'ruangan' => $jadwal->ruangan,
-            'qrcode' => $qrcode
-        ];
-
-        // fungsi untuk print pdf
-        $pdf = FacadePdf::loadView('nomor_antrian_pdf',$data)->setPaper('a4', 'portrait');
-
-        // fungsi untuk mengirimkan email
-        Mail::to($mailTo)->send(new KirimNomorAntrianEmail($nomor_antrian, $jadwal, $qrcode, $nama));
-        $pdf->set_option('setRemoteEnabled',TRUE);
-
-        // $pdf->download('antrian.pdf')
 
         return redirect()->route('berobat')->with('success','Pendaftaran Anda Berhasil');
         
@@ -168,7 +157,6 @@ class LayananController extends Controller
             return back()->with('error','Hanya Bisa Memilih H-1 Hari');
         }
 
-
         // dapatkan hari nya
         $day = $dateTanggal->format('l');
         $hari = $this->appointment->getHari($day);
@@ -183,7 +171,6 @@ class LayananController extends Controller
             return back()->with('informasi','Pelayanan Pada Tanggal dan Spesialis Tersebut Belum Tersedia');
         }
         
-
         // jika hari ini maka tidak akan bisa daftar ke dokter yang sudah masa jamnya selesei
         // cek nomor antrian dengan cara looping
         foreach ($spesialis as $key => $value) {
@@ -232,5 +219,34 @@ class LayananController extends Controller
    {
         $pasien = PendaftaranPasien::findOrFail($request->id);
         $pasien->delete();
+   }
+
+   public function print($id)
+   {
+        $pendaftaranPasien = PendaftaranPasien::with('jadwal')->where('id',$id)->first();
+
+        $url = url('/update-status-pendaftaran/' . $pendaftaranPasien->id);
+        $qrcode= QrCode::generate($url);
+
+        $mailTo = Auth::user()->email;
+        $nama = Auth::user()->nama;
+
+        $data = [
+            'nomor_antrian' => $pendaftaranPasien->nomor_antrian,
+            'dokter' => $pendaftaranPasien->jadwal->dokter->nama,
+            'waktu_mulai' => $pendaftaranPasien->jadwal->waktu_mulai,
+            'waktu_selesai' => $pendaftaranPasien->jadwal->waktu_selesai,
+            'ruangan' => $pendaftaranPasien->jadwal->ruangan,
+            'qrcode' => $qrcode
+        ];
+
+        // fungsi untuk print pdf
+        $pdf = FacadePdf::loadView('nomor_antrian_pdf',$data)->setPaper('a4', 'portrait');
+
+        // fungsi untuk mengirimkan email
+        Mail::to($mailTo)->send(new KirimNomorAntrianEmail($pendaftaranPasien->nomor_antrian, $pendaftaranPasien->jadwal, $qrcode, $nama));
+        $pdf->set_option('setRemoteEnabled',TRUE);
+
+        return $pdf->download('antrian.pdf');
    }
 }

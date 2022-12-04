@@ -141,7 +141,7 @@
                                                     <h5  class="text-center"><i>No Antrian Sekarang</i></h5>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-rounded btn-info btn-lg" >6</button>
+                                                    <button type="button" class="btn btn-rounded btn-info btn-lg" >{{$item->nomor_antrian_sekarang ? $item->nomor_antrian_sekarang : 'Selesei' }}</button>
                                                 </div>
                                             </div>
 
@@ -177,7 +177,7 @@
                                                 </div>
                                                
                                                 <div class="col-md-6">
-                                                    <a href="" class="btn btn-block  btn-warning "><i class="fas fa-file-pdf"></i> Download PDF</a>
+                                                    <a href="{{ route('berobat.print', ['id'=>$item->id]) }}" class="btn btn-block  btn-warning "><i class="fas fa-file-pdf"></i> Download PDF</a>
                                                 </div>                                                
                                             </div>
                                            
