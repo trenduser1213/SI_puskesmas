@@ -11,7 +11,10 @@ use App\Models\Spesialis;
 use App\Models\PendaftaranPasien;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use App\Models\UserRole;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Mail;
 
@@ -19,6 +22,12 @@ use Illuminate\Support\Facades\Mail;
 class LayananController extends Controller
 {
 
+    protected $appointment;
+
+    public function __construct()
+    {
+        $this->appointment = new PendaftaranPasien();
+    }
     public function index()
     {
         
@@ -36,32 +45,47 @@ class LayananController extends Controller
             return redirect()->route('dokter_home');
         }
 
-        $data['jadwalSenin'] = JadwalDokter::with(['users'])->where('hari', 'senin')->get();
-        $data['jadwalSelasa'] = JadwalDokter::with(['users'])->where('hari', 'selasa')->get();
-        $data['jadwalRabu'] = JadwalDokter::with(['users'])->where('hari', 'rabu')->get();
-        $data['jadwalKamis'] = JadwalDokter::with(['users'])->where('hari', 'kamis')->get();
-        $data['jadwalJumat'] = JadwalDokter::with(['users'])->where('hari', 'jumat')->get();
-        $data['jadwalSabtu'] = JadwalDokter::with(['users'])->where('hari', 'sabtu')->get();
-        $data['jadwalMinggu'] = JadwalDokter::with(['users'])->where('hari', 'minggu')->get();
-        return view('pages.pasien.berobat',$data);
+      
+
+        $spesialis = Spesialis::get();
+
+        $daftarUser = PendaftaranPasien::with(['dokter','spesialis','jadwal'])->where('user_id',$userId)->latest()->get();
+        return view('pages.pasien.berobat',compact('spesialis','daftarUser'));
     }
 
     // fungsi untuk pendaftaran pasien
-    public function pasien_mendaftar($id)
+    public function pasien_mendaftar(Request $request)
     {
+        
         $userId = Auth::user()->id;
+
+        // cek Roles
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
+        
         if ($cek == "admin") {
             return redirect()->route('home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
         }
-        $userId = Auth::user()->id;
-        $jadwal = JadwalDokter::with(['users'])->where('id', $id)->first();
-        $nomor_antrian = $jadwal['nomor_antrian'] + 1;
-        $jadwalUpdate = JadwalDokter::where('id', $id)->update(['nomor_antrian' => $nomor_antrian]);
-        $pendaftaranPasien = PendaftaranPasien::create(['user_id' => $userId, 'nomor_antrian' => $nomor_antrian, 'status' => 'antri']);
+
+        // end of cek roles
+
+        // cek jadwal
+        $jadwal = JadwalDokter::with('dokter')->where('dokter_id',$request->dokter_id)->where('hari',$request->hari)->first();
+
+        $nomor_antrian = $request->nomor_antrian + 1;
+        $pendaftaranPasien = PendaftaranPasien::create
+            ([
+                'user_id' => $userId, 
+                'nomor_antrian' => $nomor_antrian, 
+                'status' => 'Antri',
+                'tanggal' => Carbon::parse($request->tanggal)->format('Y-m-d'),
+                'tipe_pembayaran' => $request->tipe_pembayaran,
+                'dokter_id' => $request->dokter_id,
+                'spesialis_id' => $request->spesialis_id,
+                'jadwal_id' => $request->jadwal_id
+           ]);
 
         $url = url('/update-status-pendaftaran/' . $pendaftaranPasien->id);
         $qrcode= QrCode::generate($url);
@@ -71,7 +95,7 @@ class LayananController extends Controller
 
         $data = [
             'nomor_antrian' => $nomor_antrian,
-            'dokter' => $jadwal->users->nama,
+            'dokter' => $jadwal->dokter->nama,
             'waktu_mulai' => $jadwal->waktu_mulai,
             'waktu_selesai' => $jadwal->waktu_selesai,
             'ruangan' => $jadwal->ruangan,
@@ -85,7 +109,10 @@ class LayananController extends Controller
         Mail::to($mailTo)->send(new KirimNomorAntrianEmail($nomor_antrian, $jadwal, $qrcode, $nama));
         $pdf->set_option('setRemoteEnabled',TRUE);
 
-        return $pdf->download('antrian.pdf');
+        // $pdf->download('antrian.pdf')
+
+        return redirect()->route('berobat')->with('success','Pendaftaran Anda Berhasil');
+        
 
         
     }
@@ -95,11 +122,13 @@ class LayananController extends Controller
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
+
         if ($cek == "pasien") {
             return redirect()->route('pasien_home');
         }elseif ($cek == "dokter") {
             return redirect()->route('dokter_home');
         }
+
         $pendaftaran = PendaftaranPasien::where('id', $id)->update(['status' => 'sudah dilayani']);
         $data['obat'] = Obat::count();
         $data['dokter'] = UserSpesialis::count();
@@ -109,66 +138,99 @@ class LayananController extends Controller
     }
 
     
-    public function create()
+    public function pilihDokter(Request $request)
     {
+
+        // dapatkan data spesialis terlebih dahulu 
+        $dokterspesialis = UserSpesialis::where('spesialis_id',$request->spesialis_id)->select('user_id')->get();
+        $dataspesialis = Spesialis::where('id',$request->spesialis_id)->first();
+
+        for ($i=0; $i <count($dokterspesialis) ; $i++) { 
+            $spesialis[$i] = $dokterspesialis[$i]->user_id;
+        }
+
+        // dapatkan tanggalnya
+        $today = Carbon::parse(now())->format('Y-m-d');
+        $tanggal = $request->tanggal;
+
+        $dateToday = new DateTime(now());
+        $dateTanggal = new DateTime($tanggal);
        
+
+        //  cek apakah hari yang di pilih itu kurang dari hari ini maka tidak bisa 
+        if ($today > $tanggal) {
+           return back()->with('error','Tidak Bisa Memilih Tanggal Sebelum Hari Ini');
+        }
+
+        //  cek apakah hari yang di pilih itu untuk h-1 atau hari h atau tidak
+        $selisihTanggal = $dateTanggal->diff($dateToday);
+        if ($selisihTanggal->d > 0 ) {
+            return back()->with('error','Hanya Bisa Memilih H-1 Hari');
+        }
+
+
+        // dapatkan hari nya
+        $day = $dateTanggal->format('l');
+        $hari = $this->appointment->getHari($day);
+        $hours = $dateToday->format('H');
+        
+        // ngambil data jadwal dokter yang ada hubunganya sama dokter dan hubunganya sama spesialis
+        $jadwalDokter = JadwalDokter::with(['dokter.userspesialis' => function($query) use($request){
+                                            $query->where('spesialis_id',$request->spesialis_id)->with('user_spesialis');
+                                        }])->whereIn('dokter_id',$spesialis)->where('hari',$hari)->get();
+        
+        if (count($jadwalDokter) == 0) {
+            return back()->with('informasi','Pelayanan Pada Tanggal dan Spesialis Tersebut Belum Tersedia');
+        }
+        
+
+        // jika hari ini maka tidak akan bisa daftar ke dokter yang sudah masa jamnya selesei
+        // cek nomor antrian dengan cara looping
+        foreach ($spesialis as $key => $value) {
+             $nomor = PendaftaranPasien::where('dokter_id',$value)->where('spesialis_id',$request->spesialis_id)
+                      ->where('tanggal',$tanggal)->max('nomor_antrian');
+            
+
+            foreach ($jadwalDokter as  $item => $jadwal) {
+
+                $waktuselesei = Carbon::parse($jadwal['waktu_selesai'])->format('H');
+                
+                // cek jika hari ini sama dengan hari pendaftaran
+                 if ($dateToday->format('Y-m-d') == $dateTanggal->format('Y-m-d')) {    
+                                  
+                    // tambahi kondisi jika pas hari h masa jamnya habis maka status berubah menjadi tidak bisa menambah
+                   if ((int)$waktuselesei < (int)$hours) {
+                       $jadwal['status'] = 'error waktu';
+                   }else{
+                       $jadwal['status'] = 'success';
+                    }
+
+                }else{
+                    $jadwal['status'] = 'success';
+                }
+
+                // untuk memasukan nomor antrian terbaru
+                if ($jadwal['dokter_id'] == $value) {
+                    $jadwal['nomor_antrian'] = $nomor;
+                }
+
+                // untuk mengecek apakah kuota sudah penuh atau belum
+                if ($jadwal['nomor_antrian'] == $jadwal->stok) {
+                    $jadwal['status'] = 'error stok';
+                }
+
+            }
+        } 
+
+        return view('pages.pasien.listdokter',compact('jadwalDokter','tanggal','dataspesialis'));
+        
     }
 
    
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   public function cancel(Request $request)
+   {
+        $pasien = PendaftaranPasien::findOrFail($request->id);
+        $pasien->delete();
+   }
 }

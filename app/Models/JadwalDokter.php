@@ -17,7 +17,7 @@ class JadwalDokter extends Model
         'ruangan'
     ];
 
-    public function users()
+    public function dokter()
     {
         return $this->belongsTo(User::class, 'dokter_id');
     }

@@ -20,6 +20,7 @@ class CreateJadwalDokterTable extends Migration
             $table->time("waktu_mulai");
             $table->time("waktu_selesai");
             $table->string("ruangan");
+            $table->integer("stok");
             $table->foreign('dokter_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

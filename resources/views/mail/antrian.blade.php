@@ -112,7 +112,7 @@
                                                     Berikut ini informasi antrian anda :
                                                     <div style="margin-left: 5%;padding:5% 0 5% 0;">
                                                         Nomor Antrian : {{$nomor_antrian}} <br>
-                                                        Nama Dokter : {{$jadwal->users->nama}}<br>
+                                                        Nama Dokter : {{$jadwal->dokter->nama}}<br>
                                                         Jam Periksa : {{$jadwal->waktu_mulai}} - {{$jadwal->waktu_selesai}}<br>
                                                         Ruangan : {{$jadwal->ruangan}}
                                                     </div>

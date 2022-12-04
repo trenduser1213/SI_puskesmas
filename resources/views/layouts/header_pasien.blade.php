@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
+  {{-- <link rel="stylesheet" href="sweetalert2.min.css">   --}}
   <style>
     .card-footer {
         background-color:transparent;
@@ -58,9 +59,9 @@
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="{{route('home')}}" class="brand-link">
+        <a href="{{route('home')}}" class="brand-link text-center">
           {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-          <span class="brand-text font-weight-light">AdminLTE 3</span>
+          <span class="brand-text font-weight-light ">SIM KLINIK</span>
         </a>
 
         <!-- Sidebar -->
@@ -71,22 +72,23 @@
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
 
-                <li class="nav-item menu-open">
-                    <a href="{{route('home')}}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{route('home')}}" class="nav-link {{ request()->is('pasien/dashboard*') ? ' active' : ''}}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                         Dashboard
-                    </p>
+                    </p> 
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('berobat')}}" class="nav-link">
-                    <i class="fas fa-clinic-medical"></i>
+                    <a href="{{route('berobat')}}" class="nav-link {{ request()->is('pasien/berobat*') ? ' active' : ''}}">
+                    <i class="nav-icon fas fa-clinic-medical"></i>
                     <p>
                         Pendaftaran Berobat
                     </p>
                     </a>
                 </li>
+
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-capsules"></i>
@@ -180,5 +182,7 @@
     <script src="{{asset('dist/demo.js')}}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{asset('dist/dashboard3.js')}}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @yield('js')
     </body>
     </html>

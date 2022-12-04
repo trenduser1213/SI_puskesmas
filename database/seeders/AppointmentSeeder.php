@@ -20,14 +20,18 @@ class AppointmentSeeder extends Seeder
             'nomor_antrian' => 3,
             'status' => 'Antri',
             'dokter_id' => 2,
+            'spesialis_id' => 1,
+            'tipe_pembayaran' => 'umum',
             'tanggal' => Carbon::parse(now())->format('Y-m-d')
         ]);
 
         PendaftaranPasien::create([
             'user_id' => 1,
-            'nomor_antrian' => 3,
+            'nomor_antrian' => 2,
             'status' => 'Dibatalkan',
-            'dokter_id' => 2,
+            'dokter_id' => 6,
+            'spesialis_id' => 1,
+            'tipe_pembayaran' => 'umum',
             'tanggal' => Carbon::parse(now())->format('Y-m-d')
         ]);
 
@@ -35,7 +39,9 @@ class AppointmentSeeder extends Seeder
             'user_id' => 1,
             'nomor_antrian' => 1,
             'status' => 'Telah Diperiksa',
-            'dokter_id' => 2,
+            'dokter_id' => 7,
+            'spesialis_id' => 1,
+            'tipe_pembayaran' => 'umum',
             'tanggal' => Carbon::parse(now())->format('Y-m-d')
         ]);
     }

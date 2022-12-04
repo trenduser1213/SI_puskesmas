@@ -46,12 +46,11 @@ class User extends Authenticatable
         return $this->hasOne('\App\Models\UserRole');
     }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    // ];
+   
+    public function userspesialis()
+    {
+        return $this->hasMany(UserSpesialis::class, 'user_id');
+    }
+
+  
 }

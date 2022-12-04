@@ -7,12 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserSpesialis extends Model
 {
-    use HasFactory;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+ 
     public $table = 'user_spesialis';
     protected $guarded = [];
     protected $fillable = [

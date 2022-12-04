@@ -19,7 +19,8 @@ class JadwalDokterSeeder extends Seeder
             'hari' => 'selasa',
             'waktu_mulai' => "08:00",
             'waktu_selesai'=> "17:00",
-            'ruangan' => "A301"
+            'ruangan' => "A301",
+            'stok' => 10
         ]);
 
         JadwalDokter::create([
@@ -27,7 +28,26 @@ class JadwalDokterSeeder extends Seeder
             'hari' => 'rabu',
             'waktu_mulai' => "08:00",
             'waktu_selesai'=> "17:00",
-            'ruangan' => "A301"
+            'ruangan' => "A301",
+            'stok' => 10
+        ]);
+
+        JadwalDokter::create([
+            'dokter_id' => 6,
+            'hari' => 'kamis',
+            'waktu_mulai' => "08:00",
+            'waktu_selesai'=> "17:00",
+            'ruangan' => "A301",
+            'stok' => 10
+        ]);
+
+        JadwalDokter::create([
+            'dokter_id' => 7,
+            'hari' => 'kamis',
+            'waktu_mulai' => "08:00",
+            'waktu_selesai'=> "17:00",
+            'ruangan' => "A301",
+            'stok' => 10
         ]);
 
         JadwalDokter::create([
@@ -35,7 +55,8 @@ class JadwalDokterSeeder extends Seeder
             'hari' => 'kamis',
             'waktu_mulai' => "08:00",
             'waktu_selesai'=> "17:00",
-            'ruangan' => "A301"
+            'ruangan' => "A301",
+            'stok' => 10
         ]);
 
 

@@ -30,6 +30,27 @@ class UserSpesialisSeeder extends Seeder
 
         UserSpesialis::insert([
             [
+                'user_id' => 6,
+                'spesialis_id' => 2,
+            ],
+        ]);
+
+        UserSpesialis::insert([
+            [
+                'user_id' => 7,
+                'spesialis_id' => 3,
+            ],
+        ]);
+
+        UserSpesialis::insert([
+            [
+                'user_id' => 2,
+                'spesialis_id' => 2,
+            ],
+        ]);
+
+        UserSpesialis::insert([
+            [
                 'user_id' => 2,
                 'spesialis_id' => 3,
             ],
