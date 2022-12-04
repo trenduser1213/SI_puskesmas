@@ -14,7 +14,7 @@ class CreateJadwalDokterTable extends Migration
     public function up()
     {
         Schema::create('jadwal_dokter', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('dokter_id')->unsigned();
             $table->string("hari");
             $table->time("waktu_mulai");

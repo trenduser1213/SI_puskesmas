@@ -22,6 +22,7 @@ class AppointmentSeeder extends Seeder
             'dokter_id' => 2,
             'spesialis_id' => 1,
             'tipe_pembayaran' => 'umum',
+            'jadwal_id' =>  1,
             'tanggal' => Carbon::parse(now())->format('Y-m-d')
         ]);
 
@@ -32,6 +33,7 @@ class AppointmentSeeder extends Seeder
             'dokter_id' => 6,
             'spesialis_id' => 1,
             'tipe_pembayaran' => 'umum',
+            'jadwal_id' =>  2,
             'tanggal' => Carbon::parse(now())->format('Y-m-d')
         ]);
 
@@ -42,6 +44,7 @@ class AppointmentSeeder extends Seeder
             'dokter_id' => 7,
             'spesialis_id' => 1,
             'tipe_pembayaran' => 'umum',
+            'jadwal_id' =>  3,
             'tanggal' => Carbon::parse(now())->format('Y-m-d')
         ]);
     }
