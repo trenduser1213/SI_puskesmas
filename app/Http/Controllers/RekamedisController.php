@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Obat;
+use App\Models\PendaftaranPasien;
 use App\Models\ResepObat;
 use App\Models\ResepObatDetail;
 use Illuminate\Contracts\Foundation\Application;
@@ -15,7 +16,6 @@ use App\Models\UserRole;
 use App\Models\Roles;
 use App\Models\TempatRujukan;
 use Illuminate\Support\Facades\Auth;
-// use App\Models\UserRole;
 
 class RekamedisController extends Controller
 {
@@ -46,7 +46,7 @@ class RekamedisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $userId = Auth::user()->id;
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
@@ -56,12 +56,13 @@ class RekamedisController extends Controller
         }elseif ($cek == "pasien") {
             return redirect()->route('pasien_home');
         }
+        $pasien_id = $request->id;
+        $antrian = PendaftaranPasien::where('user_id', $pasien_id)->whereStatus(PendaftaranPasien::STATUS_ANTRI)->firstOrFail();
+        $pasien = UserRole::with(['users', 'roles'])->where('user_id', $pasien_id)->first();
         $roleDokter = Roles::where('nama', 'dokter')->first();
-        $rolePasien = Roles::where('nama', 'pasien')->first();
         $dokter = UserRole::with(['users', 'roles'])->where('role_id', $roleDokter->id)->get();
-        $pasien = UserRole::with(['users', 'roles'])->where('role_id', $rolePasien->id)->get();
         $obats = Obat::all();
-        return view('pages.rekamedis.create', compact('dokter', 'pasien', 'obats'));
+        return view('pages.rekamedis.create', compact('antrian', 'dokter', 'pasien', 'obats'));
     }
 
     /**
@@ -90,6 +91,11 @@ class RekamedisController extends Controller
                 }
             } else {
                 $rekamedis = Rekamedis::create($request->all());
+            }
+            if ($rekamedis && $request->has('appointment_id')) {
+                $appointment = PendaftaranPasien::whereId($request->appointment_id)->first();
+                $appointment->status = PendaftaranPasien::STATUS_TELAH_DIPERIKSA;
+                $appointment->save();
             }
             return redirect()->route('rekamedis.edit', $rekamedis->id)->with("success", "Tambah data berhasil");
         } catch (\Exception $th) {

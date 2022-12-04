@@ -68,18 +68,8 @@
                             <textarea name="tindakan" type="text" rows="2" class="form-control" id="tindakan"
                                 placeholder="Tindakan">{{ @old('tindakan') ?? '' }}</textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="Judul Berita">Pasien</label>
-                            <select name="pasien_id" class="form-control">
-                                @foreach ($pasien as $item)
-                                    @if(old('pasien_id') == $item->users->id)
-                                        <option value="{{$item->users->id}}" selected>{{$item->users->nama}}</option>
-                                    @else
-                                        <option value="{{$item->users->id}}">{{$item->users->nama}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
+                        <input type="hidden" name="pasien_id" value="{{ $pasien->user_id }}">
+                        <input type="hidden" name="appointment_id" value="{{ $antrian->id }}">
                         <div class="form-group">
                             <label for="Dokter">Dokter</label>
                             <select name="dokter_id" class="form-control">

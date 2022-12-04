@@ -15,10 +15,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3 col-12 mb-3">
-                    <a href="{{ route('rekamedis.create') }}">
+                    <a href="{{ route('pasien.index') }}">
                         <button type="button" id="buttonTambahKategoriObat" class="btn btn-block btn-primary">
-                            <i class="fas fa-plus-square"></i>
-                            Tambah Rekam Medis
+                            <i class="fas fa-user-friends"></i>
+                            Lihat Antrian Pasien
                         </button>
                     </a>
                 </div>

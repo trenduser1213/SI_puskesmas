@@ -64,16 +64,6 @@
                                     value="{{ $rekamedis->tindakan }}">{{ $rekamedis->tindakan }}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="Judul Berita">Pasien</label>
-                                <select name="pasien_id" class="form-control">
-                                    @foreach ($pasien as $item)
-                                        <option value="{{ $item->users->id }}"
-                                            {{ $rekamedis->pasien_id == $item->users->id ? 'selected' : '' }}>
-                                            {{ $item->users->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label for="Judul Berita">Dokter</label>
                                 <select name="dokter_id" class="form-control">
                                     @foreach ($dokter as $item)
@@ -127,7 +117,7 @@
                             </div>
                             <div class="pt-4">
                                 <div class="btn btn-primary" data-toggle="modal"
-                                    data-target="#edit-rujuk{{ $rekamedis->id }}">edit</div>
+                                    data-target="#edit-rujuk{{ $rekamedis->id }}">Edit</div>
                                 <form style="margin-top: 5px;display:inline-block;"
                                     action="{{ route('dokterrujukan.destroy', $rekamedis->rujukans->last()->id) }}"
                                     method="POST">
