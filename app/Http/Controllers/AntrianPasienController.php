@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PendaftaranPasien;
+use App\Models\UserRole;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,9 @@ class AntrianPasienController extends Controller
      */
     public function index()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
         if ($cek == "admin") {
             return redirect()->route('home');
         }elseif ($cek == "pasien") {
@@ -23,7 +27,6 @@ class AntrianPasienController extends Controller
         }elseif ($cek == "apoteker") {
             return redirect()->route('apoteker_home');
         }
-        // TODO: Show data for related dokter_id
         $appointments = PendaftaranPasien::whereStatus(PendaftaranPasien::STATUS_ANTRI)
             ->whereDokterId(Auth::user()->id)
             ->whereDate('tanggal', '>=', Carbon::yesterday()->format('Y-m-d'))
