@@ -227,6 +227,9 @@ class LayananController extends Controller
 
    public function print($id)
    {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
         if ($cek == "admin") {
             return redirect()->route('home');
         }elseif ($cek == "dokter") {

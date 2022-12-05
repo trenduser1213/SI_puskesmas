@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PendaftaranPasien;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\UserRole;
 use Illuminate\Support\Facades\Auth;
 
 class AntrianPasienController extends Controller
@@ -16,6 +17,9 @@ class AntrianPasienController extends Controller
      */
     public function index()
     {
+        $userId = Auth::user()->id;
+        $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
+        $cek = $userRole->roles->nama;
         if ($cek == "admin") {
             return redirect()->route('home');
         }elseif ($cek == "pasien") {
