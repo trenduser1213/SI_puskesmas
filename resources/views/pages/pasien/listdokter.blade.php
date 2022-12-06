@@ -32,14 +32,14 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6 pl-4">
                                         @if ($item->dokter->jenis_kelamin=="P")
                                             <img src="{{ asset('/icon/dokterwanita.png') }}" width="100px" height="100px">
                                         @else
                                             <img src="{{ asset('/icon/doktercowo.png') }}" width="100px" height="100px">
                                         @endif
                                     </div>
-                                    <div class="col-md-8" >
+                                    <div class="col-md-6" >
                                          <h4 style="font-size:98%"><i>{{$dataspesialis->nama}}</i></h4>
                                          <h3 class="text-blue"><strong>{{ucfirst($item->dokter->nama)}}</strong></h3>
                                          <h4 style="font-size:98%"><i>{{$dataspesialis->nama}}</i></h4>

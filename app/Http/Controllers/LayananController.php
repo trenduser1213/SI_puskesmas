@@ -47,19 +47,45 @@ class LayananController extends Controller
             return redirect()->route('apoteker_home');
         }
 
-        $spesialis = Spesialis::get();
 
         $daftarUser = PendaftaranPasien::with(['dokter','spesialis','jadwal'])->where('user_id',$userId)->latest()->get();
+        $spesialis = Spesialis::get();
+        $dateToday = new DateTime(now());
+        $hours = $dateToday->format('H');
+        $dateToday = new DateTime(now());
+      
 
         // get nomor antrian berdasarkan spesialis dan tanggal dan dokter
         // status antri dan dapatkan antrian paling
-        foreach ($daftarUser as $item => $user) {
+        foreach ($daftarUser as $item => $user) {            
             $data = PendaftaranPasien::where('dokter_id',$user->dokter_id)
                                        ->where('spesialis_id',$user->spesialis_id)
                                        ->where('jadwal_id',$user->jadwal_id)
                                        ->where('tanggal',$user->tanggal)
                                        ->where('status','Antri')
                                        ->min('nomor_antrian');
+            $waktu =  PendaftaranPasien::where('dokter_id',$user->dokter_id)
+                                        ->where('spesialis_id',$user->spesialis_id)
+                                        ->where('jadwal_id',$user->jadwal_id)
+                                        ->where('tanggal',$user->tanggal)
+                                        ->where('status','Antri')
+                                        ->with('jadwal')
+                                        ->first();
+
+            $waktuMulai = Carbon::parse($waktu->jadwal->waktu_mulai)->format('H'); 
+            
+            $dateTanggal = new DateTime($waktu->tanggal);
+
+            if ($dateToday->format('Y-m-d') == $dateTanggal->format('Y-m-d')) { 
+                if ((int)$waktuMulai > (int) $hours  ) {
+                    $user['status_mulai'] = 'Belum';
+                }else{
+                    $user['status_mulai'] = 'Sudah';
+                }
+             }else{
+                $user['status_mulai'] = 'Sudah';
+             }
+           
             $user['nomor_antrian_sekarang'] = $data;
         }
 
@@ -227,6 +253,9 @@ class LayananController extends Controller
 
    public function print($id)
    {
+        $userRole = UserRole::with(['roles'])->where('user_id', auth()->user()->id)->first();
+        $cek = $userRole->roles->nama;
+
         if ($cek == "admin") {
             return redirect()->route('home');
         }elseif ($cek == "dokter") {
@@ -234,6 +263,7 @@ class LayananController extends Controller
         }elseif ($cek == "apoteker") {
             return redirect()->route('apoteker_home');
         }
+
         $pendaftaranPasien = PendaftaranPasien::with('jadwal')->where('id',$id)->first();
 
         $url = url('/update-status-pendaftaran/' . $pendaftaranPasien->id);

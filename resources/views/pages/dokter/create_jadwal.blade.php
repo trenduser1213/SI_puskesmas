@@ -66,6 +66,11 @@
                             <input name="ruangan" type="text" class="form-control" id="Ruangan"
                                 placeholder="Ruangan">
                         </div>
+                        <div class="form-group">
+                            <label for="Ruangan">Kuota</label>
+                            <input name="stok" type="text" class="form-control" id="stok"
+                                placeholder="Masukan Kuota">
+                        </div>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>

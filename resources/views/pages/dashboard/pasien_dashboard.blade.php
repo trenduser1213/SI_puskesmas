@@ -64,13 +64,21 @@
                                                     </div> 
         
                                                     <div class="row align-items-center">                     
-                                                                                                                                
-                                                        <div class="col-md-6">         
-                                                            <h5  class="text-center"><i>No Antrian Sekarang</i></h5>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <button type="button" class="btn btn-rounded btn-info btn-lg" >{{$item->nomor_antrian_sekarang ? $item->nomor_antrian_sekarang : 'Selesei' }}</button>
-                                                        </div>
+                                                        @if ($item->status_mulai == 'Belum')
+                                                            <div class="col-md-6">         
+                                                                <h5  class="text-center"><i>Antrian Belum Dimulai</i></h5>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <button type="button" class="btn btn-rounded btn-info btn-lg" >0</button>
+                                                            </div>
+                                                        @else
+                                                            <div class="col-md-6">         
+                                                                <h5  class="text-center"><i>No Antrian Sekarang</i></h5>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <button type="button" class="btn btn-rounded btn-info btn-lg" >{{$item->nomor_antrian_sekarang ? $item->nomor_antrian_sekarang : 'Selesai' }}</button>
+                                                            </div>
+                                                        @endif     
                                                     </div>
         
                                                     <div class="row">

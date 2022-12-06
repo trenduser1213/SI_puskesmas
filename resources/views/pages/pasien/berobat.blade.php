@@ -137,13 +137,29 @@
                                             </div> 
 
                                             <div class="row align-items-center">                     
-                                                                                                                        
-                                                <div class="col-md-6">         
+                                                @if ($item->status_mulai == 'Belum')
+                                                    <div class="col-md-6">         
+                                                        <h5  class="text-center"><i>Antrian Belum Dimulai</i></h5>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-rounded btn-info btn-lg" >0</button>
+                                                    </div>
+                                                @else
+                                                    <div class="col-md-6">         
+                                                        <h5  class="text-center"><i>No Antrian Sekarang</i></h5>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-rounded btn-info btn-lg" >{{$item->nomor_antrian_sekarang ? $item->nomor_antrian_sekarang : 'Selesai' }}</button>
+                                                    </div>
+                                                @endif             
+
+                                                {{-- <div class="col-md-6">         
                                                     <h5  class="text-center"><i>No Antrian Sekarang</i></h5>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-rounded btn-info btn-lg" >{{$item->nomor_antrian_sekarang ? $item->nomor_antrian_sekarang : 'Selesei' }}</button>
-                                                </div>
+                                                    <button type="button" class="btn btn-rounded btn-info btn-lg" >{{$item->nomor_antrian_sekarang ? $item->nomor_antrian_sekarang : 'Selesai' }}</button>
+                                                </div> --}}
+
                                             </div>
 
                                             <div class="row">
@@ -152,12 +168,12 @@
                                                 </div>  
                                             </div> 
 
-                                            <div class="row">                                               
+                                            <div class="row" style="display: flex;z-index:auto;">                                               
                                                 <div class="col-md-4 pl-4">
                                                     @if ($item->dokter->jenis_kelamin=="P")
-                                                        <img src="{{ asset('/icon/dokterwanita.png') }}" width="50px" height="50px">
+                                                        <img src="{{ asset('/icon/dokterwanita.png') }}" class="img-fluid" width="50px" height="50px">
                                                     @else
-                                                        <img src="{{ asset('/icon/doktercowo.png') }}" width="50px" height="50px">
+                                                        <img src="{{ asset('/icon/doktercowo.png') }}" class="img-fluid" width="50px" height="50px">
                                                     @endif
                                                 </div>
                                                 <div class="col-md-8">
@@ -189,7 +205,7 @@
                                             </div>
                                         @else
                                             <div class="card-footer">
-                                                <a  class="btn  btn-outline-info btn-block" onclick="deleteDaftar('{{$item->status}}',null)"><i class="fas fa-check-circle"></i> Pemeriksaan Telah Selesei</a>
+                                                <a  class="btn  btn-outline-info btn-block" onclick="deleteDaftar('{{$item->status}}',null)"><i class="fas fa-check-circle"></i> Pemeriksaan Telah Selesai</a>
                                             
                                             </div>
                                         @endif
