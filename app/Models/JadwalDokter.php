@@ -22,4 +22,10 @@ class JadwalDokter extends Model
     {
         return $this->belongsTo(User::class, 'dokter_id');
     }
+
+   
+    public function pendaftaranpasien()
+    {
+        return $this->hasMany(PendaftaranPasien::class, 'jadwal_id');
+    }
 }

@@ -35,7 +35,8 @@ class LayananController extends Controller
 
     public function berobat()
     {
-        $userId = Auth::user()->id;
+        $userId = auth()->user()->id;
+     
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
 
@@ -47,8 +48,11 @@ class LayananController extends Controller
             return redirect()->route('apoteker_home');
         }
 
+        // dd($userId);
+
 
         $daftarUser = PendaftaranPasien::with(['dokter','spesialis','jadwal'])->where('user_id',$userId)->latest()->get();
+       
         $spesialis = Spesialis::get();
         $dateToday = new DateTime(now());
         $hours = $dateToday->format('H');
@@ -64,11 +68,13 @@ class LayananController extends Controller
                                        ->where('tanggal',$user->tanggal)
                                        ->where('status','Antri')
                                        ->min('nomor_antrian');
+            
+                                    //    dd($user->jadwal_id);
             $waktu =  PendaftaranPasien::where('dokter_id',$user->dokter_id)
                                         ->where('spesialis_id',$user->spesialis_id)
                                         ->where('jadwal_id',$user->jadwal_id)
                                         ->where('tanggal',$user->tanggal)
-                                        ->where('status','Antri')
+                                        // ->where('status','Antri')
                                         ->with('jadwal')
                                         ->first();
 
@@ -98,7 +104,7 @@ class LayananController extends Controller
     public function pasien_mendaftar(Request $request)
     {
         
-        $userId = Auth::user()->id;
+        $userId = auth()->user()->id;
 
         // cek Roles
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();

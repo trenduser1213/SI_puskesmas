@@ -39,6 +39,7 @@ class RekamedisController extends Controller
             'rujukans.dokterspesialis.user_spesialis'
         ])->get();
         $tempat = TempatRujukan::all();
+        
         // dd($rekamedis->rujukans->last()->dokterspesialis->user_spesialis->nama);
         return view('pages.rekamedis.index', compact('rekamedis', 'tempat'));
     }
@@ -51,6 +52,7 @@ class RekamedisController extends Controller
     public function create(Request $request)
     {
         $userId = Auth::user()->id;
+       
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
         if ($cek == "admin") {

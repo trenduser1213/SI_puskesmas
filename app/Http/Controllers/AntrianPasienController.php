@@ -29,9 +29,11 @@ class AntrianPasienController extends Controller
         }
         $appointments = PendaftaranPasien::whereStatus(PendaftaranPasien::STATUS_ANTRI)
             ->whereDokterId(Auth::user()->id)
-            ->whereDate('tanggal', '>=', Carbon::yesterday()->format('Y-m-d'))
+            // ->whereDate('tanggal', '>=', Carbon::yesterday()->format('Y-m-d'))
             ->with(['users'])
             ->get();
+
+        
         $data = ['appointments' => $appointments];
         return view('pages.rekamedis.appointment', $data);
     }
