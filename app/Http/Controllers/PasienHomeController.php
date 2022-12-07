@@ -61,7 +61,7 @@ class PasienHomeController extends Controller
                                             ->where('spesialis_id',$user->spesialis_id)
                                             ->where('jadwal_id',$user->jadwal_id)
                                             ->where('tanggal',$user->tanggal)
-                                            ->where('status','Antri')
+                                            // ->where('status','Antri')
                                             ->with('jadwal')
                                             ->first();
 
