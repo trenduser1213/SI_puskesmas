@@ -54,13 +54,13 @@ class DokterHomeController extends Controller
         }elseif ($cek == "apoteker") {
             return redirect()->route('apoteker_home');
         }
-        $data['jadwalSenin'] = JadwalDokter::with(['users'])->where('hari', 'senin')->get();
-        $data['jadwalSelasa'] = JadwalDokter::with(['users'])->where('hari', 'selasa')->get();
-        $data['jadwalRabu'] = JadwalDokter::with(['users'])->where('hari', 'rabu')->get();
-        $data['jadwalKamis'] = JadwalDokter::with(['users'])->where('hari', 'kamis')->get();
-        $data['jadwalJumat'] = JadwalDokter::with(['users'])->where('hari', 'jumat')->get();
-        $data['jadwalSabtu'] = JadwalDokter::with(['users'])->where('hari', 'sabtu')->get();
-        $data['jadwalMinggu'] = JadwalDokter::with(['users'])->where('hari', 'minggu')->get();
+        $data['jadwalSenin'] = JadwalDokter::with(['dokter'])->where('hari', 'senin')->get();
+        $data['jadwalSelasa'] = JadwalDokter::with(['dokter'])->where('hari', 'selasa')->get();
+        $data['jadwalRabu'] = JadwalDokter::with(['dokter'])->where('hari', 'rabu')->get();
+        $data['jadwalKamis'] = JadwalDokter::with(['dokter'])->where('hari', 'kamis')->get();
+        $data['jadwalJumat'] = JadwalDokter::with(['dokter'])->where('hari', 'jumat')->get();
+        $data['jadwalSabtu'] = JadwalDokter::with(['dokter'])->where('hari', 'sabtu')->get();
+        $data['jadwalMinggu'] = JadwalDokter::with(['dokter'])->where('hari', 'minggu')->get();
 
         return view('pages.dokter.jadwal', $data);
     }

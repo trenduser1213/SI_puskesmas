@@ -14,11 +14,18 @@ class JadwalDokter extends Model
         'hari',
         'waktu_mulai',
         'waktu_selesai',
-        'ruangan'
+        'ruangan',
+        'stok'
     ];
 
     public function dokter()
     {
         return $this->belongsTo(User::class, 'dokter_id');
+    }
+
+   
+    public function pendaftaranpasien()
+    {
+        return $this->hasMany(PendaftaranPasien::class, 'jadwal_id');
     }
 }

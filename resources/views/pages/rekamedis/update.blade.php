@@ -63,16 +63,6 @@
                                 <textarea name="tindakan" type="text" rows="2" class="form-control" id="Tindakan" placeholder="Tindakan"
                                     value="{{ $rekamedis->tindakan }}">{{ $rekamedis->tindakan }}</textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="Judul Berita">Dokter</label>
-                                <select name="dokter_id" class="form-control">
-                                    @foreach ($dokter as $item)
-                                        <option value="{{ $item->users->id }}"
-                                            {{ $rekamedis->pasien_id == $item->users->id ? 'selected' : '' }}>
-                                            {{ $item->users->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>

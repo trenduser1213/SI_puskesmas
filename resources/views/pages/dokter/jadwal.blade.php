@@ -51,7 +51,7 @@
                             <td>
                                 @foreach ($jadwalSenin as $item)
                                     <span>
-                                        {{$item->users->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
+                                        {{$item->dokter->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
                                     </span>
                                     <form style="margin-top: 5px;display:inline-block;" action="{{route('delete_jadwal_dokter', $item->id)}}"
                                         method="POST">
@@ -65,7 +65,7 @@
                             <td>
                                 @foreach ($jadwalSelasa as $item)
                                     <span>
-                                        {{$item->users->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
+                                        {{$item->dokter->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
                                     </span>
                                     <form style="margin-top: 5px;display:inline-block;" action="{{route('delete_jadwal_dokter', $item->id)}}"
                                         method="POST">
@@ -79,7 +79,7 @@
                             <td>
                                 @foreach ($jadwalRabu as $item)
                                     <span>
-                                        {{$item->users->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
+                                        {{$item->dokter->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
                                     </span>
                                     <form style="margin-top: 5px;display:inline-block;" action="{{route('delete_jadwal_dokter', $item->id)}}"
                                         method="POST">
@@ -93,7 +93,7 @@
                             <td>
                                 @foreach ($jadwalKamis as $item)
                                     <span>
-                                        {{$item->users->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
+                                        {{$item->dokter->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
                                     </span>
                                     <form style="margin-top: 5px;display:inline-block;" action="{{route('delete_jadwal_dokter', $item->id)}}"
                                         method="POST">
@@ -107,7 +107,7 @@
                             <td>
                                 @foreach ($jadwalJumat as $item)
                                     <span>
-                                        {{$item->users->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
+                                        {{$item->dokter->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
                                     </span>
                                     <form style="margin-top: 5px;display:inline-block;" action="{{route('delete_jadwal_dokter', $item->id)}}"
                                         method="POST">
@@ -121,7 +121,7 @@
                             <td>
                                 @foreach ($jadwalSabtu as $item)
                                     <span>
-                                        {{$item->users->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
+                                        {{$item->dokter->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
                                     </span>
                                     <form style="margin-top: 5px;display:inline-block;" action="{{route('delete_jadwal_dokter', $item->id)}}"
                                         method="POST">
@@ -135,7 +135,7 @@
                             <td>
                                 @foreach ($jadwalMinggu as $item)
                                     <span>
-                                        {{$item->users->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
+                                        {{$item->dokter->nama}} | {{$item->waktu_mulai}} - {{$item->waktu_selesai}}
                                     </span>
                                     <form style="margin-top: 5px;display:inline-block;" action="{{route('delete_jadwal_dokter', $item->id)}}"
                                         method="POST">

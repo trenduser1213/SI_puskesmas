@@ -39,6 +39,7 @@ class RekamedisController extends Controller
             'rujukans.dokterspesialis.user_spesialis'
         ])->get();
         $tempat = TempatRujukan::all();
+        
         // dd($rekamedis->rujukans->last()->dokterspesialis->user_spesialis->nama);
         return view('pages.rekamedis.index', compact('rekamedis', 'tempat'));
     }
@@ -51,6 +52,7 @@ class RekamedisController extends Controller
     public function create(Request $request)
     {
         $userId = Auth::user()->id;
+       
         $userRole = UserRole::with(['roles'])->where('user_id', $userId)->first();
         $cek = $userRole->roles->nama;
         if ($cek == "admin") {
@@ -64,9 +66,8 @@ class RekamedisController extends Controller
         $antrian = PendaftaranPasien::where('user_id', $pasien_id)->whereStatus(PendaftaranPasien::STATUS_ANTRI)->firstOrFail();
         $pasien = UserRole::with(['users', 'roles'])->where('user_id', $pasien_id)->first();
         $roleDokter = Roles::where('nama', 'dokter')->first();
-        $dokter = UserRole::with(['users', 'roles'])->where('role_id', $roleDokter->id)->get();
         $obats = Obat::all();
-        return view('pages.rekamedis.create', compact('antrian', 'dokter', 'pasien', 'obats'));
+        return view('pages.rekamedis.create', compact('antrian', 'pasien', 'obats'));
     }
 
     /**
@@ -87,13 +88,17 @@ class RekamedisController extends Controller
                 $resepObat->save();
 
                 if ($request->filled(['tanggal_pendaftaran'])) {    // If Resep Obat added in create page
-                    $request->request->add(['resep_obat_id' => $resepObat->id]);
+                    $request->request->add([
+                        'resep_obat_id' => $resepObat->id,
+                        'dokter_id' => Auth::user()->id,
+                    ]);
                     $rekamedis = Rekamedis::create($request->except(['kode', 'tanggal_resep']));
                 } elseif ($request->has(['rekam_medis_id'])) {  // If Resep Obat added in edit page
                     $rekamedis = Rekamedis::findOrFail($request->rekam_medis_id);
                     $rekamedis->update(['resep_obat_id' => $resepObat->id]);
                 }
             } else {
+                $request->request->add(['dokter_id' => Auth::user()->id]);
                 $rekamedis = Rekamedis::create($request->all());
             }
             if ($rekamedis && $request->has('appointment_id')) {
@@ -143,11 +148,10 @@ class RekamedisController extends Controller
         ])->findOrFail($id);
         $roleDokter = Roles::where('nama', 'dokter')->first();
         $rolePasien = Roles::where('nama', 'pasien')->first();
-        $dokter = UserRole::with(['users', 'roles'])->where('role_id', $roleDokter->id)->get();
         $pasien = UserRole::with(['users', 'roles'])->where('role_id', $rolePasien->id)->get();
         $obats = Obat::all();
         $tempat = TempatRujukan::all();
-        return view('pages.rekamedis.update', compact('rekamedis', 'dokter', 'pasien', 'obats', 'tempat'));
+        return view('pages.rekamedis.update', compact('rekamedis', 'pasien', 'obats', 'tempat'));
     }
 
     /**

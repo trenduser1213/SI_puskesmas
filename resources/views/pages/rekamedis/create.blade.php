@@ -70,18 +70,6 @@
                         </div>
                         <input type="hidden" name="pasien_id" value="{{ $pasien->user_id }}">
                         <input type="hidden" name="appointment_id" value="{{ $antrian->id }}">
-                        <div class="form-group">
-                            <label for="Dokter">Dokter</label>
-                            <select name="dokter_id" class="form-control">
-                                @foreach ($dokter as $item)
-                                    @if(old('dokter_id') == $item->users->id)
-                                        <option value="{{$item->users->id}}" selected>{{$item->users->nama}}</option>
-                                    @else
-                                        <option value="{{$item->users->id}}">{{$item->users->nama}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
                 </div>
             </div>

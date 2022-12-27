@@ -11,6 +11,8 @@ use App\Models\UserRole;
 use App\Models\Roles;
 use App\Models\Spesialis;
 use App\Models\UserSpesialis;
+use Carbon\Carbon;
+use DateTime;
 
 class PasienHomeController extends Controller
 {
@@ -42,17 +44,43 @@ class PasienHomeController extends Controller
             // get data antrian
             $daftarUser = PendaftaranPasien::where('status','Antri')->with(['dokter','spesialis','jadwal'])->where('user_id',$userId)->latest()->get();
 
+            $dateToday = new DateTime(now());
+            $hours = $dateToday->format('H');
+            $dateToday = new DateTime(now());
+
             // get nomor antrian berdasarkan spesialis dan tanggal dan dokter
             // status antri dan dapatkan antrian paling
             foreach ($daftarUser as $item => $user) {
-                $no = PendaftaranPasien::where('dokter_id',$user->dokter_id)
-                                           ->where('spesialis_id',$user->spesialis_id)
-                                           ->where('jadwal_id',$user->jadwal_id)
-                                           ->where('tanggal',$user->tanggal)
-                                           ->where('status','Antri')
-                                           ->min('nomor_antrian');
-                $user['nomor_antrian_sekarang'] = $no;
-            }
+                $data = PendaftaranPasien::where('dokter_id',$user->dokter_id)
+                                       ->where('spesialis_id',$user->spesialis_id)
+                                       ->where('jadwal_id',$user->jadwal_id)
+                                       ->where('tanggal',$user->tanggal)
+                                       ->where('status','Antri')
+                                       ->min('nomor_antrian');
+                $waktu =  PendaftaranPasien::where('dokter_id',$user->dokter_id)
+                                            ->where('spesialis_id',$user->spesialis_id)
+                                            ->where('jadwal_id',$user->jadwal_id)
+                                            ->where('tanggal',$user->tanggal)
+                                            // ->where('status','Antri')
+                                            ->with('jadwal')
+                                            ->first();
+
+                $waktuMulai = Carbon::parse($waktu->jadwal->waktu_mulai)->format('H'); 
+                
+                $dateTanggal = new DateTime($waktu->tanggal);
+
+                if ($dateToday->format('Y-m-d') == $dateTanggal->format('Y-m-d')) { 
+                    if ((int)$waktuMulai > (int) $hours  ) {
+                        $user['status_mulai'] = 'Belum';
+                    }else{
+                        $user['status_mulai'] = 'Sudah';
+                    }
+                }else{
+                    $user['status_mulai'] = 'Sudah';
+                }
+            
+                      $user['nomor_antrian_sekarang'] = $data;
+                }
 
 
             return view('pages.dashboard.pasien_dashboard', compact('data','daftarUser'));
